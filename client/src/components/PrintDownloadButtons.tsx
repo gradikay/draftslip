@@ -122,7 +122,7 @@ export default function PrintDownloadButtons({
     if (!element) return;
     
     const opt = {
-      margin: [20, 15, 20, 15], // [top, right, bottom, left] - increased top/bottom margins
+      margin: 10, // Single value for all margins
       filename: `${invoiceData.document.number || 'invoice'}.pdf`,
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: { 
@@ -135,11 +135,9 @@ export default function PrintDownloadButtons({
         unit: "mm", 
         format: "a4", 
         orientation: "portrait" as "portrait",
-        compress: true,
-        hotfixes: ["px_scaling"],
-        putOnlyUsedFonts: true
+        compress: true
       },
-      pagebreak: { mode: 'avoid-all', after: '.page-break' }
+      pagebreak: { mode: 'avoid-all' }
     };
 
     // Generate and download PDF
