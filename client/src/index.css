@@ -37,12 +37,31 @@
     padding-bottom: 8px !important;
   }
   
-  /* Standardize font sizes to match Retail */
+  /* Standardize ALL font sizes to exactly match Retail template */
   #invoiceItems td,
   #itemsContainer td,
-  .invoice-item td,
+  .invoice-item td {
+    font-size: 0.875rem !important; /* text-sm */
+  }
+  
+  /* Force headers to use the same font size */
+  #invoiceItems th,
+  table.w-full th,
+  thead th {
+    font-size: 0.875rem !important; /* text-sm */
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    color: #6b7280 !important; /* text-gray-500 */
+  }
+  
+  /* Force consistent text sizes for all contenteditable elements */
   [contenteditable="true"] {
     font-size: 0.875rem !important; /* text-sm */
+  }
+  
+  /* Standardize header and title text */
+  h3, .text-sm {
+    font-size: 0.875rem !important;
   }
   
   /* Ensure content is positioned correctly */
