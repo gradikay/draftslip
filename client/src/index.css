@@ -56,14 +56,27 @@
     vertical-align: middle !important;
   }
   
-  /* Fix overlapping sections in PDF */
+  /* More aggressive fix for overlapping sections in PDF */
   #invoiceItems {
-    margin-bottom: 30px !important;
+    margin-bottom: 50px !important; /* Increased from 30px to 50px */
   }
   
-  /* Add space between invoice items and summary */
+  /* Add significant space between sections */
   .px-6 {
-    margin-bottom: 20px !important;
+    margin-bottom: 30px !important; /* Increased from 20px to 30px */
+    padding-bottom: 20px !important;
+  }
+  
+  /* Target the summary section specifically */
+  #invoiceItems + div {
+    margin-top: 50px !important;
+    padding-top: 20px !important;
+    position: relative !important;
+  }
+  
+  /* Keep notes at the bottom */
+  textarea, [placeholder="Notes or terms"] {
+    margin-top: 20px !important;
   }
   
   /* Improve page break behavior */
