@@ -103,14 +103,27 @@ const InvoiceGenerator = () => {
     // First hide any elements that shouldn't appear in the PDF
     const addItemButton = document.querySelector(".add-item-button");
     const dueDateOptional = document.querySelector(".due-date-optional-field");
+    const deleteButtons = document.querySelectorAll(".delete-item-button");
+    const emptyLogoBox = !invoiceData.business.logoUrl ? document.querySelector(".logo-upload-area") : null;
     const fileInputs = document.querySelectorAll("input[type='file']");
     
+    // Hide elements that shouldn't appear in print
     if (addItemButton) {
       addItemButton.classList.add("force-hide");
     }
     
     if (dueDateOptional) {
       dueDateOptional.classList.add("force-hide");
+    }
+    
+    // Hide delete buttons
+    deleteButtons.forEach(button => {
+      (button as HTMLElement).classList.add("force-hide");
+    });
+    
+    // Hide empty logo box if no logo
+    if (emptyLogoBox) {
+      emptyLogoBox.classList.add("force-hide");
     }
     
     // Hide file inputs
@@ -141,6 +154,12 @@ const InvoiceGenerator = () => {
         if (dueDateOptional) {
           dueDateOptional.classList.remove("force-hide");
         }
+        deleteButtons.forEach(button => {
+          (button as HTMLElement).classList.remove("force-hide");
+        });
+        if (emptyLogoBox) {
+          emptyLogoBox.classList.remove("force-hide");
+        }
         fileInputs.forEach(input => {
           (input as HTMLElement).classList.remove("force-hide");
         });
@@ -151,7 +170,11 @@ const InvoiceGenerator = () => {
     // First hide any elements that shouldn't appear in the PDF
     const addItemButton = document.querySelector(".add-item-button");
     const dueDateOptional = document.querySelector(".due-date-optional-field");
+    const deleteButtons = document.querySelectorAll(".delete-item-button");
+    const emptyLogoBox = !invoiceData.business.logoUrl ? document.querySelector(".logo-upload-area") : null;
+    const fileInputs = document.querySelectorAll("input[type='file']");
     
+    // Hide elements
     if (addItemButton) {
       addItemButton.classList.add("force-hide");
     }
@@ -159,6 +182,21 @@ const InvoiceGenerator = () => {
     if (dueDateOptional) {
       dueDateOptional.classList.add("force-hide");
     }
+    
+    // Hide delete buttons
+    deleteButtons.forEach(button => {
+      (button as HTMLElement).classList.add("force-hide");
+    });
+    
+    // Hide empty logo box if no logo
+    if (emptyLogoBox) {
+      emptyLogoBox.classList.add("force-hide");
+    }
+    
+    // Hide file inputs
+    fileInputs.forEach(input => {
+      (input as HTMLElement).classList.add("force-hide");
+    });
     
     // Get the invoice container
     const element = document.querySelector(".invoice-container") as HTMLElement;
@@ -181,6 +219,15 @@ const InvoiceGenerator = () => {
       if (dueDateOptional) {
         dueDateOptional.classList.remove("force-hide");
       }
+      deleteButtons.forEach(button => {
+        (button as HTMLElement).classList.remove("force-hide");
+      });
+      if (emptyLogoBox) {
+        emptyLogoBox.classList.remove("force-hide");
+      }
+      fileInputs.forEach(input => {
+        (input as HTMLElement).classList.remove("force-hide");
+      });
     });
   };
 
