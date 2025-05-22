@@ -235,25 +235,33 @@ export default function EventTemplate() {
         {/* Header */}
         <div className="px-6 py-3 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="mb-1 md:mb-0">
-              <ContentEditable
-                value={invoiceData.business.name}
-                onChange={(value) => updateInvoiceData("business", "name", value)}
-                className="text-xl font-semibold text-primary"
-                placeholder="Event Planning Business"
+            <div className="flex gap-3 mb-1 md:mb-0">
+              {/* Logo Uploader */}
+              <LogoUploader 
+                logoUrl={invoiceData.business.logoUrl} 
+                onLogoChange={handleLogoChange}
               />
-              <ContentEditable
-                value={invoiceData.business.tagline}
-                onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                className="text-xs text-gray-600"
-                placeholder="Business Tagline"
-              />
-              <ContentEditable
-                value={invoiceData.business.website}
-                onChange={(value) => updateInvoiceData("business", "website", value)}
-                className="text-xs text-gray-600"
-                placeholder="Business Website"
-              />
+              
+              <div>
+                <ContentEditable
+                  value={invoiceData.business.name}
+                  onChange={(value) => updateInvoiceData("business", "name", value)}
+                  className="text-xl font-semibold text-primary"
+                  placeholder="Event Planning Business"
+                />
+                <ContentEditable
+                  value={invoiceData.business.tagline}
+                  onChange={(value) => updateInvoiceData("business", "tagline", value)}
+                  className="text-xs text-gray-600"
+                  placeholder="Business Tagline"
+                />
+                <ContentEditable
+                  value={invoiceData.business.website}
+                  onChange={(value) => updateInvoiceData("business", "website", value)}
+                  className="text-xs text-gray-600"
+                  placeholder="Business Website"
+                />
+              </div>
             </div>
             <div className="text-right">
               <ContentEditable
