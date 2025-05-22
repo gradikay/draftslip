@@ -22,15 +22,17 @@
   
   table td, 
   table th {
-    padding-top: 6px !important;
+    padding-top: 3px !important;
     padding-bottom: 6px !important;
     vertical-align: middle !important;
   }
   
-  /* Ensure line heights are consistent */
+  /* Further fine-tune cell spacing for all invoice templates */
   .invoice-item td {
-    line-height: 1.5 !important;
-    min-height: 20px !important;
+    line-height: 1.4 !important;
+    min-height: 18px !important;
+    padding-top: 2px !important; /* Even less top padding */
+    padding-bottom: 5px !important;
   }
   
   /* Add consistent spacing to the table */
@@ -41,6 +43,12 @@
   /* Make table rows consistent in height */
   table tbody tr {
     height: auto !important;
+  }
+  
+  /* Specific targeting for table headers */
+  table th {
+    padding-top: 4px !important;
+    padding-bottom: 8px !important;
   }
 }
 
