@@ -403,23 +403,13 @@ input[type="number"]::-webkit-outer-spin-button {
   .add-item-button,
   button[class*="no-print"],
   div[class*="no-print"],
-  div[class*="hidden-on-print"],
-  td.no-print,
-  th.no-print,
-  td[class*="no-print"],
-  th[class*="no-print"],
-  svg[class*="no-print"],
-  *[class*="hidden-on-print"] {
+  div[class*="hidden-on-print"] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
     height: 0 !important;
-    width: 0 !important;
     position: absolute !important;
     pointer-events: none !important;
-    clip: rect(1px, 1px, 1px, 1px) !important;
-    clip-path: inset(50%) !important;
-    overflow: hidden !important;
   }
   
   /* Ensure company logo displays in print */

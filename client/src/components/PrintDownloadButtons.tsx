@@ -16,71 +16,114 @@ export default function PrintDownloadButtons({
   logoUrl
 }: PrintDownloadButtonsProps) {
   
-  // Before printing/PDF generation, hide elements that shouldn't appear
-  const prepareForPrinting = () => {
-    // Hide all elements with no-print class
-    document.querySelectorAll('.no-print, .hidden-on-print, td.no-print, td.hidden-on-print, button.no-print, .delete-item-button, .add-item-button').forEach(el => {
-      (el as HTMLElement).style.display = 'none';
-    });
+  const prepareForPDF = () => {
+    // Elements to hide during PDF generation
+    const addItemButton = document.querySelector(".add-item-button");
+    const dueDateOptional = document.querySelector(".due-date-optional-field");
+    const deleteButtons = document.querySelectorAll(".delete-item-button");
+    const emptyLogoBox = !logoUrl ? document.querySelector(".logo-upload-area") : null;
+    const fileInputs = document.querySelectorAll("input[type='file']");
     
-    // Hide due date field if it's empty
-    const dueDateOptional = document.querySelector('.due-date-optional-field');
-    if (dueDateOptional) {
-      dueDateOptional.classList.add('force-hide');
+    // Hide elements
+    if (addItemButton) {
+      addItemButton.classList.add("force-hide");
     }
+    
+    if (dueDateOptional) {
+      dueDateOptional.classList.add("force-hide");
+    }
+    
+    // Hide delete buttons
+    deleteButtons.forEach(button => {
+      (button as HTMLElement).classList.add("force-hide");
+    });
     
     // Hide empty logo box if no logo
-    if (!logoUrl) {
-      const logoUploadAreas = document.querySelectorAll('.logo-upload-area');
-      logoUploadAreas.forEach(area => {
-        (area as HTMLElement).style.display = 'none';
-      });
+    if (emptyLogoBox) {
+      emptyLogoBox.classList.add("force-hide");
     }
-  };
-  
-  // After printing/PDF generation, restore element visibility
-  const restoreAfterPrinting = () => {
-    // Restore all elements with no-print class
-    document.querySelectorAll('.no-print, .hidden-on-print, td.no-print, td.hidden-on-print, button.no-print, .delete-item-button, .add-item-button').forEach(el => {
-      (el as HTMLElement).style.display = '';
+    
+    // Hide file inputs
+    fileInputs.forEach(input => {
+      (input as HTMLElement).classList.add("force-hide");
     });
     
-    // Restore due date field
-    const dueDateOptional = document.querySelector('.due-date-optional-field');
+    return {
+      addItemButton,
+      dueDateOptional,
+      deleteButtons,
+      emptyLogoBox,
+      fileInputs
+    };
+  };
+  
+  const restoreElements = (elements: any) => {
+    const { addItemButton, dueDateOptional, deleteButtons, emptyLogoBox, fileInputs } = elements;
+    
+    // Restore the visibility
+    if (addItemButton) {
+      addItemButton.classList.remove("force-hide");
+    }
     if (dueDateOptional) {
-      dueDateOptional.classList.remove('force-hide');
+      dueDateOptional.classList.remove("force-hide");
     }
-    
-    // Restore logo upload areas
-    const logoUploadAreas = document.querySelectorAll('.logo-upload-area');
-    logoUploadAreas.forEach(area => {
-      (area as HTMLElement).style.display = '';
+    deleteButtons.forEach((button: HTMLElement) => {
+      button.classList.remove("force-hide");
     });
-    
-    // Remove any force-hide classes
-    document.querySelectorAll('.force-hide').forEach(el => {
-      el.classList.remove('force-hide');
+    if (emptyLogoBox) {
+      emptyLogoBox.classList.remove("force-hide");
+    }
+    fileInputs.forEach((input: HTMLElement) => {
+      input.classList.remove("force-hide");
     });
   };
   
-  // Simple and reliable print function
   const handlePrint = () => {
-    prepareForPrinting();
+    // Hide elements
+    const hiddenElements = prepareForPDF();
     
-    window.print();
+    // Get the invoice container
+    const element = document.querySelector(invoiceContainerSelector) as HTMLElement;
+    if (!element) return;
     
-    // Restore elements after a delay
-    setTimeout(restoreAfterPrinting, 500);
+    // Use html2pdf to generate the PDF, and then print it
+    const opt = {
+      margin: 10,
+      filename: 'invoice-for-print.pdf',
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
+    };
+
+    // Generate PDF
+    html2pdf().set(opt).from(element).outputPdf('dataurlnewwindow')
+      .then(() => {
+        // Restore the visibility after PDF generation
+        restoreElements(hiddenElements);
+      });
   };
 
-  // Using the same reliable method for PDF (relies on browser print dialog)
   const handleDownloadPdf = () => {
-    prepareForPrinting();
+    // Hide elements
+    const hiddenElements = prepareForPDF();
     
-    window.print();
+    // Get the invoice container
+    const element = document.querySelector(invoiceContainerSelector) as HTMLElement;
+    if (!element) return;
     
-    // Restore elements after a delay
-    setTimeout(restoreAfterPrinting, 500);
+    const opt = {
+      margin: 10,
+      filename: `${invoiceData.document.number || 'invoice'}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
+    };
+
+    // Generate and download PDF
+    html2pdf().set(opt).from(element).save().then(() => {
+      // Restore the visibility after PDF generation
+      restoreElements(hiddenElements);
+    });
   };
 
   return (

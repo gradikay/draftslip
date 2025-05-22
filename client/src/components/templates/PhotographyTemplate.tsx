@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { Printer, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContentEditable from "../ContentEditable";
 import WatercolorLogo from "../WatercolorLogo";
+import html2pdf from "html2pdf.js";
 import { formatCurrency } from "@/lib/utils/formatters";
-import LogoUploader from "../LogoUploader";
-import PrintDownloadButtons from "../PrintDownloadButtons";
 
 type InvoiceItem = {
   id: string;
@@ -20,7 +20,6 @@ type PhotographyInvoiceData = {
     name: string;
     tagline: string;
     website: string;
-    logoUrl?: string;
   };
   document: {
     title: string;
@@ -54,17 +53,11 @@ type PhotographyInvoiceData = {
 };
 
 export default function PhotographyTemplate() {
-  // Handle logo change
-  const handleLogoChange = (logoUrl: string) => {
-    updateInvoiceData("business", "logoUrl", logoUrl);
-  };
-  
   const [invoiceData, setInvoiceData] = useState<PhotographyInvoiceData>({
     business: {
       name: "Captured Moments",
       tagline: "Photography & Videography Services",
       website: "www.capturedmoments.com",
-      logoUrl: "",
     },
     document: {
       title: "PHOTOGRAPHY INVOICE",
@@ -147,7 +140,46 @@ export default function PhotographyTemplate() {
     return calculateSubtotal() - calculateDiscountAmount() + calculateTaxAmount();
   };
 
-  // Print/Download functionality now handled by PrintDownloadButtons component
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleDownloadPdf = () => {
+    // Hide elements that shouldn't appear in PDF
+    const addItemButton = document.querySelector(".add-item-button");
+    const dueDateOptional = document.querySelector(".due-date-optional-field");
+    
+    if (addItemButton) {
+      addItemButton.classList.add("force-hide");
+    }
+    
+    if (dueDateOptional) {
+      dueDateOptional.classList.add("force-hide");
+    }
+    
+    // Get invoice container
+    const element = document.querySelector(".invoice-container") as HTMLElement;
+    if (!element) return;
+    
+    const opt = {
+      margin: 10,
+      filename: `${invoiceData.document.number}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
+    };
+
+    // Generate PDF
+    html2pdf().set(opt).from(element).save().then(() => {
+      // Restore visibility
+      if (addItemButton) {
+        addItemButton.classList.remove("force-hide");
+      }
+      if (dueDateOptional) {
+        dueDateOptional.classList.remove("force-hide");
+      }
+    });
+  };
 
   const updateInvoiceData = (
     section: keyof PhotographyInvoiceData,
@@ -215,12 +247,21 @@ export default function PhotographyTemplate() {
             <p className="text-xs text-gray-600">For photographers and videographers</p>
           </div>
         </div>
-        <div>
-          <PrintDownloadButtons 
-            invoiceData={invoiceData}
-            invoiceContainerSelector=".invoice-container"
-            logoUrl={invoiceData.business.logoUrl}
-          />
+        <div className="flex gap-2">
+          <Button
+            onClick={handlePrint}
+            className="bg-primary text-white hover:bg-secondary"
+            size="sm"
+          >
+            <Printer className="mr-1 h-3 w-3" /> Print
+          </Button>
+          <Button
+            onClick={handleDownloadPdf}
+            className="bg-accent text-text hover:bg-accent/90"
+            size="sm"
+          >
+            <FileDown className="mr-1 h-3 w-3" /> PDF
+          </Button>
         </div>
       </div>
 
@@ -229,33 +270,25 @@ export default function PhotographyTemplate() {
         {/* Header */}
         <div className="px-6 py-3 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="flex gap-3 mb-1 md:mb-0">
-              {/* Logo Uploader */}
-              <LogoUploader 
-                logoUrl={invoiceData.business.logoUrl}
-                onLogoChange={handleLogoChange}
+            <div className="mb-1 md:mb-0">
+              <ContentEditable
+                value={invoiceData.business.name}
+                onChange={(value) => updateInvoiceData("business", "name", value)}
+                className="text-xl font-semibold text-primary"
+                placeholder="Photography Business"
               />
-              
-              <div>
-                <ContentEditable
-                  value={invoiceData.business.name}
-                  onChange={(value) => updateInvoiceData("business", "name", value)}
-                  className="text-xl font-semibold text-primary"
-                  placeholder="Photography Business"
-                />
-                <ContentEditable
-                  value={invoiceData.business.tagline}
-                  onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                  className="text-xs text-gray-600"
-                  placeholder="Business Tagline"
-                />
-                <ContentEditable
-                  value={invoiceData.business.website}
-                  onChange={(value) => updateInvoiceData("business", "website", value)}
-                  className="text-xs text-gray-600"
-                  placeholder="Business Website"
-                />
-              </div>
+              <ContentEditable
+                value={invoiceData.business.tagline}
+                onChange={(value) => updateInvoiceData("business", "tagline", value)}
+                className="text-xs text-gray-600"
+                placeholder="Business Tagline"
+              />
+              <ContentEditable
+                value={invoiceData.business.website}
+                onChange={(value) => updateInvoiceData("business", "website", value)}
+                className="text-xs text-gray-600"
+                placeholder="Business Website"
+              />
             </div>
             <div className="text-right">
               <ContentEditable
@@ -477,12 +510,12 @@ export default function PhotographyTemplate() {
                       </div>
                     </div>
                   </td>
-                  <td className="py-1 text-center no-print hidden-on-print">
+                  <td className="py-1 text-center no-print">
                     <button
-                      className="text-gray-400 hover:text-red-500 no-print hidden-on-print"
+                      className="text-gray-400 hover:text-red-500"
                       onClick={() => handleDeleteItem(item.id)}
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 no-print hidden-on-print" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
                     </button>
