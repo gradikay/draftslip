@@ -18,21 +18,15 @@ export default function Navbar() {
               <span className="ml-3 text-xl font-semibold text-primary">Bloom Invoice</span>
             </Link>
             <div className="hidden md:ml-8 md:flex md:space-x-8">
-              <WrapWithTip id="nav-generator-tip" content={TIPS.NAV_GENERATOR} placement="bottom">
-                <Link href="/" className="text-primary hover:text-secondary border-transparent inline-flex items-center px-1 pt-1 border-b-2 font-medium">
-                  Invoice Generator
-                </Link>
-              </WrapWithTip>
-              <WrapWithTip id="nav-templates-tip" content={TIPS.NAV_TEMPLATES} placement="bottom">
-                <Link href="/templates" className="text-gray-500 hover:text-primary border-transparent inline-flex items-center px-1 pt-1 border-b-2 font-medium">
-                  Templates
-                </Link>
-              </WrapWithTip>
-              <WrapWithTip id="nav-about-tip" content={TIPS.NAV_ABOUT} placement="bottom">
-                <Link href="/about" className="text-gray-500 hover:text-primary border-transparent inline-flex items-center px-1 pt-1 border-b-2 font-medium">
-                  About
-                </Link>
-              </WrapWithTip>
+              <Link href="/" className="text-primary hover:text-secondary border-transparent inline-flex items-center px-1 pt-1 border-b-2 font-medium">
+                Invoice Generator
+              </Link>
+              <Link href="/templates" className="text-gray-500 hover:text-primary border-transparent inline-flex items-center px-1 pt-1 border-b-2 font-medium">
+                Templates
+              </Link>
+              <Link href="/about" className="text-gray-500 hover:text-primary border-transparent inline-flex items-center px-1 pt-1 border-b-2 font-medium">
+                About
+              </Link>
             </div>
           </div>
           {/* Navigation menu buttons on right side (currently empty) */}
