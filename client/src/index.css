@@ -16,31 +16,44 @@
     width: 100% !important;
   }
   
-  /* Make ALL templates use the Retail template's padding (py-2) */
-  #invoiceItems tr td,
-  tr.invoice-item td,
-  table#invoiceItems td {
+  /* More aggressive approach to force Retail template padding on ALL templates */
+  #invoiceItems td,
+  #invoiceItems th,
+  #itemsContainer td,
+  .invoice-item td,
+  table.w-full td,
+  table.w-full th {
     padding-top: 8px !important;
     padding-bottom: 8px !important;
     padding-left: 8px !important;
     padding-right: 8px !important;
   }
   
-  /* Copy Retail template's header spacing */
-  #invoiceItems thead th {
+  /* Apply to ALL possible header selectors */
+  #invoiceItems thead th,
+  table.w-full thead th,
+  thead th {
     padding-top: 8px !important;
     padding-bottom: 8px !important;
   }
   
-  /* Standardize font sizes similar to Retail */
-  #invoiceItems td {
+  /* Standardize font sizes to match Retail */
+  #invoiceItems td,
+  #itemsContainer td,
+  .invoice-item td,
+  [contenteditable="true"] {
     font-size: 0.875rem !important; /* text-sm */
   }
   
-  /* Keep text aligned properly */
-  #invoiceItems [contenteditable="true"] {
+  /* Ensure content is positioned correctly */
+  [contenteditable="true"] {
     margin: 0 !important;
     padding: 0 !important;
+  }
+  
+  /* Ensure proper vertical alignment */
+  td, th {
+    vertical-align: middle !important;
   }
 }
 
