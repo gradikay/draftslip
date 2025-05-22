@@ -1,4 +1,5 @@
 import { Route, Switch } from "wouter";
+import { useState } from "react";
 import InvoiceGenerator from "@/components/InvoiceGenerator";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,7 +7,6 @@ import NotFound from "@/pages/not-found";
 import PrivacyPolicy from "@/pages/privacy";
 import TermsOfService from "@/pages/terms";
 import { WrapWithTip, TIPS } from "@/components/TipsContainer";
-import CursorTrailEffect from "@/components/CursorTrailEffect";
 
 // Import templates
 import FreelanceTemplate from "@/components/templates/FreelanceTemplate";
@@ -32,8 +32,6 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function TemplatesPage() {
-  // Import the components directly instead of using require
-  // This fixes the template page crash
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-bold text-primary mb-4 animated-title">
@@ -61,8 +59,7 @@ function TemplatesPage() {
         Each template comes with fields tailored to specific industries.
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 templates-container relative">
-        <div className="cursor-trail"></div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <TemplateCard 
           title="Freelance Invoice" 
           description="Perfect for freelancers, with project-based billing and payment terms."
