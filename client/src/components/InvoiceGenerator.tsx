@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Printer, FileDown } from "lucide-react";
+import { Printer, FileDown, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import InvoiceHeader from "./InvoiceHeader";
 import InvoiceDetails from "./InvoiceDetails";
@@ -7,6 +7,7 @@ import InvoiceItems from "./InvoiceItems";
 import InvoiceSummary from "./InvoiceSummary";
 import WatercolorLogo from "./WatercolorLogo";
 import html2pdf from "html2pdf.js";
+import { WrapWithTip, TIPS } from "./TipsContainer";
 
 export type InvoiceItem = {
   id: string;
@@ -137,15 +138,17 @@ const InvoiceGenerator = () => {
     });
   };
 
+  // This function needs to be compatible with component props
   const updateInvoiceData = (
-    section: keyof InvoiceData,
+    section: string,
     field: string,
     value: any
   ) => {
+    // Safely update the invoice data
     setInvoiceData((prev) => ({
       ...prev,
       [section]: {
-        ...prev[section],
+        ...prev[section as keyof InvoiceData],
         [field]: value,
       },
     }));
@@ -168,65 +171,90 @@ const InvoiceGenerator = () => {
             <h1 className="text-xl md:text-2xl font-semibold text-primary">Bloom Invoice Generator</h1>
             <p className="text-sm text-gray-600 mt-1">Create, edit and print professional invoices</p>
           </div>
+          <WrapWithTip id="help-intro" content="Welcome to Bloom Invoice! Hover over elements with this icon for helpful tips." placement="bottom">
+            <div className="flex items-center justify-center w-6 h-6 text-primary">
+              <HelpCircle className="w-5 h-5" />
+            </div>
+          </WrapWithTip>
         </div>
         <div className="flex gap-3">
-          <Button
-            onClick={handlePrint}
-            className="bg-primary text-white hover:bg-secondary"
-          >
-            <Printer className="mr-2 h-4 w-4" /> Print Invoice
-          </Button>
-          <Button
-            onClick={handleDownloadPdf}
-            className="bg-accent text-text hover:bg-accent/90"
-          >
-            <FileDown className="mr-2 h-4 w-4" /> Download PDF
-          </Button>
+          <WrapWithTip id="print-tip" content={TIPS.INVOICE_PRINT} placement="top">
+            <Button
+              onClick={handlePrint}
+              className="bg-primary text-white hover:bg-secondary"
+            >
+              <Printer className="mr-2 h-4 w-4" /> Print Invoice
+            </Button>
+          </WrapWithTip>
+          <WrapWithTip id="download-tip" content={TIPS.INVOICE_DOWNLOAD} placement="top">
+            <Button
+              onClick={handleDownloadPdf}
+              className="bg-accent text-text hover:bg-accent/90"
+            >
+              <FileDown className="mr-2 h-4 w-4" /> Download PDF
+            </Button>
+          </WrapWithTip>
         </div>
       </div>
 
       {/* Invoice Paper Container */}
       <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden">
-        <InvoiceHeader
-          business={invoiceData.business}
-          documentTitle={invoiceData.document.title}
-          onUpdate={updateInvoiceData}
-        />
+        <WrapWithTip id="header-tip" content={TIPS.INVOICE_HEADER} placement="left">
+          <div className="relative">
+            <InvoiceHeader
+              business={invoiceData.business}
+              documentTitle={invoiceData.document.title}
+              onUpdate={updateInvoiceData}
+            />
+          </div>
+        </WrapWithTip>
 
-        <InvoiceDetails
-          sender={invoiceData.sender}
-          client={invoiceData.client}
-          document={{
-            number: invoiceData.document.number,
-            date: invoiceData.document.date,
-            dueDate: invoiceData.document.dueDate,
-          }}
-          onUpdate={updateInvoiceData}
-        />
+        <WrapWithTip id="details-tip" content={TIPS.INVOICE_CLIENT} placement="right">
+          <div className="relative">
+            <InvoiceDetails
+              sender={invoiceData.sender}
+              client={invoiceData.client}
+              document={{
+                number: invoiceData.document.number,
+                date: invoiceData.document.date,
+                dueDate: invoiceData.document.dueDate,
+              }}
+              onUpdate={updateInvoiceData}
+            />
+          </div>
+        </WrapWithTip>
 
-        <InvoiceItems
-          items={invoiceData.items}
-          onUpdateItems={updateItems}
-        />
+        <WrapWithTip id="items-tip" content={TIPS.INVOICE_ITEMS} placement="left">
+          <div className="relative">
+            <InvoiceItems
+              items={invoiceData.items}
+              onUpdateItems={updateItems}
+            />
+          </div>
+        </WrapWithTip>
 
-        <InvoiceSummary
-          subtotal={calculateSubtotal()}
-          taxRate={invoiceData.document.taxRate}
-          taxAmount={calculateTaxAmount()}
-          discountRate={invoiceData.document.discountRate}
-          discountAmount={calculateDiscountAmount()}
-          total={calculateTotal()}
-          notes={invoiceData.document.notes}
-          onUpdateTaxRate={(value) =>
-            updateInvoiceData("document", "taxRate", value)
-          }
-          onUpdateDiscountRate={(value) =>
-            updateInvoiceData("document", "discountRate", value)
-          }
-          onUpdateNotes={(value) =>
-            updateInvoiceData("document", "notes", value)
-          }
-        />
+        <WrapWithTip id="summary-tip" content={TIPS.INVOICE_CALCULATIONS} placement="right">
+          <div className="relative">
+            <InvoiceSummary
+              subtotal={calculateSubtotal()}
+              taxRate={invoiceData.document.taxRate}
+              taxAmount={calculateTaxAmount()}
+              discountRate={invoiceData.document.discountRate}
+              discountAmount={calculateDiscountAmount()}
+              total={calculateTotal()}
+              notes={invoiceData.document.notes}
+              onUpdateTaxRate={(value) =>
+                updateInvoiceData("document", "taxRate", value)
+              }
+              onUpdateDiscountRate={(value) =>
+                updateInvoiceData("document", "discountRate", value)
+              }
+              onUpdateNotes={(value) =>
+                updateInvoiceData("document", "notes", value)
+              }
+            />
+          </div>
+        </WrapWithTip>
       </div>
     </div>
   );
