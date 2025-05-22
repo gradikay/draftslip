@@ -192,7 +192,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .marquee-content {
   display: inline-block;
   white-space: nowrap;
-  animation: marquee 20s linear infinite;
+  animation: marquee 40s linear infinite; /* Slowed down from 20s to 40s */
   will-change: transform;
 }
 
