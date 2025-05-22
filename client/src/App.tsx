@@ -6,6 +6,7 @@ import NotFound from "@/pages/not-found";
 import PrivacyPolicy from "@/pages/privacy";
 import TermsOfService from "@/pages/terms";
 import { WrapWithTip, TIPS } from "@/components/TipsContainer";
+import CursorTrailEffect from "@/components/CursorTrailEffect";
 
 // Import templates
 import FreelanceTemplate from "@/components/templates/FreelanceTemplate";
@@ -60,7 +61,8 @@ function TemplatesPage() {
         Each template comes with fields tailored to specific industries.
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 templates-container relative">
+        <div className="cursor-trail"></div>
         <TemplateCard 
           title="Freelance Invoice" 
           description="Perfect for freelancers, with project-based billing and payment terms."

@@ -195,9 +195,9 @@ input[type="number"]::-webkit-outer-spin-button {
   transition: transform 0.3s ease;
 }
 
-.animated-title:hover .title-letter {
-  animation: letterSway 2s ease infinite;
-  animation-delay: calc(var(--letter-index) * 0.05s);
+.animated-title .title-letter {
+  animation: letterSway 3s ease-in-out infinite;
+  animation-delay: calc(var(--letter-index) * 0.1s);
 }
 
 .animated-title .floating-letter {
@@ -296,10 +296,10 @@ input[type="number"]::-webkit-outer-spin-button {
     transform: translateY(0) rotate(0);
   }
   25% {
-    transform: translateY(-5px) rotate(-2deg);
+    transform: translateY(-8px) rotate(-5deg);
   }
   75% {
-    transform: translateY(3px) rotate(2deg);
+    transform: translateY(5px) rotate(5deg);
   }
 }
 
@@ -309,16 +309,66 @@ input[type="number"]::-webkit-outer-spin-button {
     opacity: 1;
   }
   25% {
-    transform: translateX(10px) translateY(-10px) rotate(10deg);
+    transform: translateX(15px) translateY(-15px) rotate(15deg);
     opacity: 0.8;
   }
   50% {
-    transform: translateX(15px) translateY(-5px) rotate(5deg);
+    transform: translateX(25px) translateY(-5px) rotate(5deg);
     opacity: 0.6;
   }
   75% {
-    transform: translateX(8px) translateY(-2px) rotate(2deg);
+    transform: translateX(15px) translateY(-2px) rotate(2deg);
     opacity: 0.8;
+  }
+}
+
+/* Cursor trail effect */
+.templates-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.cursor-trail {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary-color) 0%, var(--accent-color) 100%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  z-index: 10;
+  filter: blur(2px);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s;
+}
+
+.templates-container {
+  cursor: none;
+}
+
+.templates-container:hover .cursor-trail {
+  opacity: 0.7;
+  animation: pulseTrail 1s infinite alternate;
+}
+
+.template-card:hover ~ .cursor-trail {
+  opacity: 0.9;
+  animation: pulseTrail 0.7s infinite alternate;
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes pulseTrail {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
   }
 }
 
