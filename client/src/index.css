@@ -22,20 +22,25 @@
   
   table td, 
   table th {
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
     vertical-align: middle !important;
   }
   
   /* Ensure line heights are consistent */
   .invoice-item td {
     line-height: 1.5 !important;
-    min-height: 24px !important;
+    min-height: 20px !important;
   }
   
-  /* Add extra space after the last row */
-  table tbody tr:last-child td {
-    padding-bottom: 16px !important;
+  /* Add consistent spacing to the table */
+  table {
+    margin-bottom: 10px !important;
+  }
+  
+  /* Make table rows consistent in height */
+  table tbody tr {
+    height: auto !important;
   }
 }
 
