@@ -20,7 +20,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center">
               <WatercolorLogo className="h-12 w-12" />
-              <span className="ml-3 text-2xl font-bold text-primary">Bloom Invoice</span>
+              <span className="ml-3 text-2xl font-bold text-primary">DraftSlip</span>
             </div>
             <p className="mt-3 text-gray-600 text-base">
               Creating professional invoices has never been easier. Fast, simple, and beautiful.
@@ -147,7 +147,7 @@ export default function Footer() {
                   About
                 </Link>
                 <span className="text-gray-500">•</span>
-                <a href="mailto:support@bloominvoice.com" className="text-base font-medium text-gray-700 hover:text-primary footer-link">
+                <a href="mailto:support@draftslip.com" className="text-base font-medium text-gray-700 hover:text-primary footer-link">
                   Contact
                 </a>
               </div>
@@ -158,7 +158,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-8 text-center">
           <p className="text-base font-medium text-gray-700">
-            &copy; {currentYear} Bloom Invoice. All rights reserved.
+            &copy; {currentYear} DraftSlip. All rights reserved.
           </p>
           <p className="mt-2 text-sm">
             Developed with ❤️ by <span className="developer-credit">Gradi Kayamba</span>
