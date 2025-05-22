@@ -116,51 +116,68 @@ export default function PrintDownloadButtons({
   };
   
   const handlePrint = () => {
+    // Get the invoice container first to ensure it exists
+    const element = document.querySelector(invoiceContainerSelector) as HTMLElement;
+    if (!element) {
+      console.error("Invoice container not found:", invoiceContainerSelector);
+      return;
+    }
+    
     // Hide elements
     const hiddenElements = prepareForPDF();
     
-    // Get the invoice container
-    const element = document.querySelector(invoiceContainerSelector) as HTMLElement;
-    if (!element) return;
-    
-    // Use html2pdf to generate the PDF, and then print it
-    const opt = {
-      margin: 10,
-      filename: 'invoice-for-print.pdf',
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
-    };
-
-    // Generate PDF
-    html2pdf().set(opt).from(element).outputPdf('dataurlnewwindow')
-      .then(() => {
-        // Restore the visibility after PDF generation
+    // Simple approach - use browser's native print
+    setTimeout(() => {
+      window.print();
+      // Restore elements after print dialog is shown
+      setTimeout(() => {
         restoreElements(hiddenElements);
-      });
+      }, 500);
+    }, 100);
   };
 
   const handleDownloadPdf = () => {
-    // Hide elements
+    // Get the invoice container first to ensure it exists
+    const element = document.querySelector(invoiceContainerSelector) as HTMLElement;
+    if (!element) {
+      console.error("Invoice container not found:", invoiceContainerSelector);
+      return;
+    }
+    
+    // Hide elements for PDF
     const hiddenElements = prepareForPDF();
     
-    // Get the invoice container
-    const element = document.querySelector(invoiceContainerSelector) as HTMLElement;
-    if (!element) return;
-    
-    const opt = {
-      margin: 10,
-      filename: `${invoiceData.document.number || 'invoice'}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
-    };
-
-    // Generate and download PDF
-    html2pdf().set(opt).from(element).save().then(() => {
-      // Restore the visibility after PDF generation
-      restoreElements(hiddenElements);
-    });
+    // Brief timeout to ensure DOM updates are processed
+    setTimeout(() => {
+      const opt = {
+        margin: 10,
+        filename: `${invoiceData.document.number || 'invoice'}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { 
+          scale: 2,
+          logging: true,
+          useCORS: true,
+          allowTaint: true
+        },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
+      };
+  
+      // Generate and download PDF with improved error handling
+      html2pdf()
+        .set(opt)
+        .from(element)
+        .save()
+        .then(() => {
+          console.log("PDF generated successfully");
+          // Restore the visibility after PDF generation
+          restoreElements(hiddenElements);
+        })
+        .catch(error => {
+          console.error("Error generating PDF:", error);
+          // Still restore elements even if PDF generation fails
+          restoreElements(hiddenElements);
+        });
+    }, 100); // Small delay to ensure DOM changes have been applied
   };
 
   return (
