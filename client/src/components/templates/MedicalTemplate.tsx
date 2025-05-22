@@ -21,6 +21,7 @@ type MedicalInvoiceData = {
     name: string;
     tagline: string;
     licenseNumber: string;
+    logoUrl?: string;
   };
   document: {
     title: string;
@@ -56,11 +57,17 @@ type MedicalInvoiceData = {
 };
 
 export default function MedicalTemplate() {
+  // Handle logo change
+  const handleLogoChange = (logoUrl: string) => {
+    updateInvoiceData("business", "logoUrl", logoUrl);
+  };
+  
   const [invoiceData, setInvoiceData] = useState<MedicalInvoiceData>({
     business: {
       name: "Wellness Medical Center",
       tagline: "Comprehensive Healthcare Services",
       licenseNumber: "License #MED-1234567",
+      logoUrl: "",
     },
     document: {
       title: "MEDICAL INVOICE",
@@ -140,46 +147,7 @@ export default function MedicalTemplate() {
     return calculateSubtotal() - calculateDiscountAmount() + calculateTaxAmount();
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
-  const handleDownloadPdf = () => {
-    // Hide elements that shouldn't appear in PDF
-    const addItemButton = document.querySelector(".add-item-button");
-    const dueDateOptional = document.querySelector(".due-date-optional-field");
-    
-    if (addItemButton) {
-      addItemButton.classList.add("force-hide");
-    }
-    
-    if (dueDateOptional) {
-      dueDateOptional.classList.add("force-hide");
-    }
-    
-    // Get invoice container
-    const element = document.querySelector(".invoice-container") as HTMLElement;
-    if (!element) return;
-    
-    const opt = {
-      margin: 10,
-      filename: `${invoiceData.document.number}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
-    };
-
-    // Generate PDF
-    html2pdf().set(opt).from(element).save().then(() => {
-      // Restore visibility
-      if (addItemButton) {
-        addItemButton.classList.remove("force-hide");
-      }
-      if (dueDateOptional) {
-        dueDateOptional.classList.remove("force-hide");
-      }
-    });
-  };
+  // Print/Download functionality now handled by PrintDownloadButtons component
 
   const updateInvoiceData = (
     section: keyof MedicalInvoiceData,
@@ -248,21 +216,12 @@ export default function MedicalTemplate() {
             <p className="text-xs text-gray-600">For healthcare providers and medical practices</p>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button
-            onClick={handlePrint}
-            className="bg-primary text-white hover:bg-secondary"
-            size="sm"
-          >
-            <Printer className="mr-1 h-3 w-3" /> Print
-          </Button>
-          <Button
-            onClick={handleDownloadPdf}
-            className="bg-accent text-text hover:bg-accent/90"
-            size="sm"
-          >
-            <FileDown className="mr-1 h-3 w-3" /> PDF
-          </Button>
+        <div>
+          <PrintDownloadButtons 
+            invoiceData={invoiceData}
+            invoiceContainerSelector=".invoice-container"
+            logoUrl={invoiceData.business.logoUrl}
+          />
         </div>
       </div>
 
@@ -271,25 +230,33 @@ export default function MedicalTemplate() {
         {/* Header */}
         <div className="px-6 py-3 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="mb-1 md:mb-0">
-              <ContentEditable
-                value={invoiceData.business.name}
-                onChange={(value) => updateInvoiceData("business", "name", value)}
-                className="text-xl font-semibold text-primary"
-                placeholder="Medical Practice Name"
+            <div className="flex gap-3 mb-1 md:mb-0">
+              {/* Logo Uploader */}
+              <LogoUploader 
+                logoUrl={invoiceData.business.logoUrl}
+                onLogoChange={handleLogoChange}
               />
-              <ContentEditable
-                value={invoiceData.business.tagline}
-                onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                className="text-xs text-gray-600"
-                placeholder="Practice Tagline"
-              />
-              <ContentEditable
-                value={invoiceData.business.licenseNumber}
-                onChange={(value) => updateInvoiceData("business", "licenseNumber", value)}
-                className="text-xs text-gray-600"
-                placeholder="License Number"
-              />
+              
+              <div>
+                <ContentEditable
+                  value={invoiceData.business.name}
+                  onChange={(value) => updateInvoiceData("business", "name", value)}
+                  className="text-xl font-semibold text-primary"
+                  placeholder="Medical Practice Name"
+                />
+                <ContentEditable
+                  value={invoiceData.business.tagline}
+                  onChange={(value) => updateInvoiceData("business", "tagline", value)}
+                  className="text-xs text-gray-600"
+                  placeholder="Practice Tagline"
+                />
+                <ContentEditable
+                  value={invoiceData.business.licenseNumber}
+                  onChange={(value) => updateInvoiceData("business", "licenseNumber", value)}
+                  className="text-xs text-gray-600"
+                  placeholder="License Number"
+                />
+              </div>
             </div>
             <div className="text-right">
               <ContentEditable
