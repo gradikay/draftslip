@@ -300,41 +300,15 @@ export default function ConsultingTemplate() {
           {/* Right Column - Client and Invoice Details */}
           <div>
             <div className="grid grid-cols-2 gap-4 mb-3">
-              <div className="space-y-3">
-                <div>
-                  <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Invoice Number</h3>
-                  <ContentEditable
-                    value={invoiceData.document.number}
-                    onChange={(value) => updateInvoiceData("document", "number", value)}
-                    className="font-medium"
-                    placeholder="INV-001"
-                  />
-                </div>
-                
-                <div>
-                  <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Bill To</h3>
-                  <ContentEditable
-                    value={invoiceData.client.name}
-                    onChange={(value) => updateInvoiceData("client", "name", value)}
-                    className="font-medium"
-                    placeholder="Client Name"
-                  />
-                  <ContentEditable
-                    value={invoiceData.client.department}
-                    onChange={(value) => updateInvoiceData("client", "department", value)}
-                    className="text-sm"
-                    placeholder="Department / Division"
-                  />
-                  <ContentEditable
-                    value={invoiceData.client.address}
-                    onChange={(value) => updateInvoiceData("client", "address", value)}
-                    className="mt-1 whitespace-pre-wrap"
-                    placeholder="Client Address"
-                    multiline
-                  />
-                </div>
+              <div>
+                <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Invoice Number</h3>
+                <ContentEditable
+                  value={invoiceData.document.number}
+                  onChange={(value) => updateInvoiceData("document", "number", value)}
+                  className="font-medium"
+                  placeholder="INV-001"
+                />
               </div>
-              
               <div>
                 <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Date</h3>
                 <ContentEditable
@@ -376,21 +350,34 @@ export default function ConsultingTemplate() {
                 )}
               </div>
             </div>
-            <div className="col-span-2 mt-2">
-              <ContentEditable
-                value={invoiceData.client.contact}
-                onChange={(value) => updateInvoiceData("client", "contact", value)}
-                className="whitespace-pre-wrap"
-                placeholder="Client Contact Details"
-                multiline
-              />
-              <ContentEditable
-                value={invoiceData.client.projectReference}
-                onChange={(value) => updateInvoiceData("client", "projectReference", value)}
-                className="mt-1 text-sm text-primary"
-                placeholder="Project Reference Number"
-              />
-            </div>
+
+            <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Bill To</h3>
+            <ContentEditable
+              value={invoiceData.client.name}
+              onChange={(value) => updateInvoiceData("client", "name", value)}
+              className="font-medium"
+              placeholder="Client Name"
+            />
+            <ContentEditable
+              value={invoiceData.client.department}
+              onChange={(value) => updateInvoiceData("client", "department", value)}
+              className="text-sm"
+              placeholder="Department / Division"
+            />
+            <ContentEditable
+              value={invoiceData.client.address}
+              onChange={(value) => updateInvoiceData("client", "address", value)}
+              className="mt-1 whitespace-pre-wrap"
+              placeholder="Client Address"
+              multiline
+            />
+            <ContentEditable
+              value={invoiceData.client.contact}
+              onChange={(value) => updateInvoiceData("client", "contact", value)}
+              className="mt-1 whitespace-pre-wrap"
+              placeholder="Client Contact Details"
+              multiline
+            />
           </div>
         </div>
 
