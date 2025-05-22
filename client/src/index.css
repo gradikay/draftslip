@@ -55,6 +55,21 @@
   td, th {
     vertical-align: middle !important;
   }
+  
+  /* Fix overlapping sections in PDF */
+  #invoiceItems {
+    margin-bottom: 30px !important;
+  }
+  
+  /* Add space between invoice items and summary */
+  .px-6 {
+    margin-bottom: 20px !important;
+  }
+  
+  /* Improve page break behavior */
+  @page {
+    margin: 0.5in !important;
+  }
 }
 
 :root {
