@@ -79,7 +79,7 @@ const InvoiceHeader = ({ business, documentTitle, onUpdate }: InvoiceHeaderProps
               </div>
             ) : (
               <div 
-                className="h-16 w-16 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer hover:border-primary no-print"
+                className="h-16 w-16 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer hover:border-primary no-print logo-upload-area"
                 onClick={() => fileInputRef.current?.click()}
               >
                 <Upload size={20} className="text-gray-400" />

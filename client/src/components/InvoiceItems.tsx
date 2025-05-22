@@ -108,7 +108,7 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
               </td>
               <td className="py-2 text-center no-print">
                 <button
-                  className="text-gray-400 hover:text-red-500"
+                  className="text-gray-400 hover:text-red-500 delete-item-button"
                   onClick={() => handleDeleteItem(item.id)}
                 >
                   <Trash2 size={16} />
