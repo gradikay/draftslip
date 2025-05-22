@@ -169,7 +169,7 @@ const InvoiceGenerator = () => {
         <div className="flex items-center gap-3">
           <WatercolorLogo className="w-12 h-12" />
           <div>
-            <h1 className="text-xl md:text-2xl font-semibold text-primary">Bloom Invoice Generator</h1>
+            <h1 className="text-xl md:text-2xl font-semibold text-primary">DraftSlip</h1>
             <p className="text-sm text-gray-600 mt-1">Create, edit and print professional invoices</p>
           </div>
         </div>

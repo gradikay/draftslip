@@ -14,7 +14,7 @@ export default function Navbar() {
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
               <WatercolorLogo className="h-10 w-10" />
-              <span className="ml-3 text-xl font-semibold text-primary">Bloom Invoice</span>
+              <span className="ml-3 text-xl font-semibold text-primary">DraftSlip</span>
             </Link>
             <div className="hidden md:ml-8 md:flex md:space-x-8">
               <Link href="/" className="text-primary hover:text-secondary border-transparent inline-flex items-center px-1 pt-1 border-b-2 font-medium">
