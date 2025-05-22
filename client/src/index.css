@@ -322,55 +322,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
-/* Cursor trail effect */
-.templates-container {
-  position: relative;
-  overflow: hidden;
-}
 
-.cursor-trail {
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--primary-color) 0%, var(--accent-color) 100%);
-  mix-blend-mode: screen;
-  opacity: 0;
-  z-index: 10;
-  filter: blur(2px);
-  transform: translate(-50%, -50%);
-  transition: opacity 0.2s;
-}
-
-.templates-container {
-  cursor: none;
-}
-
-.templates-container:hover .cursor-trail {
-  opacity: 0.7;
-  animation: pulseTrail 1s infinite alternate;
-}
-
-.template-card:hover ~ .cursor-trail {
-  opacity: 0.9;
-  animation: pulseTrail 0.7s infinite alternate;
-  width: 20px;
-  height: 20px;
-}
-
-@keyframes pulseTrail {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(2);
-    opacity: 0;
-  }
-}
 
 @media print {
   body {
