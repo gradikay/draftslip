@@ -135,7 +135,8 @@ export default function PrintDownloadButtons({
         unit: "mm", 
         format: "a4", 
         orientation: "portrait" as "portrait",
-        compress: true
+        compress: true,
+        hotfixes: ["px_scaling"]
       },
     };
 

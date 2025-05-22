@@ -514,6 +514,27 @@ input[type="number"]::-webkit-outer-spin-button {
     print-color-adjust: exact;
   }
   
+  /* Fix word breaking across pages */
+  p, h1, h2, h3, h4, h5, h6 {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    widows: 3;
+    orphans: 3;
+  }
+  
+  /* Fine-tune page break control for tables */
+  tr, td {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Handle long words and text properly */
+  td, div, span {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
   .no-print, 
   .print\:hidden,
   .hidden-on-print,
