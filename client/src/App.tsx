@@ -8,6 +8,9 @@ import NotFound from "@/pages/not-found";
 import FreelanceTemplate from "@/components/templates/FreelanceTemplate";
 import ConsultingTemplate from "@/components/templates/ConsultingTemplate";
 import RetailTemplate from "@/components/templates/RetailTemplate";
+import AgencyTemplate from "@/components/templates/AgencyTemplate";
+import ConstructionTemplate from "@/components/templates/ConstructionTemplate";
+import MedicalTemplate from "@/components/templates/MedicalTemplate";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,14 +27,14 @@ function Layout({ children }: { children: React.ReactNode }) {
 function TemplatesPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold text-primary mb-8">Invoice Templates</h1>
+      <h1 className="text-2xl font-bold text-primary mb-4">Invoice Templates</h1>
       
-      <p className="text-gray-600 mb-8">
+      <p className="text-gray-600 mb-6 text-sm">
         Choose from our specialized templates designed for different business needs.
         Each template comes with fields tailored to specific industries.
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <TemplateCard 
           title="Freelance Invoice" 
           description="Perfect for freelancers, with project-based billing and payment terms."
@@ -50,6 +53,27 @@ function TemplatesPage() {
           title="Retail Business" 
           description="Retail-focused invoice with product details, quantities, and customer information."
           href="/templates/retail"
+          color="accent"
+        />
+
+        <TemplateCard 
+          title="Agency Services" 
+          description="For marketing and creative agencies with project details and service categories."
+          href="/templates/agency"
+          color="primary"
+        />
+        
+        <TemplateCard 
+          title="Construction & Contracting" 
+          description="For builders and contractors with materials, labor, and project phases."
+          href="/templates/construction"
+          color="secondary"
+        />
+        
+        <TemplateCard 
+          title="Medical & Healthcare" 
+          description="For healthcare providers with patient details, insurance, and procedure codes."
+          href="/templates/medical"
           color="accent"
         />
       </div>
@@ -132,6 +156,9 @@ function App() {
         <Route path="/templates/freelance" component={FreelanceTemplate} />
         <Route path="/templates/consulting" component={ConsultingTemplate} />
         <Route path="/templates/retail" component={RetailTemplate} />
+        <Route path="/templates/agency" component={AgencyTemplate} />
+        <Route path="/templates/construction" component={ConstructionTemplate} />
+        <Route path="/templates/medical" component={MedicalTemplate} />
         <Route path="/about" component={AboutPage} />
         <Route component={NotFound} />
       </Switch>
