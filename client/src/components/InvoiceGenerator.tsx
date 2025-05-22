@@ -174,11 +174,6 @@ const InvoiceGenerator = () => {
           items={invoiceData.items}
           onUpdateItems={updateItems}
         />
-        
-        <div className="px-6 py-2 flex justify-between items-center">
-          <div className="thank-you-message">Thank You!</div>
-          <div className="w-1/2"></div>
-        </div>
 
         <InvoiceSummary
           subtotal={calculateSubtotal()}
