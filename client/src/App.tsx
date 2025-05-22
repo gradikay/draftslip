@@ -28,14 +28,19 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function TemplatesPage() {
+  // Import the required components for tooltips
+  const { WrapWithTip, TIPS } = require('./components/TipsContainer');
+  
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-bold text-primary mb-4">Invoice Templates</h1>
       
-      <p className="text-gray-600 mb-6 text-sm">
-        Choose from our specialized templates designed for different business needs.
-        Each template comes with fields tailored to specific industries.
-      </p>
+      <WrapWithTip id="templates-intro-tip" content={TIPS.TEMPLATES_INTRO} placement="bottom">
+        <p className="text-gray-600 mb-6 text-sm">
+          Choose from our specialized templates designed for different business needs.
+          Each template comes with fields tailored to specific industries.
+        </p>
+      </WrapWithTip>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <TemplateCard 

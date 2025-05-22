@@ -4,6 +4,7 @@ import ContentEditable from "./ContentEditable";
 import { formatCurrency } from "@/lib/utils/formatters";
 import { Button } from "@/components/ui/button";
 import { InvoiceItem } from "./InvoiceGenerator";
+import { WrapWithTip, TIPS } from "./TipsContainer";
 
 interface InvoiceItemsProps {
   items: InvoiceItem[];
@@ -121,13 +122,15 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
 
       {/* This whole section should not appear in print */}
       <div className="py-2 hidden-on-print add-item-button">
-        <Button
-          variant="ghost"
-          onClick={handleAddItem}
-          className="text-primary hover:text-secondary hover:bg-primary/5 hidden-on-print"
-        >
-          <PlusCircle className="mr-2 h-4 w-4" /> Add Item
-        </Button>
+        <WrapWithTip id="add-item-tip" content={TIPS.INVOICE_ADD_ITEM} placement="top">
+          <Button
+            variant="ghost"
+            onClick={handleAddItem}
+            className="text-primary hover:text-secondary hover:bg-primary/5 hidden-on-print"
+          >
+            <PlusCircle className="mr-2 h-4 w-4" /> Add Item
+          </Button>
+        </WrapWithTip>
       </div>
     </div>
   );
