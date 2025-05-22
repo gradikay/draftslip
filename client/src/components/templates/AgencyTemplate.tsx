@@ -425,7 +425,7 @@ export default function AgencyTemplate() {
             <tbody id="itemsContainer">
               {invoiceData.items.map((item) => (
                 <tr key={item.id} className="border-b border-subtle invoice-item">
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={item.service}
                       onChange={(value) => updateItem(item.id, "service", value)}
@@ -433,7 +433,7 @@ export default function AgencyTemplate() {
                       placeholder="Service Type"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={item.description}
                       onChange={(value) => updateItem(item.id, "description", value)}
@@ -441,7 +441,7 @@ export default function AgencyTemplate() {
                       placeholder="Service description"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={String(item.hours)}
                       onChange={(value) => updateItem(item.id, "hours", parseFloat(value) || 0)}
@@ -449,7 +449,7 @@ export default function AgencyTemplate() {
                       placeholder="0"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <div className="flex items-center justify-end">
                       <span className="mr-0.5 text-xs">$</span>
                       <ContentEditable
@@ -460,7 +460,7 @@ export default function AgencyTemplate() {
                       />
                     </div>
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <div className="flex items-center justify-end">
                       <span className="mr-0.5 text-xs">$</span>
                       <div className="text-right text-sm">
@@ -468,7 +468,7 @@ export default function AgencyTemplate() {
                       </div>
                     </div>
                   </td>
-                  <td className="py-1 text-center hidden-on-print no-print print-hide" style={{display: 'none !important'}}>
+                  <td className="py-2 text-center hidden-on-print no-print print-hide" style={{display: 'none !important'}}>
                     <button
                       className="text-gray-400 hover:text-red-500 delete-button print-hide"
                       onClick={() => handleDeleteItem(item.id)}
@@ -485,7 +485,7 @@ export default function AgencyTemplate() {
           </table>
 
           {/* Add Item Button */}
-          <div className="py-1 hidden-on-print add-item-button">
+          <div className="py-2 hidden-on-print add-item-button">
             <Button
               variant="ghost"
               onClick={handleAddItem}
@@ -504,7 +504,7 @@ export default function AgencyTemplate() {
         <div className="px-6 py-2">
           <div className="flex flex-col items-end">
             <div className="w-full max-w-xs">
-              <div className="flex justify-between py-0.5 text-sm">
+              <div className="flex justify-between py-1">
                 <span className="text-gray-600">Subtotal:</span>
                 <div className="flex items-center">
                   <span className="mr-0.5">$</span>
@@ -512,7 +512,7 @@ export default function AgencyTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-0.5 text-sm">
+              <div className="flex justify-between py-1">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-1">Discount</span>
                   <ContentEditable
@@ -528,13 +528,13 @@ export default function AgencyTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-0.5 text-sm border-b border-subtle">
+              <div className="flex justify-between py-1 border-b border-subtle">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-1">Tax</span>
                   <ContentEditable
                     value={String(invoiceData.document.taxRate)}
                     onChange={(value) => updateInvoiceData("document", "taxRate", parseFloat(value) || 0)}
-                    className="w-8 inline-block text-center text-xs"
+                    className="w-12 inline-block text-center"
                   />
                   <span className="text-gray-600">%:</span>
                 </div>
@@ -544,10 +544,10 @@ export default function AgencyTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-1 font-semibold">
+              <div className="flex justify-between py-2 font-semibold text-lg">
                 <span>Total:</span>
                 <div className="flex items-center text-primary">
-                  <span className="mr-0.5">$</span>
+                  <span className="mr-1">$</span>
                   <span>{formatCurrency(calculateTotal())}</span>
                 </div>
               </div>
