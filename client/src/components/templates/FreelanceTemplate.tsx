@@ -269,18 +269,38 @@ export default function FreelanceTemplate() {
             />
           </div>
 
-          {/* Right Column - Client and Invoice Details */}
+          {/* Right Column - Invoice Details and Client Info */}
           <div>
             <div className="grid grid-cols-2 gap-3 mb-2">
-              <div>
-                <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Invoice Number</h3>
-                <ContentEditable
-                  value={invoiceData.document.number}
-                  onChange={(value) => updateInvoiceData("document", "number", value)}
-                  className="font-medium text-sm"
-                  placeholder="FR-001"
-                />
+              <div className="space-y-3">
+                <div>
+                  <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Invoice Number</h3>
+                  <ContentEditable
+                    value={invoiceData.document.number}
+                    onChange={(value) => updateInvoiceData("document", "number", value)}
+                    className="font-medium text-sm"
+                    placeholder="FR-001"
+                  />
+                </div>
+                
+                <div>
+                  <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Bill To</h3>
+                  <ContentEditable
+                    value={invoiceData.client.name}
+                    onChange={(value) => updateInvoiceData("client", "name", value)}
+                    className="font-medium text-sm"
+                    placeholder="Client Name"
+                  />
+                  <ContentEditable
+                    value={invoiceData.client.address}
+                    onChange={(value) => updateInvoiceData("client", "address", value)}
+                    className="text-sm whitespace-pre-wrap"
+                    placeholder="Client Address"
+                    multiline
+                  />
+                </div>
               </div>
+              
               <div>
                 <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Date</h3>
                 <ContentEditable
@@ -314,28 +334,15 @@ export default function FreelanceTemplate() {
                 )}
               </div>
             </div>
-
-            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Bill To</h3>
-            <ContentEditable
-              value={invoiceData.client.name}
-              onChange={(value) => updateInvoiceData("client", "name", value)}
-              className="font-medium text-sm"
-              placeholder="Client Name"
-            />
-            <ContentEditable
-              value={invoiceData.client.address}
-              onChange={(value) => updateInvoiceData("client", "address", value)}
-              className="text-sm whitespace-pre-wrap"
-              placeholder="Client Address"
-              multiline
-            />
-            <ContentEditable
-              value={invoiceData.client.contact}
-              onChange={(value) => updateInvoiceData("client", "contact", value)}
-              className="text-sm whitespace-pre-wrap"
-              placeholder="Client Contact Details"
-              multiline
-            />
+            <div className="col-span-1 ml-0">
+              <ContentEditable
+                value={invoiceData.client.contact}
+                onChange={(value) => updateInvoiceData("client", "contact", value)}
+                className="text-sm whitespace-pre-wrap"
+                placeholder="Client Contact Details"
+                multiline
+              />
+            </div>
           </div>
         </div>
 
