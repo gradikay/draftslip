@@ -82,8 +82,8 @@ export function ContextualTip({
   className = '',
   id,
   placement = 'top',
-  delayIn = 100,
-  delayOut = 500,
+  delayIn = 800,  // Increased delay before showing tooltip
+  delayOut = 300, // Quicker dismissal
   firstTimeOnly = true,
   alwaysShow = false
 }: ContextualTipProps) {

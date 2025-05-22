@@ -19,20 +19,20 @@ export default function Footer() {
           </div>
           
           <div className="col-span-1">
-            <h3 className="text-xs font-semibold text-gray-900 tracking-wider uppercase">Product</h3>
+            <h3 className="text-xs font-semibold text-gray-900 tracking-wider uppercase">Products</h3>
             <ul className="mt-2 space-y-2">
               <li>
-                <Link href="/" className="text-sm text-gray-500 hover:text-primary">
+                <Link href="/" className="text-sm font-medium text-gray-700 hover:text-primary">
                   Invoice Generator
                 </Link>
               </li>
               <li>
-                <Link href="/templates" className="text-sm text-gray-500 hover:text-primary">
-                  Templates
+                <Link href="/templates" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  All Templates
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-sm text-gray-500 hover:text-primary">
+                <Link href="/pricing" className="text-sm font-medium text-gray-700 hover:text-primary">
                   Pricing
                 </Link>
               </li>
@@ -40,45 +40,91 @@ export default function Footer() {
           </div>
           
           <div className="col-span-1">
-            <h3 className="text-xs font-semibold text-gray-900 tracking-wider uppercase">Support</h3>
+            <h3 className="text-xs font-semibold text-gray-900 tracking-wider uppercase">Templates</h3>
             <ul className="mt-2 space-y-2">
               <li>
-                <Link href="/help" className="text-sm text-gray-500 hover:text-primary">
-                  Help Center
+                <Link href="/templates/freelance" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  Freelance
                 </Link>
               </li>
               <li>
-                <Link href="/guides" className="text-sm text-gray-500 hover:text-primary">
-                  Guides
+                <Link href="/templates/consulting" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  Consulting
                 </Link>
               </li>
               <li>
-                <a href="mailto:support@bloominvoice.com" className="text-sm text-gray-500 hover:text-primary">
-                  Contact Us
-                </a>
+                <Link href="/templates/retail" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  Retail
+                </Link>
+              </li>
+              <li>
+                <Link href="/templates/agency" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  Agency
+                </Link>
               </li>
             </ul>
           </div>
           
           <div className="col-span-1">
-            <h3 className="text-xs font-semibold text-gray-900 tracking-wider uppercase">Legal</h3>
+            <h3 className="text-xs font-semibold text-gray-900 tracking-wider uppercase">More Templates</h3>
             <ul className="mt-2 space-y-2">
               <li>
-                <Link href="/privacy" className="text-sm text-gray-500 hover:text-primary">
+                <Link href="/templates/construction" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  Construction
+                </Link>
+              </li>
+              <li>
+                <Link href="/templates/medical" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  Medical
+                </Link>
+              </li>
+              <li>
+                <Link href="/templates/legal" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  Legal
+                </Link>
+              </li>
+              <li>
+                <Link href="/templates/event" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  Event Planning
+                </Link>
+              </li>
+              <li>
+                <Link href="/templates/photography" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  Photography
+                </Link>
+              </li>
+            </ul>
+          </div>
+          
+          <div className="col-span-1">
+            <h3 className="text-xs font-semibold text-gray-900 tracking-wider uppercase">Company</h3>
+            <ul className="mt-2 space-y-2">
+              <li>
+                <Link href="/about" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="text-sm font-medium text-gray-700 hover:text-primary">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-sm text-gray-500 hover:text-primary">
+                <Link href="/terms" className="text-sm font-medium text-gray-700 hover:text-primary">
                   Terms of Service
                 </Link>
+              </li>
+              <li>
+                <a href="mailto:support@bloominvoice.com" className="text-sm font-medium text-gray-700 hover:text-primary">
+                  Contact Us
+                </a>
               </li>
             </ul>
           </div>
         </div>
         
         <div className="mt-6 border-t border-gray-200 pt-4 flex flex-col md:flex-row justify-between">
-          <p className="text-sm text-gray-400">
+          <p className="text-sm font-medium text-gray-700">
             &copy; {currentYear} Bloom Invoice. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-2 md:mt-0">
