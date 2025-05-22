@@ -24,6 +24,9 @@ export default function PrintDownloadButtons({
     const emptyLogoBox = !logoUrl ? document.querySelector(".logo-upload-area") : null;
     const fileInputs = document.querySelectorAll("input[type='file']");
     
+    // Find all trash icons and delete buttons - different templates might use different classes
+    const trashIcons = document.querySelectorAll("button svg[stroke='currentColor'], td.no-print, td.hidden-on-print, th.no-print, button.no-print, .no-print button");
+    
     // Hide elements
     if (addItemButton) {
       addItemButton.classList.add("force-hide");
@@ -36,6 +39,19 @@ export default function PrintDownloadButtons({
     // Hide delete buttons
     deleteButtons.forEach(button => {
       (button as HTMLElement).classList.add("force-hide");
+    });
+    
+    // Hide all trash icons/delete buttons
+    trashIcons.forEach(icon => {
+      const element = icon as HTMLElement;
+      element.classList.add("force-hide");
+      
+      // Also add these classes to parent elements to ensure they're hidden
+      let parent = element.parentElement;
+      while (parent && parent.tagName !== 'TR' && parent.tagName !== 'TABLE') {
+        parent.classList.add("force-hide");
+        parent = parent.parentElement;
+      }
     });
     
     // Hide empty logo box if no logo
@@ -52,13 +68,14 @@ export default function PrintDownloadButtons({
       addItemButton,
       dueDateOptional,
       deleteButtons,
+      trashIcons,
       emptyLogoBox,
       fileInputs
     };
   };
   
   const restoreElements = (elements: any) => {
-    const { addItemButton, dueDateOptional, deleteButtons, emptyLogoBox, fileInputs } = elements;
+    const { addItemButton, dueDateOptional, deleteButtons, emptyLogoBox, fileInputs, trashIcons } = elements;
     
     // Restore the visibility
     if (addItemButton) {
@@ -70,11 +87,31 @@ export default function PrintDownloadButtons({
     deleteButtons.forEach((button: HTMLElement) => {
       button.classList.remove("force-hide");
     });
+    
+    // Restore trash icons
+    if (trashIcons) {
+      trashIcons.forEach((icon: HTMLElement) => {
+        icon.classList.remove("force-hide");
+        
+        // Also remove from parent elements
+        let parent = icon.parentElement;
+        while (parent && parent.tagName !== 'TR' && parent.tagName !== 'TABLE') {
+          parent.classList.remove("force-hide");
+          parent = parent.parentElement;
+        }
+      });
+    }
+    
     if (emptyLogoBox) {
       emptyLogoBox.classList.remove("force-hide");
     }
     fileInputs.forEach((input: HTMLElement) => {
       input.classList.remove("force-hide");
+    });
+    
+    // General cleanup - remove any lingering force-hide classes
+    document.querySelectorAll(".force-hide").forEach(element => {
+      element.classList.remove("force-hide");
     });
   };
   
