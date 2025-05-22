@@ -433,7 +433,7 @@ export default function AgencyTemplate() {
                       placeholder="Service Type"
                     />
                   </td>
-                  <td className="py-2">
+                  <td className="py-2 text-sm">
                     <ContentEditable
                       value={item.description}
                       onChange={(value) => updateItem(item.id, "description", value)}
@@ -528,7 +528,7 @@ export default function AgencyTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-1 border-b border-subtle">
+              <div className="flex justify-between py-1 pb-2 border-b border-subtle">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-1">Tax</span>
                   <ContentEditable

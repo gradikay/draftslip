@@ -459,7 +459,7 @@ export default function FreelanceTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-1 border-b border-subtle">
+              <div className="flex justify-between py-1 pb-2 border-b border-subtle">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-2">Tax</span>
                   <ContentEditable

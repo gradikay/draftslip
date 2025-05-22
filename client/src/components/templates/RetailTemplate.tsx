@@ -199,9 +199,9 @@ export default function RetailTemplate() {
   return (
     <div className="max-w-3xl mx-auto px-4">
       {/* Header Controls - Hidden in Print */}
-      <div className="no-print flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-        <div className="flex items-center gap-3">
-          <WatercolorLogo className="w-12 h-12" />
+      <div className="no-print flex flex-col md:flex-row justify-between items-center mb-3 gap-2">
+        <div className="flex items-center gap-2">
+          <WatercolorLogo className="w-10 h-10" />
           <div>
             <h1 className="text-xl md:text-2xl font-semibold text-primary">Retail Invoice Template</h1>
             <p className="text-sm text-gray-600 mt-1">Perfect for retail businesses, shops, and stores</p>
@@ -500,7 +500,7 @@ export default function RetailTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-1 border-b border-subtle">
+              <div className="flex justify-between py-1 pb-2 border-b border-subtle">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-2">Tax</span>
                   <ContentEditable

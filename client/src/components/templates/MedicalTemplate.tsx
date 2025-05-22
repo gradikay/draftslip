@@ -452,19 +452,19 @@ export default function MedicalTemplate() {
           <table className="w-full mt-2" id="invoiceItems">
             <thead>
               <tr className="border-b border-subtle">
-                <th className="py-1 text-left text-xs uppercase text-gray-500 font-medium w-20">Date</th>
-                <th className="py-1 text-left text-xs uppercase text-gray-500 font-medium w-20">Code</th>
-                <th className="py-1 text-left text-xs uppercase text-gray-500 font-medium">Service Description</th>
-                <th className="py-1 text-right text-xs uppercase text-gray-500 font-medium w-16">Qty</th>
-                <th className="py-1 text-right text-xs uppercase text-gray-500 font-medium w-20">Rate</th>
-                <th className="py-1 text-right text-xs uppercase text-gray-500 font-medium w-24">Amount</th>
-                <th className="py-1 w-8 no-print"></th>
+                <th className="py-2 text-left text-xs uppercase text-gray-500 font-medium w-20">Date</th>
+                <th className="py-2 text-left text-xs uppercase text-gray-500 font-medium w-20">Code</th>
+                <th className="py-2 text-left text-xs uppercase text-gray-500 font-medium">Service Description</th>
+                <th className="py-2 text-right text-xs uppercase text-gray-500 font-medium w-16">Qty</th>
+                <th className="py-2 text-right text-xs uppercase text-gray-500 font-medium w-20">Rate</th>
+                <th className="py-2 text-right text-xs uppercase text-gray-500 font-medium w-24">Amount</th>
+                <th className="py-2 w-8 no-print"></th>
               </tr>
             </thead>
             <tbody id="itemsContainer">
               {invoiceData.items.map((item) => (
                 <tr key={item.id} className="border-b border-subtle invoice-item">
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={item.date}
                       onChange={(value) => updateItem(item.id, "date", value)}
@@ -472,7 +472,7 @@ export default function MedicalTemplate() {
                       placeholder="MM/DD/YY"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={item.code}
                       onChange={(value) => updateItem(item.id, "code", value)}
@@ -480,7 +480,7 @@ export default function MedicalTemplate() {
                       placeholder="CPT/HCPCS"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={item.description}
                       onChange={(value) => updateItem(item.id, "description", value)}
@@ -488,7 +488,7 @@ export default function MedicalTemplate() {
                       placeholder="Service description"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={String(item.quantity)}
                       onChange={(value) => updateItem(item.id, "quantity", parseFloat(value) || 0)}
@@ -496,7 +496,7 @@ export default function MedicalTemplate() {
                       placeholder="0"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <div className="flex items-center justify-end">
                       <span className="mr-0.5 text-xs">$</span>
                       <ContentEditable
@@ -507,7 +507,7 @@ export default function MedicalTemplate() {
                       />
                     </div>
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <div className="flex items-center justify-end">
                       <span className="mr-0.5 text-xs">$</span>
                       <div className="text-right text-sm">
@@ -515,7 +515,7 @@ export default function MedicalTemplate() {
                       </div>
                     </div>
                   </td>
-                  <td className="py-1 text-center hidden-on-print no-print print-hide" style={{display: 'none !important'}}>
+                  <td className="py-2 text-center hidden-on-print no-print print-hide" style={{display: 'none !important'}}>
                     <button
                       className="text-gray-400 hover:text-red-500 delete-button print-hide"
                       onClick={() => handleDeleteItem(item.id)}
@@ -575,7 +575,7 @@ export default function MedicalTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-0.5 text-sm border-b border-subtle">
+              <div className="flex justify-between py-1 pb-2 text-sm border-b border-subtle">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-1">Tax</span>
                   <ContentEditable

@@ -51,11 +51,12 @@ const LogoUploader = ({ logoUrl, onLogoChange, className = "" }: LogoUploaderPro
           onMouseEnter={() => setLogoHover(true)}
           onMouseLeave={() => setLogoHover(false)}
         >
-          <div className="company-logo-wrapper">
+          <div className="company-logo-wrapper inline-block align-middle">
             <img 
               src={logoUrl} 
               alt="Company logo" 
-              className="company-logo h-16 max-w-[140px] object-contain" 
+              className="company-logo h-16 max-w-[140px] object-contain align-middle" 
+              style={{verticalAlign: 'middle'}}
             />
           </div>
           {logoHover && (

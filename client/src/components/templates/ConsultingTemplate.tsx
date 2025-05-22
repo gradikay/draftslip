@@ -201,11 +201,11 @@ export default function ConsultingTemplate() {
   return (
     <div className="max-w-3xl mx-auto px-4">
       {/* Header Controls - Hidden in Print */}
-      <div className="no-print flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-        <div className="flex items-center gap-3">
-          <WatercolorLogo className="w-12 h-12" />
+      <div className="no-print flex flex-col md:flex-row justify-between items-center mb-3 gap-2">
+        <div className="flex items-center gap-2">
+          <WatercolorLogo className="w-10 h-10" />
           <div>
-            <h1 className="text-xl md:text-2xl font-semibold text-primary">Consulting Invoice Template</h1>
+            <h1 className="text-lg md:text-xl font-semibold text-primary">Consulting Invoice Template</h1>
             <p className="text-sm text-gray-600 mt-1">Professional template for consultants and advisory services</p>
           </div>
         </div>
@@ -218,9 +218,9 @@ export default function ConsultingTemplate() {
 
       {/* Consulting Invoice Container */}
       <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden">
-        <div className="px-6 py-4 border-b border-subtle">
+        <div className="px-6 py-3 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="flex gap-3 mb-2 md:mb-0">
+            <div className="flex gap-3 mb-1 md:mb-0">
               {/* Logo Uploader */}
               <LogoUploader 
                 logoUrl={invoiceData.business.logoUrl} 
@@ -510,7 +510,7 @@ export default function ConsultingTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-1 border-b border-subtle">
+              <div className="flex justify-between py-1 pb-2 border-b border-subtle">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-2">Tax</span>
                   <ContentEditable

@@ -439,19 +439,19 @@ export default function ConstructionTemplate() {
           <table className="w-full mt-2" id="invoiceItems">
             <thead>
               <tr className="border-b border-subtle">
-                <th className="py-1 text-left text-xs uppercase text-gray-500 font-medium w-20">Category</th>
-                <th className="py-1 text-left text-xs uppercase text-gray-500 font-medium">Description</th>
-                <th className="py-1 text-right text-xs uppercase text-gray-500 font-medium w-16">Qty</th>
-                <th className="py-1 text-center text-xs uppercase text-gray-500 font-medium w-16">Unit</th>
-                <th className="py-1 text-right text-xs uppercase text-gray-500 font-medium w-20">Rate</th>
-                <th className="py-1 text-right text-xs uppercase text-gray-500 font-medium w-24">Amount</th>
-                <th className="py-1 w-8 no-print"></th>
+                <th className="py-2 text-left text-xs uppercase text-gray-500 font-medium w-20">Category</th>
+                <th className="py-2 text-left text-xs uppercase text-gray-500 font-medium">Description</th>
+                <th className="py-2 text-right text-xs uppercase text-gray-500 font-medium w-16">Qty</th>
+                <th className="py-2 text-center text-xs uppercase text-gray-500 font-medium w-16">Unit</th>
+                <th className="py-2 text-right text-xs uppercase text-gray-500 font-medium w-20">Rate</th>
+                <th className="py-2 text-right text-xs uppercase text-gray-500 font-medium w-24">Amount</th>
+                <th className="py-2 w-8 no-print"></th>
               </tr>
             </thead>
             <tbody id="itemsContainer">
               {invoiceData.items.map((item) => (
                 <tr key={item.id} className="border-b border-subtle invoice-item">
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={item.category}
                       onChange={(value) => updateItem(item.id, "category", value)}
@@ -459,7 +459,7 @@ export default function ConstructionTemplate() {
                       placeholder="Category"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={item.description}
                       onChange={(value) => updateItem(item.id, "description", value)}
@@ -467,7 +467,7 @@ export default function ConstructionTemplate() {
                       placeholder="Item description"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={String(item.quantity)}
                       onChange={(value) => updateItem(item.id, "quantity", parseFloat(value) || 0)}
@@ -475,7 +475,7 @@ export default function ConstructionTemplate() {
                       placeholder="0"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <ContentEditable
                       value={item.unit}
                       onChange={(value) => updateItem(item.id, "unit", value)}
@@ -483,7 +483,7 @@ export default function ConstructionTemplate() {
                       placeholder="unit"
                     />
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <div className="flex items-center justify-end">
                       <span className="mr-0.5 text-xs">$</span>
                       <ContentEditable
@@ -494,7 +494,7 @@ export default function ConstructionTemplate() {
                       />
                     </div>
                   </td>
-                  <td className="py-1">
+                  <td className="py-2">
                     <div className="flex items-center justify-end">
                       <span className="mr-0.5 text-xs">$</span>
                       <div className="text-right text-sm">
@@ -502,7 +502,7 @@ export default function ConstructionTemplate() {
                       </div>
                     </div>
                   </td>
-                  <td className="py-1 text-center hidden-on-print no-print print-hide" style={{display: 'none !important'}}>
+                  <td className="py-2 text-center hidden-on-print no-print print-hide" style={{display: 'none !important'}}>
                     <button
                       className="text-gray-400 hover:text-red-500 delete-button print-hide"
                       onClick={() => handleDeleteItem(item.id)}
@@ -519,7 +519,7 @@ export default function ConstructionTemplate() {
           </table>
 
           {/* Add Item Button */}
-          <div className="py-1 hidden-on-print add-item-button">
+          <div className="py-2 hidden-on-print add-item-button">
             <Button
               variant="ghost"
               onClick={handleAddItem}
@@ -546,7 +546,7 @@ export default function ConstructionTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-0.5 text-sm">
+              <div className="flex justify-between py-1 text-sm">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-1">Discount</span>
                   <ContentEditable
@@ -562,7 +562,7 @@ export default function ConstructionTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-0.5 text-sm border-b border-subtle">
+              <div className="flex justify-between py-1 pb-2 text-sm border-b border-subtle">
                 <div className="flex items-center">
                   <span className="text-gray-600 mr-1">Tax</span>
                   <ContentEditable
@@ -578,7 +578,7 @@ export default function ConstructionTemplate() {
                 </div>
               </div>
 
-              <div className="flex justify-between py-1 font-semibold">
+              <div className="flex justify-between py-2 font-semibold">
                 <span>Total:</span>
                 <div className="flex items-center text-primary">
                   <span className="mr-0.5">$</span>
