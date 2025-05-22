@@ -145,46 +145,7 @@ export default function RetailTemplate() {
     return calculateSubtotal() - calculateDiscountAmount() + calculateTaxAmount();
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
-  const handleDownloadPdf = () => {
-    // Hide elements that shouldn't appear in PDF
-    const addItemButton = document.querySelector(".add-item-button");
-    const dueDateOptional = document.querySelector(".due-date-optional-field");
-    
-    if (addItemButton) {
-      addItemButton.classList.add("force-hide");
-    }
-    
-    if (dueDateOptional) {
-      dueDateOptional.classList.add("force-hide");
-    }
-    
-    // Get invoice container
-    const element = document.querySelector(".invoice-container") as HTMLElement;
-    if (!element) return;
-    
-    const opt = {
-      margin: 10,
-      filename: `${invoiceData.document.number}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
-    };
-
-    // Generate PDF
-    html2pdf().set(opt).from(element).save().then(() => {
-      // Restore visibility
-      if (addItemButton) {
-        addItemButton.classList.remove("force-hide");
-      }
-      if (dueDateOptional) {
-        dueDateOptional.classList.remove("force-hide");
-      }
-    });
-  };
+  // Print/Download functionality now handled by PrintDownloadButtons component
 
   const updateInvoiceData = (
     section: keyof RetailInvoiceData,
@@ -252,19 +213,12 @@ export default function RetailTemplate() {
             <p className="text-sm text-gray-600 mt-1">Perfect for retail businesses, shops, and stores</p>
           </div>
         </div>
-        <div className="flex gap-3">
-          <Button
-            onClick={handlePrint}
-            className="bg-primary text-white hover:bg-secondary"
-          >
-            <Printer className="mr-2 h-4 w-4" /> Print Invoice
-          </Button>
-          <Button
-            onClick={handleDownloadPdf}
-            className="bg-accent text-text hover:bg-accent/90"
-          >
-            <FileDown className="mr-2 h-4 w-4" /> Download PDF
-          </Button>
+        <div>
+          <PrintDownloadButtons 
+            invoiceData={invoiceData}
+            invoiceContainerSelector=".invoice-container"
+            logoUrl={invoiceData.business.logoUrl}
+          />
         </div>
       </div>
 
@@ -272,25 +226,33 @@ export default function RetailTemplate() {
       <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden">
         <div className="px-6 py-4 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="mb-2 md:mb-0">
-              <ContentEditable
-                value={invoiceData.business.name}
-                onChange={(value) => updateInvoiceData("business", "name", value)}
-                className="text-2xl font-semibold text-primary"
-                placeholder="Your Store Name"
+            <div className="flex gap-3 mb-2 md:mb-0">
+              {/* Logo Uploader */}
+              <LogoUploader 
+                logoUrl={invoiceData.business.logoUrl}
+                onLogoChange={handleLogoChange}
               />
-              <ContentEditable
-                value={invoiceData.business.tagline}
-                onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                className="text-sm text-gray-600 mt-1"
-                placeholder="Store Tagline"
-              />
-              <ContentEditable
-                value={invoiceData.business.storeLocation}
-                onChange={(value) => updateInvoiceData("business", "storeLocation", value)}
-                className="text-sm text-gray-600 mt-1"
-                placeholder="Store Location"
-              />
+              
+              <div>
+                <ContentEditable
+                  value={invoiceData.business.name}
+                  onChange={(value) => updateInvoiceData("business", "name", value)}
+                  className="text-2xl font-semibold text-primary"
+                  placeholder="Your Store Name"
+                />
+                <ContentEditable
+                  value={invoiceData.business.tagline}
+                  onChange={(value) => updateInvoiceData("business", "tagline", value)}
+                  className="text-sm text-gray-600 mt-1"
+                  placeholder="Store Tagline"
+                />
+                <ContentEditable
+                  value={invoiceData.business.storeLocation}
+                  onChange={(value) => updateInvoiceData("business", "storeLocation", value)}
+                  className="text-sm text-gray-600 mt-1"
+                  placeholder="Store Location"
+                />
+              </div>
             </div>
             <div className="text-right">
               <ContentEditable
@@ -484,12 +446,12 @@ export default function RetailTemplate() {
                       </div>
                     </div>
                   </td>
-                  <td className="py-2 text-center no-print">
+                  <td className="py-2 text-center no-print hidden-on-print">
                     <button
-                      className="text-gray-400 hover:text-red-500"
+                      className="text-gray-400 hover:text-red-500 no-print hidden-on-print"
                       onClick={() => handleDeleteItem(item.id)}
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 no-print hidden-on-print" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
                     </button>
