@@ -3,6 +3,8 @@ import InvoiceGenerator from "@/components/InvoiceGenerator";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NotFound from "@/pages/not-found";
+import PrivacyPolicy from "@/pages/privacy";
+import TermsOfService from "@/pages/terms";
 import { WrapWithTip, TIPS } from "@/components/TipsContainer";
 
 // Import templates
@@ -190,6 +192,8 @@ function App() {
         <Route path="/templates/event" component={EventTemplate} />
         <Route path="/templates/photography" component={PhotographyTemplate} />
         <Route path="/about" component={AboutPage} />
+        <Route path="/privacy" component={PrivacyPolicy} />
+        <Route path="/terms" component={TermsOfService} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
