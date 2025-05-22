@@ -522,17 +522,26 @@ input[type="number"]::-webkit-outer-spin-button {
     orphans: 3;
   }
   
-  /* Fine-tune page break control for tables */
-  tr, td {
-    page-break-inside: avoid;
-    break-inside: avoid;
+  /* Better page break controls for tables */
+  table { 
+    page-break-inside: auto !important; 
+  }
+  
+  tr { 
+    page-break-inside: avoid !important; 
+    page-break-after: auto !important;
   }
   
   /* Handle long words and text properly */
-  td, div, span {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
+  td, div, span, p {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+  }
+  
+  /* Add small bottom margin to ensure text doesn't touch page edge */
+  .invoice-item {
+    margin-bottom: 2mm !important;
   }
   
   .no-print, 
