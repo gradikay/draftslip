@@ -18,35 +18,50 @@ const ContentEditable = ({
   multiline = false,
 }: ContentEditableProps) => {
   const [currentValue, setCurrentValue] = useState(value);
+  const [isEmpty, setIsEmpty] = useState(!value);
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setCurrentValue(value);
+    setIsEmpty(!value);
   }, [value]);
 
   useEffect(() => {
     if (divRef.current) {
-      divRef.current.textContent = currentValue || "";
+      // Only set textContent when not empty to prevent placeholder from being treated as content
+      if (!isEmpty) {
+        divRef.current.textContent = currentValue;
+      }
     }
-  }, [currentValue]);
+  }, [currentValue, isEmpty]);
 
   const handleInput = () => {
     if (divRef.current) {
       const newValue = divRef.current.textContent || "";
+      const newIsEmpty = !newValue.trim();
       setCurrentValue(newValue);
+      setIsEmpty(newIsEmpty);
       onChange(newValue);
     }
   };
 
   const handleBlur = () => {
-    if (!currentValue.trim() && placeholder) {
-      setCurrentValue("");
+    if (divRef.current) {
+      const newValue = divRef.current.textContent || "";
+      const newIsEmpty = !newValue.trim();
+      setIsEmpty(newIsEmpty);
+      
+      // Clear the content if empty so placeholder can show
+      if (newIsEmpty && divRef.current) {
+        divRef.current.textContent = "";
+      }
     }
   };
 
   const handleFocus = () => {
-    if (currentValue === placeholder) {
-      setCurrentValue("");
+    // If currently showing placeholder, clear it when focused
+    if (isEmpty && divRef.current) {
+      divRef.current.textContent = "";
     }
   };
 
@@ -65,9 +80,9 @@ const ContentEditable = ({
       onBlur={handleBlur}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
-      className={className}
+      className={`${className} ${isEmpty ? "empty-content" : ""}`}
       id={id}
-      dangerouslySetInnerHTML={{ __html: currentValue || placeholder }}
+      data-placeholder={placeholder}
       style={{ 
         minHeight: "1em", 
         whiteSpace: multiline ? "pre-wrap" : "normal",
