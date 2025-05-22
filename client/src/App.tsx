@@ -11,6 +11,9 @@ import RetailTemplate from "@/components/templates/RetailTemplate";
 import AgencyTemplate from "@/components/templates/AgencyTemplate";
 import ConstructionTemplate from "@/components/templates/ConstructionTemplate";
 import MedicalTemplate from "@/components/templates/MedicalTemplate";
+import LegalTemplate from "@/components/templates/LegalTemplate";
+import EventTemplate from "@/components/templates/EventTemplate";
+import PhotographyTemplate from "@/components/templates/PhotographyTemplate";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -74,6 +77,27 @@ function TemplatesPage() {
           title="Medical & Healthcare" 
           description="For healthcare providers with patient details, insurance, and procedure codes."
           href="/templates/medical"
+          color="accent"
+        />
+        
+        <TemplateCard 
+          title="Legal Services" 
+          description="For attorneys and legal professionals with matter details and billing time entries."
+          href="/templates/legal"
+          color="primary"
+        />
+        
+        <TemplateCard 
+          title="Event Planning" 
+          description="For event planners with venue, catering, and entertainment service details."
+          href="/templates/event"
+          color="secondary"
+        />
+        
+        <TemplateCard 
+          title="Photography/Videography" 
+          description="For photographers with session details, deliverables, and usage rights."
+          href="/templates/photography"
           color="accent"
         />
       </div>
@@ -159,6 +183,9 @@ function App() {
         <Route path="/templates/agency" component={AgencyTemplate} />
         <Route path="/templates/construction" component={ConstructionTemplate} />
         <Route path="/templates/medical" component={MedicalTemplate} />
+        <Route path="/templates/legal" component={LegalTemplate} />
+        <Route path="/templates/event" component={EventTemplate} />
+        <Route path="/templates/photography" component={PhotographyTemplate} />
         <Route path="/about" component={AboutPage} />
         <Route component={NotFound} />
       </Switch>
