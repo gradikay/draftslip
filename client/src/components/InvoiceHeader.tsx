@@ -34,6 +34,7 @@ const InvoiceHeader = ({ business, documentTitle, onUpdate }: InvoiceHeaderProps
             onChange={(value) => onUpdate("document", "title", value)}
             className="text-2xl font-semibold text-secondary"
             placeholder="INVOICE"
+            id="documentTitle"
           />
         </div>
       </div>
