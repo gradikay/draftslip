@@ -25,10 +25,10 @@ const InvoiceDetails = ({
   onUpdate,
 }: InvoiceDetailsProps) => {
   return (
-    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="px-6 py-3 grid grid-cols-1 md:grid-cols-2 gap-4">
       {/* Left Column - From Details */}
       <div>
-        <h3 className="text-sm uppercase text-gray-500 font-medium mb-3">From</h3>
+        <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">From</h3>
         <ContentEditable
           value={sender.name}
           onChange={(value) => onUpdate("sender", "name", value)}
@@ -53,9 +53,9 @@ const InvoiceDetails = ({
 
       {/* Right Column - To Details */}
       <div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-2 gap-4 mb-3">
           <div>
-            <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Invoice Number</h3>
+            <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Invoice Number</h3>
             <ContentEditable
               value={document.number}
               onChange={(value) => onUpdate("document", "number", value)}
@@ -64,7 +64,7 @@ const InvoiceDetails = ({
             />
           </div>
           <div>
-            <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Date</h3>
+            <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Date</h3>
             <ContentEditable
               value={document.date}
               onChange={(value) => onUpdate("document", "date", value)}
@@ -74,7 +74,7 @@ const InvoiceDetails = ({
           </div>
         </div>
 
-        <h3 className="text-sm uppercase text-gray-500 font-medium mb-3">Bill To</h3>
+        <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Bill To</h3>
         <ContentEditable
           value={client.name}
           onChange={(value) => onUpdate("client", "name", value)}

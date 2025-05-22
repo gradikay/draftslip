@@ -11,9 +11,9 @@ interface InvoiceHeaderProps {
 
 const InvoiceHeader = ({ business, documentTitle, onUpdate }: InvoiceHeaderProps) => {
   return (
-    <div className="p-6 border-b border-subtle">
+    <div className="px-6 py-4 border-b border-subtle">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-        <div className="mb-4 md:mb-0">
+        <div className="mb-2 md:mb-0">
           {/* Company Logo/Name Area */}
           <ContentEditable
             value={business.name}

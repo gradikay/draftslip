@@ -58,20 +58,20 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
 
   return (
     <div className="px-6">
-      <table className="w-full mt-6" id="invoiceItems">
+      <table className="w-full mt-3" id="invoiceItems">
         <thead>
           <tr className="border-b border-subtle">
-            <th className="py-3 text-left text-sm uppercase text-gray-500 font-medium">Description</th>
-            <th className="py-3 text-right text-sm uppercase text-gray-500 font-medium w-24">Quantity</th>
-            <th className="py-3 text-right text-sm uppercase text-gray-500 font-medium w-32">Rate</th>
-            <th className="py-3 text-right text-sm uppercase text-gray-500 font-medium w-32">Amount</th>
-            <th className="py-3 w-10 no-print"></th>
+            <th className="py-2 text-left text-sm uppercase text-gray-500 font-medium">Description</th>
+            <th className="py-2 text-right text-sm uppercase text-gray-500 font-medium w-24">Quantity</th>
+            <th className="py-2 text-right text-sm uppercase text-gray-500 font-medium w-32">Rate</th>
+            <th className="py-2 text-right text-sm uppercase text-gray-500 font-medium w-32">Amount</th>
+            <th className="py-2 w-10 no-print"></th>
           </tr>
         </thead>
         <tbody id="itemsContainer">
           {items.map((item) => (
             <tr key={item.id} className="border-b border-subtle invoice-item">
-              <td className="py-4">
+              <td className="py-2">
                 <ContentEditable
                   value={item.description}
                   onChange={(value) => updateItem(item.id, "description", value)}
@@ -79,7 +79,7 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
                   placeholder="Item description"
                 />
               </td>
-              <td className="py-4">
+              <td className="py-2">
                 <ContentEditable
                   value={String(item.quantity)}
                   onChange={(value) => updateItem(item.id, "quantity", parseFloat(value) || 0)}
@@ -87,7 +87,7 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
                   placeholder="1"
                 />
               </td>
-              <td className="py-4">
+              <td className="py-2">
                 <div className="flex items-center justify-end">
                   <span className="mr-1">$</span>
                   <ContentEditable
@@ -98,7 +98,7 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
                   />
                 </div>
               </td>
-              <td className="py-4">
+              <td className="py-2">
                 <div className="flex items-center justify-end">
                   <span className="mr-1">$</span>
                   <div className="amount text-right">
@@ -106,7 +106,7 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
                   </div>
                 </div>
               </td>
-              <td className="py-4 text-center no-print">
+              <td className="py-2 text-center no-print">
                 <button
                   className="text-gray-400 hover:text-red-500"
                   onClick={() => handleDeleteItem(item.id)}
@@ -120,7 +120,7 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
       </table>
 
       {/* Add Item Button */}
-      <div className="py-4 no-print">
+      <div className="py-2 no-print">
         <Button
           variant="ghost"
           onClick={handleAddItem}
