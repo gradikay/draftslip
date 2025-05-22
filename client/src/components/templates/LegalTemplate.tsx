@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Printer, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContentEditable from "../ContentEditable";
 import WatercolorLogo from "../WatercolorLogo";
-import html2pdf from "html2pdf.js";
 import { formatCurrency } from "@/lib/utils/formatters";
+import LogoUploader from "../LogoUploader";
+import PrintDownloadButtons from "../PrintDownloadButtons";
 
 type InvoiceItem = {
   id: string;
@@ -20,6 +20,7 @@ type LegalInvoiceData = {
     name: string;
     tagline: string;
     barNumber: string;
+    logoUrl?: string;
   };
   document: {
     title: string;
@@ -52,11 +53,17 @@ type LegalInvoiceData = {
 };
 
 export default function LegalTemplate() {
+  // Handle logo change
+  const handleLogoChange = (logoUrl: string) => {
+    updateInvoiceData("business", "logoUrl", logoUrl);
+  };
+  
   const [invoiceData, setInvoiceData] = useState<LegalInvoiceData>({
     business: {
       name: "Legal Partners & Associates",
       tagline: "Trusted Legal Counsel",
       barNumber: "Bar #: 12345-AB",
+      logoUrl: "",
     },
     document: {
       title: "LEGAL SERVICES INVOICE",
@@ -138,46 +145,7 @@ export default function LegalTemplate() {
     return calculateSubtotal() - calculateDiscountAmount() + calculateTaxAmount();
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
-  const handleDownloadPdf = () => {
-    // Hide elements that shouldn't appear in PDF
-    const addItemButton = document.querySelector(".add-item-button");
-    const dueDateOptional = document.querySelector(".due-date-optional-field");
-    
-    if (addItemButton) {
-      addItemButton.classList.add("force-hide");
-    }
-    
-    if (dueDateOptional) {
-      dueDateOptional.classList.add("force-hide");
-    }
-    
-    // Get invoice container
-    const element = document.querySelector(".invoice-container") as HTMLElement;
-    if (!element) return;
-    
-    const opt = {
-      margin: 10,
-      filename: `${invoiceData.document.number}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
-    };
-
-    // Generate PDF
-    html2pdf().set(opt).from(element).save().then(() => {
-      // Restore visibility
-      if (addItemButton) {
-        addItemButton.classList.remove("force-hide");
-      }
-      if (dueDateOptional) {
-        dueDateOptional.classList.remove("force-hide");
-      }
-    });
-  };
+  // Print/Download functionality now handled by PrintDownloadButtons component
 
   const updateInvoiceData = (
     section: keyof LegalInvoiceData,
@@ -245,21 +213,12 @@ export default function LegalTemplate() {
             <p className="text-xs text-gray-600">For attorneys and legal professionals</p>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button
-            onClick={handlePrint}
-            className="bg-primary text-white hover:bg-secondary"
-            size="sm"
-          >
-            <Printer className="mr-1 h-3 w-3" /> Print
-          </Button>
-          <Button
-            onClick={handleDownloadPdf}
-            className="bg-accent text-text hover:bg-accent/90"
-            size="sm"
-          >
-            <FileDown className="mr-1 h-3 w-3" /> PDF
-          </Button>
+        <div>
+          <PrintDownloadButtons 
+            invoiceData={invoiceData}
+            invoiceContainerSelector=".invoice-container"
+            logoUrl={invoiceData.business.logoUrl}
+          />
         </div>
       </div>
 
@@ -268,25 +227,33 @@ export default function LegalTemplate() {
         {/* Header */}
         <div className="px-6 py-3 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="mb-1 md:mb-0">
-              <ContentEditable
-                value={invoiceData.business.name}
-                onChange={(value) => updateInvoiceData("business", "name", value)}
-                className="text-xl font-semibold text-primary"
-                placeholder="Law Firm Name"
+            <div className="flex gap-3 mb-1 md:mb-0">
+              {/* Logo Uploader */}
+              <LogoUploader 
+                logoUrl={invoiceData.business.logoUrl}
+                onLogoChange={handleLogoChange}
               />
-              <ContentEditable
-                value={invoiceData.business.tagline}
-                onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                className="text-xs text-gray-600"
-                placeholder="Firm Tagline"
-              />
-              <ContentEditable
-                value={invoiceData.business.barNumber}
-                onChange={(value) => updateInvoiceData("business", "barNumber", value)}
-                className="text-xs text-gray-600"
-                placeholder="Bar Number"
-              />
+              
+              <div>
+                <ContentEditable
+                  value={invoiceData.business.name}
+                  onChange={(value) => updateInvoiceData("business", "name", value)}
+                  className="text-xl font-semibold text-primary"
+                  placeholder="Law Firm Name"
+                />
+                <ContentEditable
+                  value={invoiceData.business.tagline}
+                  onChange={(value) => updateInvoiceData("business", "tagline", value)}
+                  className="text-xs text-gray-600"
+                  placeholder="Firm Tagline"
+                />
+                <ContentEditable
+                  value={invoiceData.business.barNumber}
+                  onChange={(value) => updateInvoiceData("business", "barNumber", value)}
+                  className="text-xs text-gray-600"
+                  placeholder="Bar Number"
+                />
+              </div>
             </div>
             <div className="text-right">
               <ContentEditable
