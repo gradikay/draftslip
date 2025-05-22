@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Print rules to hide delete buttons and other UI elements when printing/PDF */
+@media print {
+  .hidden-on-print,
+  .delete-button,
+  .no-print {
+    display: none !important;
+  }
+}
+
 :root {
   --background: 0 0% 98%;
   --foreground: 220 14% 20%;
