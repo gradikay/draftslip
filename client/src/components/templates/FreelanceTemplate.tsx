@@ -400,9 +400,9 @@ export default function FreelanceTemplate() {
                       </div>
                     </div>
                   </td>
-                  <td className="py-2 text-center no-print">
+                  <td className="py-2 text-center hidden-on-print">
                     <button
-                      className="text-gray-400 hover:text-red-500"
+                      className="text-gray-400 hover:text-red-500 delete-button"
                       onClick={() => handleDeleteItem(item.id)}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
