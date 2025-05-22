@@ -218,10 +218,10 @@ export default function RetailTemplate() {
       </div>
 
       {/* Retail Invoice Container */}
-      <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden">
-        <div className="px-6 py-4 border-b border-subtle">
+      <div className="invoice-container bg-paper rounded shadow-md mb-6 overflow-hidden">
+        <div className="px-6 py-3 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="flex gap-3 mb-2 md:mb-0">
+            <div className="flex gap-3 mb-1 md:mb-0">
               {/* Logo Uploader */}
               <LogoUploader 
                 logoUrl={invoiceData.business.logoUrl} 
@@ -232,19 +232,19 @@ export default function RetailTemplate() {
                 <ContentEditable
                   value={invoiceData.business.name}
                   onChange={(value) => updateInvoiceData("business", "name", value)}
-                  className="text-2xl font-semibold text-primary"
+                  className="text-xl font-semibold text-primary"
                   placeholder="Your Store Name"
                 />
                 <ContentEditable
                   value={invoiceData.business.tagline}
                   onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                  className="text-sm text-gray-600 mt-1"
+                  className="text-sm text-gray-600"
                   placeholder="Store Tagline"
                 />
                 <ContentEditable
                   value={invoiceData.business.storeLocation}
                   onChange={(value) => updateInvoiceData("business", "storeLocation", value)}
-                  className="text-sm text-gray-600 mt-1"
+                  className="text-sm text-gray-600"
                   placeholder="Store Location"
                 />
               </div>
@@ -253,7 +253,7 @@ export default function RetailTemplate() {
               <ContentEditable
                 value={invoiceData.document.title}
                 onChange={(value) => updateInvoiceData("document", "title", value)}
-                className="text-2xl font-semibold text-secondary"
+                className="text-xl font-semibold text-secondary"
                 placeholder="RETAIL INVOICE"
               />
             </div>
@@ -311,13 +311,41 @@ export default function RetailTemplate() {
                 />
               </div>
               <div>
-                <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Date</h3>
-                <ContentEditable
-                  value={invoiceData.document.date}
-                  onChange={(value) => updateInvoiceData("document", "date", value)}
-                  className="font-medium"
-                  placeholder="January 1, 2023"
-                />
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Date</h3>
+                    <ContentEditable
+                      value={invoiceData.document.date}
+                      onChange={(value) => updateInvoiceData("document", "date", value)}
+                      className="font-medium"
+                      placeholder="January 1, 2023"
+                    />
+                  </div>
+                  
+                  <div>
+                    {invoiceData.document.dueDate ? (
+                      <>
+                        <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Due Date</h3>
+                        <ContentEditable
+                          value={invoiceData.document.dueDate}
+                          onChange={(value) => updateInvoiceData("document", "dueDate", value)}
+                          className="font-medium"
+                          placeholder="January 15, 2023"
+                        />
+                      </>
+                    ) : (
+                      <div className="no-print hidden-on-print due-date-optional-field" style={{display: 'block'}}>
+                        <h3 className="text-sm uppercase text-gray-500 font-medium mb-1 no-print hidden-on-print">Due Date (Optional)</h3>
+                        <ContentEditable
+                          value={invoiceData.document.dueDate}
+                          onChange={(value) => updateInvoiceData("document", "dueDate", value)}
+                          className="font-medium no-print hidden-on-print"
+                          placeholder="January 15, 2023"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
                 
                 <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1">Order #</h3>
                 <ContentEditable
@@ -326,29 +354,6 @@ export default function RetailTemplate() {
                   className="font-medium"
                   placeholder="Order Number"
                 />
-                
-                {invoiceData.document.dueDate && (
-                  <>
-                    <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1">Due Date</h3>
-                    <ContentEditable
-                      value={invoiceData.document.dueDate}
-                      onChange={(value) => updateInvoiceData("document", "dueDate", value)}
-                      className="font-medium"
-                      placeholder="January 15, 2023"
-                    />
-                  </>
-                )}
-                {!invoiceData.document.dueDate && (
-                  <div className="no-print hidden-on-print due-date-optional-field" style={{display: 'block'}}>
-                    <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1 no-print hidden-on-print">Due Date (Optional)</h3>
-                    <ContentEditable
-                      value={invoiceData.document.dueDate}
-                      onChange={(value) => updateInvoiceData("document", "dueDate", value)}
-                      className="font-medium no-print hidden-on-print"
-                      placeholder="January 15, 2023"
-                    />
-                  </div>
-                )}
               </div>
             </div>
 
