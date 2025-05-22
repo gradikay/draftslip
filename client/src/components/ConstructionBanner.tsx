@@ -1,14 +1,18 @@
 import { AlertTriangle } from "lucide-react";
 
 export default function ConstructionBanner() {
+  const message = "⚠️ This site is still under construction. Please use it as an experimental website only. ⚠️";
+  
   return (
-    <div className="construction-banner w-full py-3 text-center">
-      <div className="flex items-center justify-center gap-2">
-        <AlertTriangle className="h-5 w-5 text-amber-900" />
-        <p className="font-medium">
-          This site is still under construction. Please use it as an experimental website only.
-        </p>
-        <AlertTriangle className="h-5 w-5 text-amber-900" />
+    <div className="construction-banner w-full py-3 overflow-hidden">
+      <div className="marquee-container">
+        <div className="marquee-content">
+          <span className="font-medium text-lg">{message}</span>
+          <span className="mx-16"></span>
+          <span className="font-medium text-lg">{message}</span>
+          <span className="mx-16"></span>
+          <span className="font-medium text-lg">{message}</span>
+        </div>
       </div>
     </div>
   );
