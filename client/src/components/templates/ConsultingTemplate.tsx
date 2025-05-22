@@ -217,7 +217,7 @@ export default function ConsultingTemplate() {
       </div>
 
       {/* Consulting Invoice Container */}
-      <div className="invoice-container bg-paper rounded shadow-md mb-6 overflow-hidden">
+      <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden">
         <div className="px-6 py-3 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
             <div className="flex gap-3 mb-1 md:mb-0">
@@ -231,25 +231,25 @@ export default function ConsultingTemplate() {
                 <ContentEditable
                   value={invoiceData.business.name}
                   onChange={(value) => updateInvoiceData("business", "name", value)}
-                  className="text-xl font-semibold text-primary"
+                  className="text-2xl font-semibold text-primary"
                   placeholder="Your Consulting Business Name"
                 />
                 <ContentEditable
                   value={invoiceData.business.tagline}
                   onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                  className="text-sm text-gray-600"
+                  className="text-sm text-gray-600 mt-1"
                   placeholder="Your Consulting Focus"
                 />
                 <ContentEditable
                   value={invoiceData.business.expertise}
                   onChange={(value) => updateInvoiceData("business", "expertise", value)}
-                  className="text-sm text-gray-600"
+                  className="text-sm text-gray-600 mt-1"
                   placeholder="Areas of Expertise"
                 />
                 <ContentEditable
                   value={invoiceData.business.registrationNumber}
                   onChange={(value) => updateInvoiceData("business", "registrationNumber", value)}
-                  className="text-xs text-gray-500"
+                  className="text-xs text-gray-500 mt-1"
                   placeholder="Business Registration Number"
                 />
               </div>
@@ -258,7 +258,7 @@ export default function ConsultingTemplate() {
               <ContentEditable
                 value={invoiceData.document.title}
                 onChange={(value) => updateInvoiceData("document", "title", value)}
-                className="text-xl font-semibold text-secondary"
+                className="text-2xl font-semibold text-secondary"
                 placeholder="CONSULTING INVOICE"
               />
             </div>
@@ -310,41 +310,13 @@ export default function ConsultingTemplate() {
                 />
               </div>
               <div>
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Date</h3>
-                    <ContentEditable
-                      value={invoiceData.document.date}
-                      onChange={(value) => updateInvoiceData("document", "date", value)}
-                      className="font-medium"
-                      placeholder="January 1, 2023"
-                    />
-                  </div>
-                  
-                  <div>
-                    {invoiceData.document.dueDate ? (
-                      <>
-                        <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Due Date</h3>
-                        <ContentEditable
-                          value={invoiceData.document.dueDate}
-                          onChange={(value) => updateInvoiceData("document", "dueDate", value)}
-                          className="font-medium"
-                          placeholder="January 31, 2023"
-                        />
-                      </>
-                    ) : (
-                      <div className="no-print hidden-on-print due-date-optional-field" style={{display: 'block'}}>
-                        <h3 className="text-sm uppercase text-gray-500 font-medium mb-1 no-print hidden-on-print">Due Date (Optional)</h3>
-                        <ContentEditable
-                          value={invoiceData.document.dueDate}
-                          onChange={(value) => updateInvoiceData("document", "dueDate", value)}
-                          className="font-medium no-print hidden-on-print"
-                          placeholder="January 31, 2023"
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Date</h3>
+                <ContentEditable
+                  value={invoiceData.document.date}
+                  onChange={(value) => updateInvoiceData("document", "date", value)}
+                  className="font-medium"
+                  placeholder="January 1, 2023"
+                />
                 
                 <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1">Terms</h3>
                 <ContentEditable
@@ -353,6 +325,29 @@ export default function ConsultingTemplate() {
                   className="font-medium"
                   placeholder="Net 30"
                 />
+                
+                {invoiceData.document.dueDate && (
+                  <>
+                    <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1">Due Date</h3>
+                    <ContentEditable
+                      value={invoiceData.document.dueDate}
+                      onChange={(value) => updateInvoiceData("document", "dueDate", value)}
+                      className="font-medium"
+                      placeholder="January 31, 2023"
+                    />
+                  </>
+                )}
+                {!invoiceData.document.dueDate && (
+                  <div className="no-print hidden-on-print due-date-optional-field" style={{display: 'block'}}>
+                    <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1 no-print hidden-on-print">Due Date (Optional)</h3>
+                    <ContentEditable
+                      value={invoiceData.document.dueDate}
+                      onChange={(value) => updateInvoiceData("document", "dueDate", value)}
+                      className="font-medium no-print hidden-on-print"
+                      placeholder="January 31, 2023"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
