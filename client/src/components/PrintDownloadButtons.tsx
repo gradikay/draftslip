@@ -20,7 +20,7 @@ export default function PrintDownloadButtons({
     // Elements to hide during PDF generation
     const addItemButton = document.querySelector(".add-item-button");
     const dueDateOptional = document.querySelector(".due-date-optional-field");
-    const deleteButtons = document.querySelectorAll(".delete-item-button");
+    const deleteButtons = document.querySelectorAll(".delete-item-button, .delete-button, [class*='delete'], button[class*='text-gray-400'], td.hidden-on-print button, td.no-print button");
     const emptyLogoBox = !logoUrl ? document.querySelector(".logo-upload-area") : null;
     const fileInputs = document.querySelectorAll("input[type='file']");
     
