@@ -25,7 +25,9 @@ export type InvoiceData = {
     title: string;
     number: string;
     date: string;
+    dueDate: string;
     taxRate: number;
+    discountRate: number;
     notes: string;
   };
   sender: {
@@ -51,7 +53,9 @@ const InvoiceGenerator = () => {
       title: "INVOICE",
       number: "INV-2023-042",
       date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+      dueDate: "",
       taxRate: 7.5,
+      discountRate: 0,
       notes: "Thank you for your business. Payment is due within 30 days of invoice date.",
     },
     sender: {
@@ -79,12 +83,17 @@ const InvoiceGenerator = () => {
     return invoiceData.items.reduce((sum, item) => sum + item.amount, 0);
   };
 
+  const calculateDiscountAmount = () => {
+    return calculateSubtotal() * (invoiceData.document.discountRate / 100);
+  };
+
   const calculateTaxAmount = () => {
-    return calculateSubtotal() * (invoiceData.document.taxRate / 100);
+    const subtotalAfterDiscount = calculateSubtotal() - calculateDiscountAmount();
+    return subtotalAfterDiscount * (invoiceData.document.taxRate / 100);
   };
 
   const calculateTotal = () => {
-    return calculateSubtotal() + calculateTaxAmount();
+    return calculateSubtotal() - calculateDiscountAmount() + calculateTaxAmount();
   };
 
   const handlePrint = () => {
@@ -93,12 +102,14 @@ const InvoiceGenerator = () => {
 
   const handleDownloadPdf = () => {
     const element = document.querySelector(".invoice-container");
+    if (!element) return;
+    
     const opt = {
       margin: 10,
       filename: `${invoiceData.document.number}.pdf`,
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
     };
 
     html2pdf().set(opt).from(element).save();
@@ -166,6 +177,7 @@ const InvoiceGenerator = () => {
           document={{
             number: invoiceData.document.number,
             date: invoiceData.document.date,
+            dueDate: invoiceData.document.dueDate,
           }}
           onUpdate={updateInvoiceData}
         />
@@ -179,10 +191,15 @@ const InvoiceGenerator = () => {
           subtotal={calculateSubtotal()}
           taxRate={invoiceData.document.taxRate}
           taxAmount={calculateTaxAmount()}
+          discountRate={invoiceData.document.discountRate}
+          discountAmount={calculateDiscountAmount()}
           total={calculateTotal()}
           notes={invoiceData.document.notes}
           onUpdateTaxRate={(value) =>
             updateInvoiceData("document", "taxRate", value)
+          }
+          onUpdateDiscountRate={(value) =>
+            updateInvoiceData("document", "discountRate", value)
           }
           onUpdateNotes={(value) =>
             updateInvoiceData("document", "notes", value)

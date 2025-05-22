@@ -5,9 +5,12 @@ interface InvoiceSummaryProps {
   subtotal: number;
   taxRate: number;
   taxAmount: number;
+  discountRate: number;
+  discountAmount: number;
   total: number;
   notes: string;
   onUpdateTaxRate: (taxRate: number) => void;
+  onUpdateDiscountRate: (discountRate: number) => void;
   onUpdateNotes: (notes: string) => void;
 }
 
@@ -15,9 +18,12 @@ const InvoiceSummary = ({
   subtotal,
   taxRate,
   taxAmount,
+  discountRate,
+  discountAmount,
   total,
   notes,
   onUpdateTaxRate,
+  onUpdateDiscountRate,
   onUpdateNotes,
 }: InvoiceSummaryProps) => {
   return (
@@ -30,6 +36,23 @@ const InvoiceSummary = ({
               <div className="flex items-center">
                 <span className="mr-1">$</span>
                 <span id="subtotal">{formatCurrency(subtotal)}</span>
+              </div>
+            </div>
+
+            <div className="flex justify-between py-1">
+              <div className="flex items-center">
+                <span className="text-gray-600 mr-2">Discount</span>
+                <ContentEditable
+                  value={String(discountRate)}
+                  onChange={(value) => onUpdateDiscountRate(parseFloat(value) || 0)}
+                  className="w-12 inline-block text-center"
+                  id="discountRate"
+                />
+                <span className="text-gray-600">%:</span>
+              </div>
+              <div className="flex items-center text-red-500">
+                <span className="mr-1">-$</span>
+                <span id="discountAmount">{formatCurrency(discountAmount)}</span>
               </div>
             </div>
 
