@@ -52,13 +52,16 @@ const LogoUploader = ({ logoUrl, onLogoChange, className = "" }: LogoUploaderPro
           onMouseLeave={() => setLogoHover(false)}
         >
           <div className="company-logo-wrapper" style={{
-              display: 'inline-block',
+              display: 'inline-flex',
+              alignItems: 'center',
               width: '80px', 
-              height: '80px',
-              minHeight: '80px',
+              height: '64px', /* Match exact height in browser */
+              minHeight: '64px',
               minWidth: '80px',
-              verticalAlign: 'middle',
+              verticalAlign: 'top', /* Adjust to push it down slightly */
               marginRight: '12px',
+              marginTop: '8px', /* Add top margin to push down */
+              marginBottom: '8px',
               position: 'relative'
             }}>
             <img 
@@ -66,12 +69,10 @@ const LogoUploader = ({ logoUrl, onLogoChange, className = "" }: LogoUploaderPro
               alt="Company logo" 
               className="company-logo object-contain" 
               style={{
-                maxHeight: '80px',
+                maxHeight: '64px',
                 maxWidth: '80px',
-                position: 'absolute',
-                top: '50%',
-                left: '0',
-                transform: 'translateY(-50%)'
+                display: 'block',
+                margin: '0 auto'
               }}
             />
           </div>

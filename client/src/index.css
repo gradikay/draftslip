@@ -546,23 +546,26 @@ input[type="number"]::-webkit-outer-spin-button {
   @media print {
     /* Logo container and positioning for printed PDF */
     .company-logo-wrapper {
-      display: inline-block !important;
+      display: inline-flex !important;
+      align-items: center !important;
       width: 80px !important;
-      height: 80px !important;
+      height: 64px !important;
       min-width: 80px !important;
-      min-height: 80px !important;
+      min-height: 64px !important;
       position: relative !important;
-      vertical-align: middle !important;
+      vertical-align: top !important;
       margin-right: 12px !important;
+      margin-top: 8px !important;
+      margin-bottom: 8px !important;
     }
     
     /* Logo image in PDF */
     .company-logo {
-      max-height: 80px !important;
+      max-height: 64px !important;
       max-width: 80px !important;
       object-fit: contain !important;
-      vertical-align: middle !important;
-      transform: none !important;
+      display: block !important;
+      margin: 0 auto !important;
     }
   }
   
