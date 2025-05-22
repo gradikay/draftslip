@@ -184,6 +184,144 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
+/* Title animations */
+.animated-title {
+  display: inline-block;
+  position: relative;
+}
+
+.animated-title .title-letter {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.animated-title:hover .title-letter {
+  animation: letterSway 2s ease infinite;
+  animation-delay: calc(var(--letter-index) * 0.05s);
+}
+
+.animated-title .floating-letter {
+  display: inline-block;
+  position: relative;
+  animation: floatAway 3s ease-in-out infinite;
+}
+
+/* Template Card Animations */
+.template-card {
+  transition: all 0.4s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.template-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.template-card .card-header {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.template-card:hover .card-header {
+  transform: translateZ(20px);
+}
+
+.template-card:hover .card-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0) 50%
+  );
+  pointer-events: none;
+}
+
+.template-card .card-content {
+  transition: all 0.3s ease;
+}
+
+.template-card:hover .card-content {
+  transform: translateZ(15px);
+}
+
+.template-link {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.template-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.template-link:hover {
+  transform: translateX(5px);
+}
+
+.template-link:hover::after {
+  width: calc(100% - 24px); /* Adjust for the icon width */
+}
+
+.template-link:hover svg {
+  animation: arrowBounce 1s ease infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes letterSway {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  25% {
+    transform: translateY(-5px) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(3px) rotate(2deg);
+  }
+}
+
+@keyframes floatAway {
+  0%, 100% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 1;
+  }
+  25% {
+    transform: translateX(10px) translateY(-10px) rotate(10deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateX(15px) translateY(-5px) rotate(5deg);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translateX(8px) translateY(-2px) rotate(2deg);
+    opacity: 0.8;
+  }
+}
+
 @media print {
   body {
     background-color: white;

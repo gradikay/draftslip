@@ -35,7 +35,25 @@ function TemplatesPage() {
   // This fixes the template page crash
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 className="text-2xl font-bold text-primary mb-4">Invoice Templates</h1>
+      <h1 className="text-2xl font-bold text-primary mb-4 animated-title">
+        <span className="title-letter" style={{"--letter-index": 1} as React.CSSProperties}>I</span>
+        <span className="title-letter" style={{"--letter-index": 2} as React.CSSProperties}>n</span>
+        <span className="title-letter" style={{"--letter-index": 3} as React.CSSProperties}>v</span>
+        <span className="title-letter" style={{"--letter-index": 4} as React.CSSProperties}>o</span>
+        <span className="title-letter" style={{"--letter-index": 5} as React.CSSProperties}>i</span>
+        <span className="title-letter" style={{"--letter-index": 6} as React.CSSProperties}>c</span>
+        <span className="title-letter" style={{"--letter-index": 7} as React.CSSProperties}>e</span>
+        <span className="title-letter" style={{"--letter-index": 8} as React.CSSProperties}>&nbsp;</span>
+        <span className="title-letter" style={{"--letter-index": 9} as React.CSSProperties}>T</span>
+        <span className="title-letter" style={{"--letter-index": 10} as React.CSSProperties}>e</span>
+        <span className="title-letter" style={{"--letter-index": 11} as React.CSSProperties}>m</span>
+        <span className="title-letter" style={{"--letter-index": 12} as React.CSSProperties}>p</span>
+        <span className="title-letter" style={{"--letter-index": 13} as React.CSSProperties}>l</span>
+        <span className="title-letter" style={{"--letter-index": 14} as React.CSSProperties}>a</span>
+        <span className="title-letter" style={{"--letter-index": 15} as React.CSSProperties}>t</span>
+        <span className="title-letter" style={{"--letter-index": 16} as React.CSSProperties}>e</span>
+        <span className="floating-letter">s</span>
+      </h1>
       
       <p className="text-gray-600 mb-6 text-sm">
         Choose from our specialized templates designed for different business needs.
@@ -128,15 +146,15 @@ function TemplateCard({
   };
   
   return (
-    <div className="rounded-lg overflow-hidden shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-      <div className={`p-4 ${colorClasses[color]}`}>
+    <div className="rounded-lg overflow-hidden shadow-md border border-gray-100 template-card">
+      <div className={`p-4 ${colorClasses[color]} card-header`}>
         <h3 className="font-bold text-xl">{title}</h3>
       </div>
-      <div className="p-6">
+      <div className="p-6 card-content">
         <p className="text-gray-600 mb-4">{description}</p>
         <a 
           href={href} 
-          className="text-primary hover:text-secondary inline-flex items-center"
+          className="text-primary hover:text-secondary inline-flex items-center template-link"
         >
           Use this template
           <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
