@@ -58,6 +58,7 @@ export default function AgencyTemplate() {
       name: "Creative Vision Agency",
       tagline: "Strategy • Design • Results",
       website: "www.creativevision.agency",
+      logoUrl: "",
     },
     document: {
       title: "AGENCY INVOICE",
@@ -129,6 +130,11 @@ export default function AgencyTemplate() {
 
   const calculateTotal = () => {
     return calculateSubtotal() - calculateDiscountAmount() + calculateTaxAmount();
+  };
+  
+  // Handle logo upload
+  const handleLogoChange = (logoUrl: string) => {
+    updateInvoiceData("business", "logoUrl", logoUrl);
   };
 
   const handlePrint = () => {
@@ -238,22 +244,11 @@ export default function AgencyTemplate() {
             <p className="text-xs text-gray-600">For marketing, design and advertising agencies</p>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button
-            onClick={handlePrint}
-            className="bg-primary text-white hover:bg-secondary"
-            size="sm"
-          >
-            <Printer className="mr-1 h-3 w-3" /> Print
-          </Button>
-          <Button
-            onClick={handleDownloadPdf}
-            className="bg-accent text-text hover:bg-accent/90"
-            size="sm"
-          >
-            <FileDown className="mr-1 h-3 w-3" /> PDF
-          </Button>
-        </div>
+        <PrintDownloadButtons 
+          invoiceData={invoiceData}
+          invoiceContainerSelector=".invoice-container"
+          logoUrl={invoiceData.business.logoUrl}
+        />
       </div>
 
       {/* Agency Invoice Container */}
@@ -261,25 +256,33 @@ export default function AgencyTemplate() {
         {/* Header */}
         <div className="px-6 py-3 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="mb-1 md:mb-0">
-              <ContentEditable
-                value={invoiceData.business.name}
-                onChange={(value) => updateInvoiceData("business", "name", value)}
-                className="text-xl font-semibold text-primary"
-                placeholder="Your Agency Name"
+            <div className="flex gap-3 mb-1 md:mb-0">
+              {/* Logo Uploader */}
+              <LogoUploader 
+                logoUrl={invoiceData.business.logoUrl} 
+                onLogoChange={handleLogoChange}
               />
-              <ContentEditable
-                value={invoiceData.business.tagline}
-                onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                className="text-xs text-gray-600"
-                placeholder="Agency Tagline"
-              />
-              <ContentEditable
-                value={invoiceData.business.website}
-                onChange={(value) => updateInvoiceData("business", "website", value)}
-                className="text-xs text-gray-600"
-                placeholder="Agency Website"
-              />
+              
+              <div>
+                <ContentEditable
+                  value={invoiceData.business.name}
+                  onChange={(value) => updateInvoiceData("business", "name", value)}
+                  className="text-xl font-semibold text-primary"
+                  placeholder="Your Agency Name"
+                />
+                <ContentEditable
+                  value={invoiceData.business.tagline}
+                  onChange={(value) => updateInvoiceData("business", "tagline", value)}
+                  className="text-xs text-gray-600"
+                  placeholder="Agency Tagline"
+                />
+                <ContentEditable
+                  value={invoiceData.business.website}
+                  onChange={(value) => updateInvoiceData("business", "website", value)}
+                  className="text-xs text-gray-600"
+                  placeholder="Agency Website"
+                />
+              </div>
             </div>
             <div className="text-right">
               <ContentEditable
