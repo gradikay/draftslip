@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Printer, FileDown, HelpCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Printer, FileDown, HelpCircle, Save, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import InvoiceHeader from "./InvoiceHeader";
 import InvoiceDetails from "./InvoiceDetails";
@@ -7,6 +7,25 @@ import InvoiceItems from "./InvoiceItems";
 import InvoiceSummary from "./InvoiceSummary";
 import WatercolorLogo from "./WatercolorLogo";
 import html2pdf from "html2pdf.js";
+import { 
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { 
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator
+} from "@/components/ui/dropdown-menu";
+import { useToast } from "@/hooks/use-toast";
 
 export type InvoiceItem = {
   id: string;
@@ -45,6 +64,11 @@ export type InvoiceData = {
 };
 
 const InvoiceGenerator = () => {
+  const { toast } = useToast();
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
+  const [invoiceName, setInvoiceName] = useState("");
+  const [savedInvoices, setSavedInvoices] = useState<{name: string, date: string}[]>([]);
+  
   const [invoiceData, setInvoiceData] = useState<InvoiceData>({
     business: {
       name: "Blue Petal Design",
@@ -96,6 +120,116 @@ const InvoiceGenerator = () => {
 
   const calculateTotal = () => {
     return calculateSubtotal() - calculateDiscountAmount() + calculateTaxAmount();
+  };
+  
+  // Load saved invoices from local storage on component mount
+  useEffect(() => {
+    const loadSavedInvoicesList = () => {
+      const savedInvoicesData = localStorage.getItem('savedInvoicesList');
+      if (savedInvoicesData) {
+        try {
+          const parsedData = JSON.parse(savedInvoicesData);
+          setSavedInvoices(parsedData);
+        } catch (error) {
+          console.error('Error loading saved invoices list:', error);
+        }
+      }
+    };
+    
+    loadSavedInvoicesList();
+  }, []);
+  
+  // Save invoice to local storage
+  const saveInvoice = () => {
+    if (!invoiceName.trim()) {
+      toast({
+        title: "Name required",
+        description: "Please enter a name for your invoice.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    try {
+      // Save the invoice data
+      localStorage.setItem(`invoice-${invoiceName}`, JSON.stringify(invoiceData));
+      
+      // Update the list of saved invoices
+      const currentDate = new Date().toLocaleString();
+      const updatedList = [
+        { name: invoiceName, date: currentDate },
+        ...savedInvoices.filter(invoice => invoice.name !== invoiceName)
+      ];
+      
+      // Save the updated list
+      localStorage.setItem('savedInvoicesList', JSON.stringify(updatedList));
+      setSavedInvoices(updatedList);
+      
+      // Close dialog and reset name
+      setSaveDialogOpen(false);
+      setInvoiceName("");
+      
+      toast({
+        title: "Invoice saved",
+        description: `"${invoiceName}" has been saved successfully.`
+      });
+    } catch (error) {
+      toast({
+        title: "Save failed",
+        description: "There was an error saving your invoice. Please try again.",
+        variant: "destructive"
+      });
+      console.error('Error saving invoice:', error);
+    }
+  };
+  
+  // Load invoice from local storage
+  const loadInvoice = (name: string) => {
+    try {
+      const savedInvoice = localStorage.getItem(`invoice-${name}`);
+      if (savedInvoice) {
+        const parsedData = JSON.parse(savedInvoice);
+        setInvoiceData(parsedData);
+        toast({
+          title: "Invoice loaded",
+          description: `"${name}" has been loaded successfully.`
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Load failed",
+        description: "There was an error loading your invoice. Please try again.",
+        variant: "destructive"
+      });
+      console.error('Error loading invoice:', error);
+    }
+  };
+  
+  // Delete saved invoice
+  const deleteInvoice = (name: string, event: React.MouseEvent) => {
+    event.stopPropagation(); // Stop the click from triggering the parent (which would load the invoice)
+    
+    try {
+      // Remove the invoice data
+      localStorage.removeItem(`invoice-${name}`);
+      
+      // Update the list of saved invoices
+      const updatedList = savedInvoices.filter(invoice => invoice.name !== name);
+      localStorage.setItem('savedInvoicesList', JSON.stringify(updatedList));
+      setSavedInvoices(updatedList);
+      
+      toast({
+        title: "Invoice deleted",
+        description: `"${name}" has been deleted.`
+      });
+    } catch (error) {
+      toast({
+        title: "Delete failed",
+        description: "There was an error deleting your invoice. Please try again.",
+        variant: "destructive"
+      });
+      console.error('Error deleting invoice:', error);
+    }
   };
 
   const handlePrint = () => {
