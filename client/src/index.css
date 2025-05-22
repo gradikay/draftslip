@@ -540,18 +540,30 @@ input[type="number"]::-webkit-outer-spin-button {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    max-height: 80px !important;
-    max-width: 100% !important;
-    position: static !important; /* Prevent floating to top */
-    vertical-align: middle !important;
   }
   
-  /* Fix logo wrapper positioning in printed PDF */
-  .company-logo-wrapper {
-    display: inline-block !important;
-    position: static !important;
-    vertical-align: middle !important;
-    float: none !important;
+  /* PDF-specific fixes for logo and wrapper */
+  @media print {
+    /* Logo container and positioning for printed PDF */
+    .company-logo-wrapper {
+      display: inline-block !important;
+      width: 80px !important;
+      height: 80px !important;
+      min-width: 80px !important;
+      min-height: 80px !important;
+      position: relative !important;
+      vertical-align: middle !important;
+      margin-right: 12px !important;
+    }
+    
+    /* Logo image in PDF */
+    .company-logo {
+      max-height: 80px !important;
+      max-width: 80px !important;
+      object-fit: contain !important;
+      vertical-align: middle !important;
+      transform: none !important;
+    }
   }
   
   .invoice-container {
