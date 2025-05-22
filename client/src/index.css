@@ -10,33 +10,36 @@
     display: none !important;
   }
   
-  /* Standardize all tables for print/PDF output */
+  /* Force consistent tables in PDF output */
   table {
     border-collapse: collapse !important;
     width: 100% !important;
   }
   
-  /* Standardize all table cells padding across all templates */
-  table td, table th {
-    padding: 4px 8px !important;
+  /* Force override ALL template padding variations for consistency */
+  #invoiceItems tr td,
+  tr.invoice-item td,
+  table#invoiceItems td {
+    padding-top: 2px !important;
+    padding-bottom: 4px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
   }
   
-  /* Create consistent spacing for all invoice tables */
-  #invoiceItems td {
-    padding-top: 2px !important;
+  /* Add spacing after header row */
+  #invoiceItems thead th {
     padding-bottom: 6px !important;
   }
   
-  /* Reset Construction template padding to match others */
-  #invoiceItems tr.invoice-item td {
-    padding-top: 2px !important;
-    padding-bottom: 6px !important;
-  }
-  
-  /* Fix line height for consistent text appearance */
-  .invoice-item td *,
-  [contenteditable="true"] {
+  /* Standardize line height across all tables */
+  #invoiceItems * {
     line-height: 1.2 !important;
+  }
+  
+  /* Fix editable content positioning */
+  #invoiceItems [contenteditable="true"] {
+    margin: 0 !important;
+    padding: 0 !important;
   }
 }
 
