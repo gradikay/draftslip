@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import NotFound from "@/pages/not-found";
 import PrivacyPolicy from "@/pages/privacy";
 import TermsOfService from "@/pages/terms";
-import { WrapWithTip, TIPS } from "@/components/TipsContainer";
 
 // Import templates
 import FreelanceTemplate from "@/components/templates/FreelanceTemplate";

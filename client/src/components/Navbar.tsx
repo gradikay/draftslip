@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { WrapWithTip, TIPS } from "./TipsContainer";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
