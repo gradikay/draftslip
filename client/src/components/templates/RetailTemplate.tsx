@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Printer, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContentEditable from "../ContentEditable";
 import WatercolorLogo from "../WatercolorLogo";
-import html2pdf from "html2pdf.js";
 import { formatCurrency } from "@/lib/utils/formatters";
+import LogoUploader from "../LogoUploader";
+import PrintDownloadButtons from "../PrintDownloadButtons";
 
 type InvoiceItem = {
   id: string;
@@ -21,6 +21,7 @@ type RetailInvoiceData = {
     tagline: string;
     storeLocation: string;
     registerNumber: string;
+    logoUrl?: string;
   };
   document: {
     title: string;
@@ -53,12 +54,24 @@ type RetailInvoiceData = {
 };
 
 export default function RetailTemplate() {
+  // Handle logo change
+  const handleLogoChange = (logoUrl: string) => {
+    setInvoiceData(prev => ({
+      ...prev,
+      business: {
+        ...prev.business,
+        logoUrl
+      }
+    }));
+  };
+  
   const [invoiceData, setInvoiceData] = useState<RetailInvoiceData>({
     business: {
       name: "Blue & Yellow Home Goods",
       tagline: "Quality Home Furnishings & Decor",
       storeLocation: "Downtown Store - Main Street",
       registerNumber: "Retail License: RTL-982345",
+      logoUrl: "",
     },
     document: {
       title: "RETAIL INVOICE",
