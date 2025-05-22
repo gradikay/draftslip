@@ -96,7 +96,10 @@ input[type="number"]::-webkit-outer-spin-button {
     print-color-adjust: exact;
   }
   
-  .no-print {
+  .no-print, 
+  .print\:hidden,
+  button[class*="no-print"],
+  div[class*="no-print"] {
     display: none !important;
   }
   
