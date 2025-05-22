@@ -72,17 +72,15 @@ const InvoiceDetails = ({
               className="font-medium"
               placeholder="January 1, 2023"
             />
+            
+            <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1">Due Date (Optional)</h3>
+            <ContentEditable
+              value={document.dueDate}
+              onChange={(value) => onUpdate("document", "dueDate", value)}
+              className="font-medium"
+              placeholder="January 31, 2023"
+            />
           </div>
-        </div>
-        
-        <div className="mb-3">
-          <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Due Date (Optional)</h3>
-          <ContentEditable
-            value={document.dueDate}
-            onChange={(value) => onUpdate("document", "dueDate", value)}
-            className="font-medium"
-            placeholder="January 31, 2023"
-          />
         </div>
 
         <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Bill To</h3>

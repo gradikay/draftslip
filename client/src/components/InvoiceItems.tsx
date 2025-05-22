@@ -120,11 +120,11 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
       </table>
 
       {/* Add Item Button */}
-      <div className="py-2 no-print">
+      <div className="py-2 no-print print:hidden">
         <Button
           variant="ghost"
           onClick={handleAddItem}
-          className="text-primary hover:text-secondary hover:bg-primary/5"
+          className="text-primary hover:text-secondary hover:bg-primary/5 print:hidden"
         >
           <PlusCircle className="mr-2 h-4 w-4" /> Add Item
         </Button>
