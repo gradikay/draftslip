@@ -88,11 +88,21 @@ export default function PrintDownloadButtons({
     
     // Use html2pdf to generate the PDF, and then print it
     const opt = {
-      margin: 10,
+      margin: 15,
       filename: 'invoice-for-print.pdf',
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
+      html2canvas: { 
+        scale: 2,
+        letterRendering: true,
+        useCORS: true,
+        logging: false
+      },
+      jsPDF: { 
+        unit: "mm", 
+        format: "a4", 
+        orientation: "portrait" as "portrait",
+        compress: true
+      },
     };
 
     // Generate PDF
@@ -112,11 +122,21 @@ export default function PrintDownloadButtons({
     if (!element) return;
     
     const opt = {
-      margin: 10,
+      margin: 15,
       filename: `${invoiceData.document.number || 'invoice'}.pdf`,
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
+      html2canvas: { 
+        scale: 2,
+        letterRendering: true,
+        useCORS: true,
+        logging: false
+      },
+      jsPDF: { 
+        unit: "mm", 
+        format: "a4", 
+        orientation: "portrait" as "portrait",
+        compress: true
+      },
     };
 
     // Generate and download PDF
