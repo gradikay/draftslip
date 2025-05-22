@@ -4,6 +4,7 @@ import WatercolorLogo from "../WatercolorLogo";
 import { formatCurrency } from "@/lib/utils/formatters";
 import LogoUploader from "../LogoUploader";
 import PrintDownloadButtons from "../PrintDownloadButtons";
+import { Button } from "@/components/ui/button";
 
 type InvoiceItem = {
   id: string;
