@@ -27,13 +27,13 @@ const ContentEditable = ({
   }, [value]);
 
   useEffect(() => {
-    if (divRef.current) {
+    if (divRef.current && divRef.current.textContent !== value) {
       // Only set textContent when not empty to prevent placeholder from being treated as content
       if (!isEmpty) {
         divRef.current.textContent = currentValue;
       }
     }
-  }, [currentValue, isEmpty]);
+  }, [currentValue, isEmpty, value]);
 
   const handleInput = () => {
     if (divRef.current) {
