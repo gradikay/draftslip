@@ -468,12 +468,13 @@ export default function AgencyTemplate() {
                       </div>
                     </div>
                   </td>
-                  <td className="py-1 text-center no-print">
+                  <td className="py-1 text-center hidden-on-print no-print print-hide" style={{display: 'none !important'}}>
                     <button
-                      className="text-gray-400 hover:text-red-500"
+                      className="text-gray-400 hover:text-red-500 delete-button print-hide"
                       onClick={() => handleDeleteItem(item.id)}
+                      style={{display: 'none !important'}}
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 print-hide" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{display: 'none !important'}}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
                     </button>
