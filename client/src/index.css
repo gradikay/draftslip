@@ -10,45 +10,33 @@
     display: none !important;
   }
   
-  /* Ensure proper spacing in tables for PDF output */
+  /* More aggressive fix for table cell padding */
   table {
     border-collapse: collapse;
     width: 100%;
   }
   
-  table tr {
-    page-break-inside: avoid;
+  /* Force all cells to have minimal padding on top */
+  td {
+    padding-top: 1px !important;
+    padding-bottom: 4px !important;
   }
   
-  table td, 
-  table th {
-    padding-top: 3px !important;
-    padding-bottom: 6px !important;
-    vertical-align: middle !important;
+  /* Target invoice row cells directly */
+  tr.invoice-item td {
+    padding-top: 0 !important;
+    padding-bottom: 4px !important;
   }
   
-  /* Further fine-tune cell spacing for all invoice templates */
-  .invoice-item td {
-    line-height: 1.4 !important;
-    min-height: 18px !important;
-    padding-top: 2px !important; /* Even less top padding */
-    padding-bottom: 5px !important;
+  /* Fix line height to be more compact */
+  .invoice-item td * {
+    line-height: 1.2 !important;
   }
   
-  /* Add consistent spacing to the table */
-  table {
-    margin-bottom: 10px !important;
-  }
-  
-  /* Make table rows consistent in height */
-  table tbody tr {
-    height: auto !important;
-  }
-  
-  /* Specific targeting for table headers */
-  table th {
-    padding-top: 4px !important;
-    padding-bottom: 8px !important;
+  /* Push content to the bottom of cells */
+  [contenteditable="true"] {
+    display: block !important;
+    margin-top: 0 !important;
   }
 }
 
