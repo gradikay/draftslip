@@ -70,6 +70,14 @@
   @apply bg-primary/10;
 }
 
+/* Add placeholder styling */
+[contenteditable="true"].empty-content:empty:before {
+  content: attr(data-placeholder);
+  @apply text-gray-400;
+  pointer-events: none;
+  display: block;
+}
+
 /* Custom number input styling */
 input[type="number"] {
   -moz-appearance: textfield;
