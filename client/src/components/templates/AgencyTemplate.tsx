@@ -414,12 +414,12 @@ export default function AgencyTemplate() {
           <table className="w-full mt-2" id="invoiceItems">
             <thead>
               <tr className="border-b border-subtle">
-                <th className="py-1 text-left text-xs uppercase text-gray-500 font-medium w-28">Service</th>
-                <th className="py-1 text-left text-xs uppercase text-gray-500 font-medium">Description</th>
-                <th className="py-1 text-right text-xs uppercase text-gray-500 font-medium w-16">Hours</th>
-                <th className="py-1 text-right text-xs uppercase text-gray-500 font-medium w-20">Rate</th>
-                <th className="py-1 text-right text-xs uppercase text-gray-500 font-medium w-24">Amount</th>
-                <th className="py-1 w-8 no-print"></th>
+                <th className="py-2 text-left text-xs uppercase text-gray-500 font-medium w-28">Service</th>
+                <th className="py-2 text-left text-xs uppercase text-gray-500 font-medium">Description</th>
+                <th className="py-2 text-right text-xs uppercase text-gray-500 font-medium w-16">Hours</th>
+                <th className="py-2 text-right text-xs uppercase text-gray-500 font-medium w-20">Rate</th>
+                <th className="py-2 text-right text-xs uppercase text-gray-500 font-medium w-24">Amount</th>
+                <th className="py-2 w-8 no-print"></th>
               </tr>
             </thead>
             <tbody id="itemsContainer">

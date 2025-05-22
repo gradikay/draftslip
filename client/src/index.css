@@ -62,6 +62,19 @@
     font-size: 0.875rem !important; /* text-sm */
   }
   
+  /* Standardize table cell padding across all templates */
+  @media print {
+    /* Force all table cells to use py-2 (8px) padding like Retail template */
+    #invoiceItems td,
+    #itemsContainer td,
+    .invoice-item td,
+    td[class*="py-1"],
+    table td {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+  }
+  
   /* Standardize header and title text */
   h3 {
     font-size: 0.875rem !important;
