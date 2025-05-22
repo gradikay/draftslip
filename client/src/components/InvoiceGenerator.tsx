@@ -101,10 +101,16 @@ const InvoiceGenerator = () => {
   };
 
   const handleDownloadPdf = () => {
-    // First hide the button before generating PDF
+    // First hide any elements that shouldn't appear in the PDF
     const addItemButton = document.querySelector(".add-item-button");
+    const dueDateOptional = document.querySelector(".due-date-optional-field");
+    
     if (addItemButton) {
       addItemButton.classList.add("force-hide");
+    }
+    
+    if (dueDateOptional) {
+      dueDateOptional.classList.add("force-hide");
     }
     
     // Get the invoice container
@@ -121,9 +127,12 @@ const InvoiceGenerator = () => {
 
     // Generate and download PDF
     html2pdf().set(opt).from(element).save().then(() => {
-      // Restore the button visibility after PDF generation
+      // Restore the visibility after PDF generation
       if (addItemButton) {
         addItemButton.classList.remove("force-hide");
+      }
+      if (dueDateOptional) {
+        dueDateOptional.classList.remove("force-hide");
       }
     });
   };

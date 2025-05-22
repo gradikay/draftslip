@@ -85,12 +85,12 @@ const InvoiceDetails = ({
               </>
             )}
             {!document.dueDate && (
-              <div className="no-print">
-                <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1">Due Date (Optional)</h3>
+              <div className="no-print hidden-on-print due-date-optional-field" style={{display: 'block'}}>
+                <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1 no-print hidden-on-print">Due Date (Optional)</h3>
                 <ContentEditable
                   value={document.dueDate}
                   onChange={(value) => onUpdate("document", "dueDate", value)}
-                  className="font-medium"
+                  className="font-medium no-print hidden-on-print"
                   placeholder="January 31, 2023"
                 />
               </div>
