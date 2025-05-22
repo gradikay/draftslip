@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Printer, FileDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import ContentEditable from "../ContentEditable";
 import WatercolorLogo from "../WatercolorLogo";
-import html2pdf from "html2pdf.js";
 import { formatCurrency } from "@/lib/utils/formatters";
+import LogoUploader from "../LogoUploader";
+import PrintDownloadButtons from "../PrintDownloadButtons";
 
 type InvoiceItem = {
   id: string;
@@ -19,6 +18,7 @@ type FreelanceInvoiceData = {
     name: string;
     profession: string;
     website: string;
+    logoUrl?: string;
   };
   document: {
     title: string;
@@ -54,6 +54,7 @@ export default function FreelanceTemplate() {
       name: "Creative Solutions",
       profession: "Web Development & Design",
       website: "www.creativesolutions.com",
+      logoUrl: "",
     },
     document: {
       title: "FREELANCE INVOICE",
