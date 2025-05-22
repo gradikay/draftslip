@@ -9,6 +9,34 @@
   .no-print {
     display: none !important;
   }
+  
+  /* Ensure proper spacing in tables for PDF output */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table tr {
+    page-break-inside: avoid;
+  }
+  
+  table td, 
+  table th {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    vertical-align: middle !important;
+  }
+  
+  /* Ensure line heights are consistent */
+  .invoice-item td {
+    line-height: 1.5 !important;
+    min-height: 24px !important;
+  }
+  
+  /* Add extra space after the last row */
+  table tbody tr:last-child td {
+    padding-bottom: 16px !important;
+  }
 }
 
 :root {
