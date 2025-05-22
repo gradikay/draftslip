@@ -160,6 +160,9 @@ export default function Footer() {
           <p className="text-base font-medium text-gray-700">
             &copy; {currentYear} Bloom Invoice. All rights reserved.
           </p>
+          <p className="mt-2 text-sm">
+            Developed with ❤️ by <span className="developer-credit">Gradi Kayamba</span>
+          </p>
         </div>
         
         {/* Decorative watercolor splash at the bottom */}
