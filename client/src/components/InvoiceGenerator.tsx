@@ -99,7 +99,78 @@ const InvoiceGenerator = () => {
   };
 
   const handlePrint = () => {
-    window.print();
+    // First hide any elements that shouldn't appear in the print
+    const addItemButton = document.querySelector(".add-item-button");
+    const dueDateOptional = document.querySelector(".due-date-optional-field");
+    
+    if (addItemButton) {
+      addItemButton.classList.add("force-hide");
+    }
+    
+    if (dueDateOptional) {
+      dueDateOptional.classList.add("force-hide");
+    }
+    
+    // Get the invoice container
+    const element = document.querySelector(".invoice-container") as HTMLElement;
+    if (!element) return;
+    
+    // Create a new window for printing just the invoice
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    if (!printWindow) return;
+    
+    // Add necessary styles
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print Invoice</title>
+          <style>
+            body {
+              font-family: 'Montserrat', sans-serif;
+              margin: 0;
+              padding: 20px;
+              background: white;
+            }
+            .invoice-wrapper {
+              max-width: 210mm;
+              margin: 0 auto;
+              padding: 0;
+              background: white;
+              box-shadow: none;
+            }
+            @media print {
+              body {
+                padding: 0;
+              }
+              .invoice-wrapper {
+                width: 100%;
+                max-width: none;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="invoice-wrapper">
+            ${element.outerHTML}
+          </div>
+          <script>
+            window.onload = function() { window.print(); window.setTimeout(function() { window.close(); }, 500); }
+          </script>
+        </body>
+      </html>
+    `);
+    
+    printWindow.document.close();
+    
+    // Restore the visibility after print is triggered
+    setTimeout(() => {
+      if (addItemButton) {
+        addItemButton.classList.remove("force-hide");
+      }
+      if (dueDateOptional) {
+        dueDateOptional.classList.remove("force-hide");
+      }
+    }, 1000);
   };
 
   const handleDownloadPdf = () => {
