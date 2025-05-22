@@ -437,7 +437,7 @@ export default function AgencyTemplate() {
                     <ContentEditable
                       value={item.description}
                       onChange={(value) => updateItem(item.id, "description", value)}
-                      className="text-xs"
+                      className="description"
                       placeholder="Service description"
                     />
                   </td>

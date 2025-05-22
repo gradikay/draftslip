@@ -55,12 +55,15 @@
   }
   
   /* Force consistent text sizes for all contenteditable elements */
-  [contenteditable="true"] {
+  [contenteditable="true"],
+  .text-xs, /* Fix Agency template's text-xs class */
+  .text-sm, /* Standardize text-sm */
+  .description /* Target specific description class */ {
     font-size: 0.875rem !important; /* text-sm */
   }
   
   /* Standardize header and title text */
-  h3, .text-sm {
+  h3 {
     font-size: 0.875rem !important;
   }
   
