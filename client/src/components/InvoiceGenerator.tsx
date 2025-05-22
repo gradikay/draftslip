@@ -101,7 +101,14 @@ const InvoiceGenerator = () => {
   };
 
   const handleDownloadPdf = () => {
-    const element = document.querySelector(".invoice-container");
+    // First hide the button before generating PDF
+    const addItemButton = document.querySelector(".add-item-button");
+    if (addItemButton) {
+      addItemButton.classList.add("force-hide");
+    }
+    
+    // Get the invoice container
+    const element = document.querySelector(".invoice-container") as HTMLElement;
     if (!element) return;
     
     const opt = {
@@ -112,7 +119,13 @@ const InvoiceGenerator = () => {
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
     };
 
-    html2pdf().set(opt).from(element).save();
+    // Generate and download PDF
+    html2pdf().set(opt).from(element).save().then(() => {
+      // Restore the button visibility after PDF generation
+      if (addItemButton) {
+        addItemButton.classList.remove("force-hide");
+      }
+    });
   };
 
   const updateInvoiceData = (

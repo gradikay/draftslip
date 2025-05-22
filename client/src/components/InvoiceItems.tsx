@@ -119,12 +119,12 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
         </tbody>
       </table>
 
-      {/* Add Item Button */}
-      <div className="py-2 no-print print:hidden">
+      {/* This whole section should not appear in print */}
+      <div className="py-2 hidden-on-print add-item-button">
         <Button
           variant="ghost"
           onClick={handleAddItem}
-          className="text-primary hover:text-secondary hover:bg-primary/5 print:hidden"
+          className="text-primary hover:text-secondary hover:bg-primary/5 hidden-on-print"
         >
           <PlusCircle className="mr-2 h-4 w-4" /> Add Item
         </Button>
