@@ -28,9 +28,9 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
+          {/* Navigation menu buttons on right side (currently empty) */}
           <div className="hidden md:flex items-center">
-            <Button variant="ghost" className="text-gray-500 hover:text-primary mr-4">Sign In</Button>
-            <Button className="bg-primary text-white hover:bg-secondary">Sign Up</Button>
+            {/* Space for future buttons or navigation elements */}
           </div>
           <div className="flex items-center md:hidden">
             <button
@@ -63,12 +63,7 @@ export default function Navbar() {
             About
           </Link>
         </div>
-        <div className="pt-4 pb-3 border-t border-gray-200">
-          <div className="flex items-center px-4 space-x-3">
-            <Button variant="ghost" className="w-full justify-center text-gray-500 hover:text-primary">Sign In</Button>
-            <Button className="w-full justify-center bg-primary text-white hover:bg-secondary">Sign Up</Button>
-          </div>
-        </div>
+        {/* Mobile menu footer - removed sign in/up buttons */}
       </div>
     </nav>
   );

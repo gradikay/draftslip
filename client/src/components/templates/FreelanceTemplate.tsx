@@ -213,51 +213,53 @@ export default function FreelanceTemplate() {
   return (
     <div className="max-w-3xl mx-auto px-4">
       {/* Header Controls - Hidden in Print */}
-      <div className="no-print flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-        <div className="flex items-center gap-3">
-          <WatercolorLogo className="w-12 h-12" />
+      <div className="no-print flex flex-col md:flex-row justify-between items-center mb-3 gap-2">
+        <div className="flex items-center gap-2">
+          <WatercolorLogo className="w-10 h-10" />
           <div>
-            <h1 className="text-xl md:text-2xl font-semibold text-primary">Freelance Invoice Template</h1>
-            <p className="text-sm text-gray-600 mt-1">Specially designed for freelancers and independent contractors</p>
+            <h1 className="text-lg md:text-xl font-semibold text-primary">Freelance Invoice Template</h1>
+            <p className="text-xs text-gray-600">Designed for freelancers and contractors</p>
           </div>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-2">
           <Button
             onClick={handlePrint}
             className="bg-primary text-white hover:bg-secondary"
+            size="sm"
           >
-            <Printer className="mr-2 h-4 w-4" /> Print Invoice
+            <Printer className="mr-1 h-3 w-3" /> Print Invoice
           </Button>
           <Button
             onClick={handleDownloadPdf}
             className="bg-accent text-text hover:bg-accent/90"
+            size="sm"
           >
-            <FileDown className="mr-2 h-4 w-4" /> Download PDF
+            <FileDown className="mr-1 h-3 w-3" /> Download PDF
           </Button>
         </div>
       </div>
 
       {/* Freelance Invoice Container */}
-      <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden">
-        <div className="px-6 py-4 border-b border-subtle">
+      <div className="invoice-container bg-paper rounded shadow-md mb-6 overflow-hidden">
+        <div className="px-6 py-3 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="mb-2 md:mb-0">
+            <div className="mb-1 md:mb-0">
               <ContentEditable
                 value={invoiceData.business.name}
                 onChange={(value) => updateInvoiceData("business", "name", value)}
-                className="text-2xl font-semibold text-primary"
+                className="text-xl font-semibold text-primary"
                 placeholder="Your Business Name"
               />
               <ContentEditable
                 value={invoiceData.business.profession}
                 onChange={(value) => updateInvoiceData("business", "profession", value)}
-                className="text-sm text-gray-600 mt-1"
+                className="text-xs text-gray-600"
                 placeholder="Your Profession/Services"
               />
               <ContentEditable
                 value={invoiceData.business.website}
                 onChange={(value) => updateInvoiceData("business", "website", value)}
-                className="text-sm text-gray-600 mt-1"
+                className="text-xs text-gray-600"
                 placeholder="Your Website"
               />
             </div>
@@ -265,84 +267,84 @@ export default function FreelanceTemplate() {
               <ContentEditable
                 value={invoiceData.document.title}
                 onChange={(value) => updateInvoiceData("document", "title", value)}
-                className="text-2xl font-semibold text-secondary"
+                className="text-xl font-semibold text-secondary"
                 placeholder="FREELANCE INVOICE"
               />
             </div>
           </div>
         </div>
 
-        <div className="px-6 py-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="px-6 py-2 grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Left Column - Freelancer Details */}
           <div>
-            <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">From</h3>
+            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">From</h3>
             <ContentEditable
               value={invoiceData.freelancer.name}
               onChange={(value) => updateInvoiceData("freelancer", "name", value)}
-              className="font-medium"
+              className="font-medium text-sm"
               placeholder="Your Name"
             />
             <ContentEditable
               value={invoiceData.freelancer.address}
               onChange={(value) => updateInvoiceData("freelancer", "address", value)}
-              className="mt-1 whitespace-pre-wrap"
+              className="text-sm whitespace-pre-wrap"
               placeholder="Your Address"
               multiline
             />
             <ContentEditable
               value={invoiceData.freelancer.contact}
               onChange={(value) => updateInvoiceData("freelancer", "contact", value)}
-              className="mt-1 whitespace-pre-wrap"
+              className="text-sm whitespace-pre-wrap"
               placeholder="Your Contact Details"
               multiline
             />
             <ContentEditable
               value={invoiceData.freelancer.taxId}
               onChange={(value) => updateInvoiceData("freelancer", "taxId", value)}
-              className="mt-1 text-gray-600"
+              className="text-xs text-gray-600"
               placeholder="Your Tax ID (Optional)"
             />
           </div>
 
           {/* Right Column - Client and Invoice Details */}
           <div>
-            <div className="grid grid-cols-2 gap-4 mb-3">
+            <div className="grid grid-cols-2 gap-3 mb-2">
               <div>
-                <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Invoice Number</h3>
+                <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Invoice Number</h3>
                 <ContentEditable
                   value={invoiceData.document.number}
                   onChange={(value) => updateInvoiceData("document", "number", value)}
-                  className="font-medium"
+                  className="font-medium text-sm"
                   placeholder="FR-001"
                 />
               </div>
               <div>
-                <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Date</h3>
+                <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Date</h3>
                 <ContentEditable
                   value={invoiceData.document.date}
                   onChange={(value) => updateInvoiceData("document", "date", value)}
-                  className="font-medium"
+                  className="font-medium text-sm"
                   placeholder="January 1, 2023"
                 />
                 
                 {invoiceData.document.dueDate && (
                   <>
-                    <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1">Due Date</h3>
+                    <h3 className="text-xs uppercase text-gray-500 font-medium mt-1 mb-0.5">Due Date</h3>
                     <ContentEditable
                       value={invoiceData.document.dueDate}
                       onChange={(value) => updateInvoiceData("document", "dueDate", value)}
-                      className="font-medium"
+                      className="font-medium text-sm"
                       placeholder="January 15, 2023"
                     />
                   </>
                 )}
                 {!invoiceData.document.dueDate && (
                   <div className="no-print hidden-on-print due-date-optional-field" style={{display: 'block'}}>
-                    <h3 className="text-sm uppercase text-gray-500 font-medium mt-2 mb-1 no-print hidden-on-print">Due Date (Optional)</h3>
+                    <h3 className="text-xs uppercase text-gray-500 font-medium mt-1 mb-0.5 no-print hidden-on-print">Due Date (Optional)</h3>
                     <ContentEditable
                       value={invoiceData.document.dueDate}
                       onChange={(value) => updateInvoiceData("document", "dueDate", value)}
-                      className="font-medium no-print hidden-on-print"
+                      className="font-medium text-sm no-print hidden-on-print"
                       placeholder="January 15, 2023"
                     />
                   </div>
@@ -350,24 +352,24 @@ export default function FreelanceTemplate() {
               </div>
             </div>
 
-            <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Bill To</h3>
+            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Bill To</h3>
             <ContentEditable
               value={invoiceData.client.name}
               onChange={(value) => updateInvoiceData("client", "name", value)}
-              className="font-medium"
+              className="font-medium text-sm"
               placeholder="Client Name"
             />
             <ContentEditable
               value={invoiceData.client.address}
               onChange={(value) => updateInvoiceData("client", "address", value)}
-              className="mt-1 whitespace-pre-wrap"
+              className="text-sm whitespace-pre-wrap"
               placeholder="Client Address"
               multiline
             />
             <ContentEditable
               value={invoiceData.client.contact}
               onChange={(value) => updateInvoiceData("client", "contact", value)}
-              className="mt-1 whitespace-pre-wrap"
+              className="text-sm whitespace-pre-wrap"
               placeholder="Client Contact Details"
               multiline
             />
@@ -375,12 +377,12 @@ export default function FreelanceTemplate() {
         </div>
 
         {/* Project Name */}
-        <div className="px-6 py-3 border-t border-subtle">
-          <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Project</h3>
+        <div className="px-6 py-2 border-t border-subtle">
+          <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Project</h3>
           <ContentEditable
             value={invoiceData.client.projectName}
             onChange={(value) => updateInvoiceData("client", "projectName", value)}
-            className="font-medium text-lg text-primary"
+            className="font-medium text-primary text-sm"
             placeholder="Project Name / Description"
           />
         </div>
