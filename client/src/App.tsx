@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import NotFound from "@/pages/not-found";
 import PrivacyPolicy from "@/pages/privacy";
 import TermsOfService from "@/pages/terms";
+import ConstructionBanner from "@/components/ConstructionBanner";
 
 // Import templates
 import FreelanceTemplate from "@/components/templates/FreelanceTemplate";
@@ -21,6 +22,7 @@ import PhotographyTemplate from "@/components/templates/PhotographyTemplate";
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen">
+      <ConstructionBanner />
       <Navbar />
       <main className="flex-grow bg-background py-8">
         {children}
