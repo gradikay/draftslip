@@ -21,6 +21,7 @@ export type InvoiceData = {
   business: {
     name: string;
     tagline: string;
+    logoUrl?: string;
   };
   document: {
     title: string;
@@ -49,6 +50,7 @@ const InvoiceGenerator = () => {
     business: {
       name: "Blue Petal Design",
       tagline: "Creative Solutions for Growing Businesses",
+      logoUrl: "",
     },
     document: {
       title: "INVOICE",
