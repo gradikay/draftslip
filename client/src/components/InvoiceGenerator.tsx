@@ -399,13 +399,64 @@ const InvoiceGenerator = () => {
             <p className="text-sm text-gray-600 mt-1">Create, edit and print professional invoices</p>
           </div>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-2">
+          <Button
+            onClick={() => setSaveDialogOpen(true)}
+            className="bg-secondary text-white hover:bg-secondary/80"
+          >
+            <Save className="mr-2 h-4 w-4" /> Save
+          </Button>
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="border-gray-300"
+              >
+                <Database className="mr-2 h-4 w-4" /> Saved Invoices {savedInvoices.length > 0 && `(${savedInvoices.length})`}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-72">
+              <DropdownMenuLabel>Saved Invoices</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {savedInvoices.length === 0 ? (
+                <div className="px-2 py-4 text-center text-sm text-gray-500">
+                  No saved invoices found
+                </div>
+              ) : (
+                savedInvoices.map((invoice) => (
+                  <DropdownMenuItem 
+                    key={invoice.name}
+                    className="cursor-pointer flex justify-between items-center"
+                    onClick={() => loadInvoice(invoice.name)}
+                  >
+                    <div>
+                      <div className="font-medium">{invoice.name}</div>
+                      <div className="text-xs text-gray-500">{invoice.date}</div>
+                    </div>
+                    <button 
+                      className="text-red-500 hover:text-red-700"
+                      onClick={(e) => deleteInvoice(invoice.name, e)}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 6h18"></path>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                      </svg>
+                    </button>
+                  </DropdownMenuItem>
+                ))
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          
           <Button
             onClick={handlePrint}
-            className="bg-primary text-white hover:bg-secondary"
+            className="bg-primary text-white hover:bg-primary/80"
           >
             <Printer className="mr-2 h-4 w-4" /> Print Invoice
           </Button>
+          
           <Button
             onClick={handleDownloadPdf}
             className="bg-accent text-text hover:bg-accent/90"
@@ -415,6 +466,30 @@ const InvoiceGenerator = () => {
         </div>
       </div>
 
+      {/* Save Invoice Dialog */}
+      <Dialog open={saveDialogOpen} onOpenChange={setSaveDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Save Invoice</DialogTitle>
+            <DialogDescription>
+              Enter a name for this invoice. If you use an existing name, it will be overwritten.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="my-2">
+            <Input
+              placeholder="Invoice name"
+              value={invoiceName}
+              onChange={(e) => setInvoiceName(e.target.value)}
+              className="mt-2"
+            />
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setSaveDialogOpen(false)}>Cancel</Button>
+            <Button onClick={saveInvoice}>Save Invoice</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      
       {/* Invoice Paper Container */}
       <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden">
         <div className="relative">
