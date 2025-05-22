@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Printer, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContentEditable from "../ContentEditable";
 import WatercolorLogo from "../WatercolorLogo";
-import html2pdf from "html2pdf.js";
 import { formatCurrency } from "@/lib/utils/formatters";
+import LogoUploader from "../LogoUploader";
+import PrintDownloadButtons from "../PrintDownloadButtons";
 
 type InvoiceItem = {
   id: string;
@@ -21,6 +21,7 @@ type ConsultingInvoiceData = {
     tagline: string;
     expertise: string;
     registrationNumber: string;
+    logoUrl?: string;
   };
   document: {
     title: string;
@@ -60,6 +61,7 @@ export default function ConsultingTemplate() {
       tagline: "Business Strategy & Management Consulting",
       expertise: "Financial, Operational, Strategic",
       registrationNumber: "Business Reg: 98765432",
+      logoUrl: "",
     },
     document: {
       title: "CONSULTING INVOICE",
