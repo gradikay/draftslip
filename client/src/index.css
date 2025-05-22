@@ -59,7 +59,13 @@
   
   .thank-you-message {
     font-family: 'Dancing Script', cursive;
-    @apply text-3xl text-primary font-semibold;
+    @apply text-6xl text-primary font-semibold;
+    transform: rotate(-45deg);
+    opacity: 0.6;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
   }
 }
 

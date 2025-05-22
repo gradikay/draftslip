@@ -175,9 +175,8 @@ const InvoiceGenerator = () => {
           onUpdateItems={updateItems}
         />
         
-        <div className="px-6 py-2 flex justify-between items-center">
-          <div className="thank-you-message">Thank You!</div>
-          <div className="w-1/2"></div>
+        <div className="px-6 py-8 flex justify-center items-center relative">
+          <div className="thank-you-message absolute">Thank You!</div>
         </div>
 
         <InvoiceSummary
