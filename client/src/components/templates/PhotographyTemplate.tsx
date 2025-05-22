@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Printer, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContentEditable from "../ContentEditable";
 import WatercolorLogo from "../WatercolorLogo";
-import html2pdf from "html2pdf.js";
 import { formatCurrency } from "@/lib/utils/formatters";
+import LogoUploader from "../LogoUploader";
+import PrintDownloadButtons from "../PrintDownloadButtons";
 
 type InvoiceItem = {
   id: string;
@@ -20,6 +20,7 @@ type PhotographyInvoiceData = {
     name: string;
     tagline: string;
     website: string;
+    logoUrl?: string;
   };
   document: {
     title: string;
@@ -58,6 +59,7 @@ export default function PhotographyTemplate() {
       name: "Captured Moments",
       tagline: "Photography & Videography Services",
       website: "www.capturedmoments.com",
+      logoUrl: "",
     },
     document: {
       title: "PHOTOGRAPHY INVOICE",
@@ -139,47 +141,13 @@ export default function PhotographyTemplate() {
   const calculateTotal = () => {
     return calculateSubtotal() - calculateDiscountAmount() + calculateTaxAmount();
   };
-
-  const handlePrint = () => {
-    window.print();
+  
+  // Handle logo upload
+  const handleLogoChange = (logoUrl: string) => {
+    updateInvoiceData("business", "logoUrl", logoUrl);
   };
-
-  const handleDownloadPdf = () => {
-    // Hide elements that shouldn't appear in PDF
-    const addItemButton = document.querySelector(".add-item-button");
-    const dueDateOptional = document.querySelector(".due-date-optional-field");
-    
-    if (addItemButton) {
-      addItemButton.classList.add("force-hide");
-    }
-    
-    if (dueDateOptional) {
-      dueDateOptional.classList.add("force-hide");
-    }
-    
-    // Get invoice container
-    const element = document.querySelector(".invoice-container") as HTMLElement;
-    if (!element) return;
-    
-    const opt = {
-      margin: 10,
-      filename: `${invoiceData.document.number}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
-    };
-
-    // Generate PDF
-    html2pdf().set(opt).from(element).save().then(() => {
-      // Restore visibility
-      if (addItemButton) {
-        addItemButton.classList.remove("force-hide");
-      }
-      if (dueDateOptional) {
-        dueDateOptional.classList.remove("force-hide");
-      }
-    });
-  };
+  
+  // Print and download functionality is now handled by the PrintDownloadButtons component
 
   const updateInvoiceData = (
     section: keyof PhotographyInvoiceData,
@@ -270,25 +238,33 @@ export default function PhotographyTemplate() {
         {/* Header */}
         <div className="px-6 py-3 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="mb-1 md:mb-0">
-              <ContentEditable
-                value={invoiceData.business.name}
-                onChange={(value) => updateInvoiceData("business", "name", value)}
-                className="text-xl font-semibold text-primary"
-                placeholder="Photography Business"
+            <div className="flex gap-3 mb-1 md:mb-0">
+              {/* Logo Uploader */}
+              <LogoUploader 
+                logoUrl={invoiceData.business.logoUrl} 
+                onLogoChange={handleLogoChange}
               />
-              <ContentEditable
-                value={invoiceData.business.tagline}
-                onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                className="text-xs text-gray-600"
-                placeholder="Business Tagline"
-              />
-              <ContentEditable
-                value={invoiceData.business.website}
-                onChange={(value) => updateInvoiceData("business", "website", value)}
-                className="text-xs text-gray-600"
-                placeholder="Business Website"
-              />
+              
+              <div>
+                <ContentEditable
+                  value={invoiceData.business.name}
+                  onChange={(value) => updateInvoiceData("business", "name", value)}
+                  className="text-xl font-semibold text-primary"
+                  placeholder="Photography Business"
+                />
+                <ContentEditable
+                  value={invoiceData.business.tagline}
+                  onChange={(value) => updateInvoiceData("business", "tagline", value)}
+                  className="text-xs text-gray-600"
+                  placeholder="Business Tagline"
+                />
+                <ContentEditable
+                  value={invoiceData.business.website}
+                  onChange={(value) => updateInvoiceData("business", "website", value)}
+                  className="text-xs text-gray-600"
+                  placeholder="Business Website"
+                />
+              </div>
             </div>
             <div className="text-right">
               <ContentEditable
