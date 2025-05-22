@@ -135,47 +135,13 @@ export default function ConsultingTemplate() {
   const calculateTotal = () => {
     return calculateSubtotal() - calculateDiscountAmount() + calculateTaxAmount();
   };
-
-  const handlePrint = () => {
-    window.print();
+  
+  // Handle logo upload
+  const handleLogoChange = (logoUrl: string) => {
+    updateInvoiceData("business", "logoUrl", logoUrl);
   };
 
-  const handleDownloadPdf = () => {
-    // Hide elements that shouldn't appear in PDF
-    const addItemButton = document.querySelector(".add-item-button");
-    const dueDateOptional = document.querySelector(".due-date-optional-field");
-    
-    if (addItemButton) {
-      addItemButton.classList.add("force-hide");
-    }
-    
-    if (dueDateOptional) {
-      dueDateOptional.classList.add("force-hide");
-    }
-    
-    // Get invoice container
-    const element = document.querySelector(".invoice-container") as HTMLElement;
-    if (!element) return;
-    
-    const opt = {
-      margin: 10,
-      filename: `${invoiceData.document.number}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
-    };
-
-    // Generate PDF
-    html2pdf().set(opt).from(element).save().then(() => {
-      // Restore visibility
-      if (addItemButton) {
-        addItemButton.classList.remove("force-hide");
-      }
-      if (dueDateOptional) {
-        dueDateOptional.classList.remove("force-hide");
-      }
-    });
-  };
+  // Print and download functionality is now handled by the PrintDownloadButtons component
 
   const updateInvoiceData = (
     section: keyof ConsultingInvoiceData,
@@ -243,51 +209,50 @@ export default function ConsultingTemplate() {
             <p className="text-sm text-gray-600 mt-1">Professional template for consultants and advisory services</p>
           </div>
         </div>
-        <div className="flex gap-3">
-          <Button
-            onClick={handlePrint}
-            className="bg-primary text-white hover:bg-secondary"
-          >
-            <Printer className="mr-2 h-4 w-4" /> Print Invoice
-          </Button>
-          <Button
-            onClick={handleDownloadPdf}
-            className="bg-accent text-text hover:bg-accent/90"
-          >
-            <FileDown className="mr-2 h-4 w-4" /> Download PDF
-          </Button>
-        </div>
+        <PrintDownloadButtons 
+          invoiceData={invoiceData}
+          invoiceContainerSelector=".invoice-container"
+          logoUrl={invoiceData.business.logoUrl}
+        />
       </div>
 
       {/* Consulting Invoice Container */}
       <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden">
         <div className="px-6 py-4 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="mb-2 md:mb-0">
-              <ContentEditable
-                value={invoiceData.business.name}
-                onChange={(value) => updateInvoiceData("business", "name", value)}
-                className="text-2xl font-semibold text-primary"
-                placeholder="Your Consulting Business Name"
+            <div className="flex gap-3 mb-2 md:mb-0">
+              {/* Logo Uploader */}
+              <LogoUploader 
+                logoUrl={invoiceData.business.logoUrl} 
+                onLogoChange={handleLogoChange}
               />
-              <ContentEditable
-                value={invoiceData.business.tagline}
-                onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                className="text-sm text-gray-600 mt-1"
-                placeholder="Your Consulting Focus"
-              />
-              <ContentEditable
-                value={invoiceData.business.expertise}
-                onChange={(value) => updateInvoiceData("business", "expertise", value)}
-                className="text-sm text-gray-600 mt-1"
-                placeholder="Areas of Expertise"
-              />
-              <ContentEditable
-                value={invoiceData.business.registrationNumber}
-                onChange={(value) => updateInvoiceData("business", "registrationNumber", value)}
-                className="text-xs text-gray-500 mt-1"
-                placeholder="Business Registration Number"
-              />
+              
+              <div>
+                <ContentEditable
+                  value={invoiceData.business.name}
+                  onChange={(value) => updateInvoiceData("business", "name", value)}
+                  className="text-2xl font-semibold text-primary"
+                  placeholder="Your Consulting Business Name"
+                />
+                <ContentEditable
+                  value={invoiceData.business.tagline}
+                  onChange={(value) => updateInvoiceData("business", "tagline", value)}
+                  className="text-sm text-gray-600 mt-1"
+                  placeholder="Your Consulting Focus"
+                />
+                <ContentEditable
+                  value={invoiceData.business.expertise}
+                  onChange={(value) => updateInvoiceData("business", "expertise", value)}
+                  className="text-sm text-gray-600 mt-1"
+                  placeholder="Areas of Expertise"
+                />
+                <ContentEditable
+                  value={invoiceData.business.registrationNumber}
+                  onChange={(value) => updateInvoiceData("business", "registrationNumber", value)}
+                  className="text-xs text-gray-500 mt-1"
+                  placeholder="Business Registration Number"
+                />
+              </div>
             </div>
             <div className="text-right">
               <ContentEditable
