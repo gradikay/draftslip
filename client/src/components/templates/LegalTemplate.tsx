@@ -214,20 +214,12 @@ export default function LegalTemplate() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button
-            onClick={handlePrint}
-            className="bg-primary text-white hover:bg-secondary"
-            size="sm"
-          >
-            <Printer className="mr-1 h-3 w-3" /> Print
-          </Button>
-          <Button
-            onClick={handleDownloadPdf}
-            className="bg-accent text-text hover:bg-accent/90"
-            size="sm"
-          >
-            <FileDown className="mr-1 h-3 w-3" /> PDF
-          </Button>
+          <PrintDownloadButtons
+            containerClassName="flex gap-2"
+            invoiceData={invoiceData}
+            invoiceContainerSelector=".invoice-container"
+            logoUrl={invoiceData.business.logoUrl}
+          />
         </div>
       </div>
 
