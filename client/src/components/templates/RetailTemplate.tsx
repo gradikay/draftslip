@@ -208,18 +208,12 @@ export default function RetailTemplate() {
           </div>
         </div>
         <div className="flex gap-3">
-          <Button
-            onClick={handlePrint}
-            className="bg-primary text-white hover:bg-secondary"
-          >
-            <Printer className="mr-2 h-4 w-4" /> Print Invoice
-          </Button>
-          <Button
-            onClick={handleDownloadPdf}
-            className="bg-accent text-text hover:bg-accent/90"
-          >
-            <FileDown className="mr-2 h-4 w-4" /> Download PDF
-          </Button>
+          <PrintDownloadButtons
+            containerClassName="flex gap-3"
+            invoiceData={invoiceData}
+            invoiceContainerSelector=".invoice-container"
+            logoUrl={invoiceData.business.logoUrl}
+          />
         </div>
       </div>
 
@@ -227,25 +221,33 @@ export default function RetailTemplate() {
       <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden">
         <div className="px-6 py-4 border-b border-subtle">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div className="mb-2 md:mb-0">
-              <ContentEditable
-                value={invoiceData.business.name}
-                onChange={(value) => updateInvoiceData("business", "name", value)}
-                className="text-2xl font-semibold text-primary"
-                placeholder="Your Store Name"
+            <div className="flex gap-3 mb-2 md:mb-0">
+              {/* Logo Uploader */}
+              <LogoUploader 
+                logoUrl={invoiceData.business.logoUrl} 
+                onLogoChange={handleLogoChange}
               />
-              <ContentEditable
-                value={invoiceData.business.tagline}
-                onChange={(value) => updateInvoiceData("business", "tagline", value)}
-                className="text-sm text-gray-600 mt-1"
-                placeholder="Store Tagline"
-              />
-              <ContentEditable
-                value={invoiceData.business.storeLocation}
-                onChange={(value) => updateInvoiceData("business", "storeLocation", value)}
-                className="text-sm text-gray-600 mt-1"
-                placeholder="Store Location"
-              />
+              
+              <div>
+                <ContentEditable
+                  value={invoiceData.business.name}
+                  onChange={(value) => updateInvoiceData("business", "name", value)}
+                  className="text-2xl font-semibold text-primary"
+                  placeholder="Your Store Name"
+                />
+                <ContentEditable
+                  value={invoiceData.business.tagline}
+                  onChange={(value) => updateInvoiceData("business", "tagline", value)}
+                  className="text-sm text-gray-600 mt-1"
+                  placeholder="Store Tagline"
+                />
+                <ContentEditable
+                  value={invoiceData.business.storeLocation}
+                  onChange={(value) => updateInvoiceData("business", "storeLocation", value)}
+                  className="text-sm text-gray-600 mt-1"
+                  placeholder="Store Location"
+                />
+              </div>
             </div>
             <div className="text-right">
               <ContentEditable
