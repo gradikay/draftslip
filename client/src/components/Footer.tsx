@@ -45,6 +45,11 @@ export default function Footer() {
                   Pricing
                 </Link>
               </li>
+              <li>
+                <Link href="/contact" className="text-base font-medium text-gray-700 hover:text-primary footer-link">
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
           
