@@ -116,7 +116,7 @@
   
   /* Improve page break behavior */
   @page {
-    margin: 0.5in !important;
+    margin: 1in !important;
   }
 }
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Printer, FileDown, HelpCircle, Save, Database } from "lucide-react";
+import { Printer, FileDown, HelpCircle, Save, Database, Upload, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import InvoiceHeader from "./InvoiceHeader";
 import InvoiceDetails from "./InvoiceDetails";
@@ -231,6 +231,109 @@ const InvoiceGenerator = () => {
       console.error('Error deleting invoice:', error);
     }
   };
+  
+  // Export all invoices to a JSON file
+  const exportInvoices = () => {
+    try {
+      const exportData: { [key: string]: any } = {};
+      
+      // First add the invoice list
+      exportData.invoicesList = savedInvoices;
+      
+      // Then add each invoice's data
+      savedInvoices.forEach(invoice => {
+        const invoiceData = localStorage.getItem(`invoice-${invoice.name}`);
+        if (invoiceData) {
+          exportData[`invoice-${invoice.name}`] = JSON.parse(invoiceData);
+        }
+      });
+      
+      // Convert to JSON and create download link
+      const dataStr = JSON.stringify(exportData, null, 2);
+      const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(dataStr)}`;
+      
+      const exportFileDefaultName = `draftslip-invoices-backup-${new Date().toISOString().split('T')[0]}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      toast({
+        title: "Export successful",
+        description: `${savedInvoices.length} invoices exported to file.`
+      });
+    } catch (error) {
+      toast({
+        title: "Export failed",
+        description: "There was an error exporting your invoices. Please try again.",
+        variant: "destructive"
+      });
+      console.error('Error exporting invoices:', error);
+    }
+  };
+  
+  // Import invoices from a JSON file
+  const handleImportFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileInput = event.target;
+    
+    if (!fileInput.files || fileInput.files.length === 0) {
+      return;
+    }
+    
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    
+    reader.onload = (e) => {
+      try {
+        if (!e.target || typeof e.target.result !== 'string') {
+          throw new Error('Failed to read file');
+        }
+        
+        const importData = JSON.parse(e.target.result);
+        
+        // Check if this is a valid export file
+        if (!importData.invoicesList || !Array.isArray(importData.invoicesList)) {
+          throw new Error('Invalid import file format');
+        }
+        
+        // Import the invoice list
+        localStorage.setItem('savedInvoicesList', JSON.stringify(importData.invoicesList));
+        
+        // Import each invoice
+        let importCount = 0;
+        importData.invoicesList.forEach((invoice: {name: string, date: string}) => {
+          const invoiceKey = `invoice-${invoice.name}`;
+          if (importData[invoiceKey]) {
+            localStorage.setItem(invoiceKey, JSON.stringify(importData[invoiceKey]));
+            importCount++;
+          }
+        });
+        
+        // Update the state
+        setSavedInvoices(importData.invoicesList);
+        
+        toast({
+          title: "Import successful",
+          description: `${importCount} invoices imported successfully.`
+        });
+        
+        // Reset the file input
+        fileInput.value = '';
+        
+      } catch (error) {
+        toast({
+          title: "Import failed",
+          description: "There was an error importing your invoices. Please check the file format.",
+          variant: "destructive"
+        });
+        console.error('Error importing invoices:', error);
+        fileInput.value = '';
+      }
+    };
+    
+    reader.readAsText(file);
+  };
 
   const handlePrint = () => {
     // Since PDF download works well, let's use the same method for printing
@@ -447,6 +550,36 @@ const InvoiceGenerator = () => {
                   </DropdownMenuItem>
                 ))
               )}
+              <DropdownMenuSeparator />
+              <div className="p-2 flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex-1 text-xs"
+                  onClick={exportInvoices}
+                >
+                  <Download className="mr-1 h-3 w-3" /> Export All
+                </Button>
+                <label htmlFor="import-invoices" className="flex-1">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full text-xs" 
+                    asChild
+                  >
+                    <span>
+                      <Upload className="mr-1 h-3 w-3" /> Import
+                    </span>
+                  </Button>
+                  <input
+                    id="import-invoices"
+                    type="file"
+                    accept=".json"
+                    className="hidden"
+                    onChange={handleImportFile}
+                  />
+                </label>
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
           
