@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://draftslip.com/sitemap.xml
+
+# Crawl-delay to be kind to servers
+Crawl-delay: 10
+
+# Don't index these pages
+Disallow: /404

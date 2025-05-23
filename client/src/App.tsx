@@ -200,7 +200,12 @@ function App() {
     <Layout>
       <Switch>
         <Route path="/">
-          <SEO />
+          <SEO 
+            title="DraftSlip | Free Online Invoice Generator"
+            description="Create beautiful, professional invoices instantly with our free online invoice generator. No signup required, 100% private with local storage only."
+            keywords="free invoice generator, invoice maker, invoice creator, professional invoice, invoice template, invoice pdf, no signup invoice generator"
+            canonicalUrl="/"
+          />
           <InvoiceGenerator />
         </Route>
         
