@@ -163,7 +163,7 @@ export default function ContactPage() {
           <div className="bg-primary/5 p-6 sm:p-8 border-t border-gray-100">
             <h2 className="text-2xl font-semibold text-primary mb-6">Contact Information</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-6">
               <div>
                 <div className="flex items-center mb-3">
                   <svg className="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
