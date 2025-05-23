@@ -274,7 +274,7 @@ export default function MedicalTemplate() {
         <div className="px-6 py-2 grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Left Column - Provider Details */}
           <div>
-            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Provider</h3>
+            <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">Provider</h2>
             <ContentEditable
               value={invoiceData.provider.name}
               onChange={(value) => updateInvoiceData("provider", "name", value)}
@@ -315,7 +315,7 @@ export default function MedicalTemplate() {
           <div>
             <div className="grid grid-cols-2 gap-3 mb-2">
               <div>
-                <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Invoice Number</h3>
+                <span className="text-xs uppercase text-gray-500 font-medium mb-0.5 block">Invoice Number</span>
                 <ContentEditable
                   value={invoiceData.document.number}
                   onChange={(value) => updateInvoiceData("document", "number", value)}
@@ -324,7 +324,7 @@ export default function MedicalTemplate() {
                 />
               </div>
               <div>
-                <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Service Date</h3>
+                <span className="text-xs uppercase text-gray-500 font-medium mb-0.5 block">Service Date</span>
                 <ContentEditable
                   value={invoiceData.document.date}
                   onChange={(value) => updateInvoiceData("document", "date", value)}
@@ -334,7 +334,7 @@ export default function MedicalTemplate() {
                 
                 {invoiceData.document.dueDate && (
                   <>
-                    <h3 className="text-xs uppercase text-gray-500 font-medium mt-1 mb-0.5">Due Date</h3>
+                    <span className="text-xs uppercase text-gray-500 font-medium mt-1 mb-0.5 block">Due Date</span>
                     <ContentEditable
                       value={invoiceData.document.dueDate}
                       onChange={(value) => updateInvoiceData("document", "dueDate", value)}
@@ -345,7 +345,7 @@ export default function MedicalTemplate() {
                 )}
                 {!invoiceData.document.dueDate && (
                   <div className="no-print hidden-on-print due-date-optional-field" style={{display: 'block'}}>
-                    <h3 className="text-xs uppercase text-gray-500 font-medium mt-1 mb-0.5 no-print hidden-on-print">Due Date (Optional)</h3>
+                    <span className="text-xs uppercase text-gray-500 font-medium mt-1 mb-0.5 no-print hidden-on-print block">Due Date (Optional)</span>
                     <ContentEditable
                       value={invoiceData.document.dueDate}
                       onChange={(value) => updateInvoiceData("document", "dueDate", value)}
@@ -357,7 +357,7 @@ export default function MedicalTemplate() {
               </div>
             </div>
 
-            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Patient</h3>
+            <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">Patient</h2>
             <ContentEditable
               value={invoiceData.patient.name}
               onChange={(value) => updateInvoiceData("patient", "name", value)}
@@ -397,11 +397,11 @@ export default function MedicalTemplate() {
 
         {/* Insurance Information */}
         <div className="px-6 py-2 border-t border-subtle">
-          <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Insurance Information</h3>
+          <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">Insurance Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div className="grid grid-cols-1 gap-1">
               <div>
-                <h3 className="text-xs font-medium mb-0.5">Primary Insurance</h3>
+                <span className="text-xs font-medium mb-0.5 block">Primary Insurance</span>
                 <ContentEditable
                   value={invoiceData.insurance.primary}
                   onChange={(value) => updateInvoiceData("insurance", "primary", value)}
@@ -426,7 +426,7 @@ export default function MedicalTemplate() {
             </div>
             <div className="grid grid-cols-1 gap-1">
               <div>
-                <h3 className="text-xs font-medium mb-0.5">Secondary Insurance</h3>
+                <span className="text-xs font-medium mb-0.5 block">Secondary Insurance</span>
                 <ContentEditable
                   value={invoiceData.insurance.secondary}
                   onChange={(value) => updateInvoiceData("insurance", "secondary", value)}
@@ -604,7 +604,7 @@ export default function MedicalTemplate() {
 
         {/* Invoice Notes */}
         <div className="px-6 py-2 bg-gray-50 border-t border-subtle">
-          <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Notes</h3>
+          <h2 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Notes</h2>
           <ContentEditable
             value={invoiceData.document.notes}
             onChange={(value) => updateInvoiceData("document", "notes", value)}
