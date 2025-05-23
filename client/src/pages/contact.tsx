@@ -44,7 +44,6 @@ export default function ContactPage() {
         description="Get in touch with the DraftSlip team. Send us your questions, feedback, or inquiries about our free invoice generator."
         canonicalUrl="/contact"
       />
-      
       {/* Hero section with background */}
       <div className="relative bg-primary/10 py-16 overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
@@ -65,7 +64,6 @@ export default function ContactPage() {
           </p>
         </div>
       </div>
-      
       {/* Success message */}
       {showSuccess && (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
@@ -81,7 +79,6 @@ export default function ContactPage() {
           </Alert>
         </div>
       )}
-      
       {/* Contact form and info section */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
@@ -167,7 +164,7 @@ export default function ContactPage() {
             </div>
             
             {/* Contact information */}
-            <div className="md:w-1/3 bg-primary/5 p-6 sm:p-10 border-t md:border-t-0 md:border-l border-gray-100">
+            <div className="md:w-1/3 bg-primary/5 p-6 sm:p-8 border-t md:border-t-0 md:border-l border-gray-100">
               <h2 className="text-2xl font-semibold text-primary mb-6">Contact Information</h2>
               
               <div className="space-y-6">
@@ -178,8 +175,8 @@ export default function ContactPage() {
                     </svg>
                     <h3 className="font-medium text-gray-900">Email</h3>
                   </div>
-                  <p className="text-gray-700 pl-8">
-                    <a href="mailto:contact@artivicolab.com" className="hover:text-primary transition-colors duration-200">
+                  <p className="text-gray-700 pl-8 break-words">
+                    <a href="mailto:contact@artivicolab.com" className="hover:text-primary transition-colors duration-200 text-sm sm:text-base">
                       contact@artivicolab.com
                     </a>
                   </p>
