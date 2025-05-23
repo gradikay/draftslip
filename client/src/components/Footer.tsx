@@ -120,7 +120,8 @@ export default function Footer() {
             </Link>
           </div>
           <p className="mt-3 text-sm">
-            Created by <a href="/contact" className="text-primary hover:underline">ArtivicoLab</a> with ❤️
+            Developed with ❤️ by <span className="developer-credit">Gradi Kayamba</span> | 
+            Part of <a href="/contact" className="text-primary hover:underline">ArtivicoLab</a>
           </p>
           <p className="text-xs mt-1 text-gray-500">
             Contact us: <a href="mailto:artivicolab@gmail.com" className="hover:underline">artivicolab@gmail.com</a>
