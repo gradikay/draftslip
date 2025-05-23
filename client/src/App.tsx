@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import PrivacyPolicy from "@/pages/privacy";
 import TermsOfService from "@/pages/terms";
 import ConstructionBanner from "@/components/ConstructionBanner";
+import SEO from "@/components/SEO";
 
 // Import templates
 import FreelanceTemplate from "@/components/templates/FreelanceTemplate";
@@ -198,21 +199,145 @@ function App() {
   return (
     <Layout>
       <Switch>
-        <Route path="/" component={InvoiceGenerator} />
-        <Route path="/templates" component={TemplatesPage} />
-        <Route path="/templates/freelance" component={FreelanceTemplate} />
-        <Route path="/templates/consulting" component={ConsultingTemplate} />
-        <Route path="/templates/retail" component={RetailTemplate} />
-        <Route path="/templates/agency" component={AgencyTemplate} />
-        <Route path="/templates/construction" component={ConstructionTemplate} />
-        <Route path="/templates/medical" component={MedicalTemplate} />
-        <Route path="/templates/legal" component={LegalTemplate} />
-        <Route path="/templates/event" component={EventTemplate} />
-        <Route path="/templates/photography" component={PhotographyTemplate} />
-        <Route path="/about" component={AboutPage} />
-        <Route path="/privacy" component={PrivacyPolicy} />
-        <Route path="/terms" component={TermsOfService} />
-        <Route component={NotFound} />
+        <Route path="/">
+          <SEO />
+          <InvoiceGenerator />
+        </Route>
+        
+        <Route path="/templates">
+          <SEO 
+            title="Invoice Templates | DraftSlip - Free Invoice Generator" 
+            description="Choose from our collection of professional invoice templates for freelancers, consultants, retailers, agencies, and more. Create and customize in seconds."
+            canonicalUrl="/templates"
+          />
+          <TemplatesPage />
+        </Route>
+        
+        <Route path="/templates/freelance">
+          <SEO 
+            title="Freelance Invoice Template | DraftSlip" 
+            description="Create professional freelance invoices with our free template. Perfect for freelancers with project-based billing, payment terms, and customizable fields."
+            canonicalUrl="/templates/freelance"
+            keywords="freelance invoice, freelancer template, freelance billing, contractor invoice"
+          />
+          <FreelanceTemplate />
+        </Route>
+        
+        <Route path="/templates/consulting">
+          <SEO 
+            title="Consulting Invoice Template | DraftSlip" 
+            description="Generate detailed consulting invoices with hourly rates, service breakdowns, and professional formatting. Perfect for consultants and advisors."
+            canonicalUrl="/templates/consulting"
+            keywords="consulting invoice, consultant billing, professional services invoice, hourly billing template"
+          />
+          <ConsultingTemplate />
+        </Route>
+        
+        <Route path="/templates/retail">
+          <SEO 
+            title="Retail Business Invoice Template | DraftSlip" 
+            description="Create retail-focused invoices with product details, quantities, and customer information. Perfect for shops, stores, and online retailers."
+            canonicalUrl="/templates/retail"
+            keywords="retail invoice, product invoice, store billing, sales receipt template"
+          />
+          <RetailTemplate />
+        </Route>
+        
+        <Route path="/templates/agency">
+          <SEO 
+            title="Agency Services Invoice Template | DraftSlip" 
+            description="Professional invoice template for marketing and creative agencies with project details and service categories. Perfect for client billing."
+            canonicalUrl="/templates/agency"
+            keywords="agency invoice, marketing invoice, creative agency billing, client billing template"
+          />
+          <AgencyTemplate />
+        </Route>
+        
+        <Route path="/templates/construction">
+          <SEO 
+            title="Construction & Contracting Invoice Template | DraftSlip" 
+            description="Create detailed construction invoices with materials, labor, and project phases. Ideal for builders, contractors, and construction companies."
+            canonicalUrl="/templates/construction"
+            keywords="construction invoice, contractor billing, building invoice, project billing template"
+          />
+          <ConstructionTemplate />
+        </Route>
+        
+        <Route path="/templates/medical">
+          <SEO 
+            title="Medical & Healthcare Invoice Template | DraftSlip" 
+            description="Create professional medical invoices with patient details, insurance information, and procedure codes for healthcare providers."
+            canonicalUrl="/templates/medical"
+            keywords="medical invoice, healthcare billing, patient billing, medical practice invoice"
+          />
+          <MedicalTemplate />
+        </Route>
+        
+        <Route path="/templates/legal">
+          <SEO 
+            title="Legal Services Invoice Template | DraftSlip" 
+            description="Generate professional legal invoices with matter details and billing time entries. Designed for attorneys and legal professionals."
+            canonicalUrl="/templates/legal"
+            keywords="legal invoice, attorney billing, law firm invoice, legal services template"
+          />
+          <LegalTemplate />
+        </Route>
+        
+        <Route path="/templates/event">
+          <SEO 
+            title="Event Planning Invoice Template | DraftSlip" 
+            description="Create detailed event planning invoices with venue, catering, and entertainment service details. Perfect for event planners and coordinators."
+            canonicalUrl="/templates/event"
+            keywords="event invoice, event planning billing, event coordinator invoice, party planning template"
+          />
+          <EventTemplate />
+        </Route>
+        
+        <Route path="/templates/photography">
+          <SEO 
+            title="Photography & Videography Invoice Template | DraftSlip" 
+            description="Professional invoice template for photographers with session details, deliverables, and usage rights. Ideal for photo and video professionals."
+            canonicalUrl="/templates/photography"
+            keywords="photography invoice, photographer billing, session invoice, photography services template"
+          />
+          <PhotographyTemplate />
+        </Route>
+        
+        <Route path="/about">
+          <SEO 
+            title="About DraftSlip | Free Online Invoice Generator" 
+            description="Learn about DraftSlip's free invoice generator with watercolor-inspired design. Create beautiful, professional invoices in seconds."
+            canonicalUrl="/about"
+          />
+          <AboutPage />
+        </Route>
+        
+        <Route path="/privacy">
+          <SEO 
+            title="Privacy Policy | DraftSlip" 
+            description="Review DraftSlip's privacy policy regarding personal information, data storage, and your rights."
+            canonicalUrl="/privacy"
+          />
+          <PrivacyPolicy />
+        </Route>
+        
+        <Route path="/terms">
+          <SEO 
+            title="Terms of Service | DraftSlip" 
+            description="Read DraftSlip's terms of service for using our free invoice generator platform."
+            canonicalUrl="/terms"
+          />
+          <TermsOfService />
+        </Route>
+        
+        <Route>
+          <SEO 
+            title="Page Not Found | DraftSlip" 
+            description="The page you are looking for doesn't exist. Navigate back to our invoice generator."
+            canonicalUrl="/404"
+          />
+          <NotFound />
+        </Route>
       </Switch>
     </Layout>
   );
