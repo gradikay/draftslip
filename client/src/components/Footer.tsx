@@ -111,7 +111,15 @@ export default function Footer() {
           <p className="text-base font-medium text-gray-700">
             &copy; {currentYear} DraftSlip. All rights reserved.
           </p>
-          <p className="mt-2 text-sm">
+          <div className="mt-3 flex justify-center space-x-6">
+            <Link href="/privacy" className="text-sm text-gray-600 hover:text-primary footer-link">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-sm text-gray-600 hover:text-primary footer-link">
+              Terms of Service
+            </Link>
+          </div>
+          <p className="mt-3 text-sm">
             Developed with ❤️ by <span className="developer-credit">Gradi Kayamba</span>
           </p>
         </div>
