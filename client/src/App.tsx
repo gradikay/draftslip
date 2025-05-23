@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import NotFound from "@/pages/not-found";
 import PrivacyPolicy from "@/pages/privacy";
 import TermsOfService from "@/pages/terms";
+import ContactPage from "@/pages/contact";
 import ConstructionBanner from "@/components/ConstructionBanner";
 import SEO from "@/components/SEO";
 
@@ -333,6 +334,15 @@ function App() {
             canonicalUrl="/terms"
           />
           <TermsOfService />
+        </Route>
+        
+        <Route path="/contact">
+          <SEO 
+            title="Contact ArtivicoLab | DraftSlip" 
+            description="Get in touch with the ArtivicoLab team. Send us your questions, feedback, or inquiries about DraftSlip."
+            canonicalUrl="/contact"
+          />
+          <ContactPage />
         </Route>
         
         <Route>
