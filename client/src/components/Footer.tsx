@@ -124,7 +124,7 @@ export default function Footer() {
             Part of <a href="/contact" className="text-primary hover:underline">ArtivicoLab</a>
           </p>
           <p className="text-xs mt-1 text-gray-500">
-            Contact us: <a href="mailto:artivicolab@gmail.com" className="hover:underline">artivicolab@gmail.com</a>
+            Contact us: <a href="mailto:contact@artivicolab.com" className="hover:underline">contact@artivicolab.com</a>
           </p>
         </div>
         

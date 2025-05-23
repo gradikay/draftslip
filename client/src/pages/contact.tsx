@@ -135,8 +135,8 @@ export default function ContactPage() {
             <div>
               <h3 className="font-medium text-gray-900">Email</h3>
               <p className="text-gray-600">
-                <a href="mailto:artivicolab@gmail.com" className="hover:text-primary">
-                  artivicolab@gmail.com
+                <a href="mailto:contact@artivicolab.com" className="hover:text-primary">
+                  contact@artivicolab.com
                 </a>
               </p>
             </div>

@@ -94,7 +94,7 @@ export default function PrivacyPolicy() {
         
         <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Contact Us</h2>
         <p>
-          If you have questions about this privacy policy or our handling of your data, please contact us at <a href="mailto:artivicolab@gmail.com" className="text-primary hover:underline">artivicolab@gmail.com</a> or visit our <a href="/contact" className="text-primary hover:underline">contact page</a>.
+          If you have questions about this privacy policy or our handling of your data, please contact us at <a href="mailto:contact@artivicolab.com" className="text-primary hover:underline">contact@artivicolab.com</a> or visit our <a href="/contact" className="text-primary hover:underline">contact page</a>.
         </p>
       </div>
       
