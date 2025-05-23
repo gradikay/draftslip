@@ -105,7 +105,7 @@ export default function TermsOfService() {
         
         <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Contact Us</h2>
         <p>
-          If you have any questions about these Terms, please contact us at <a href="mailto:legal@draftslip.com" className="text-primary hover:underline">legal@draftslip.com</a>.
+          If you have any questions about these Terms, please contact us at <a href="mailto:artivicolab@gmail.com" className="text-primary hover:underline">artivicolab@gmail.com</a> or visit our <a href="/contact" className="text-primary hover:underline">contact page</a>.
         </p>
       </div>
       
