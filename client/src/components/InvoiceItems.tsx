@@ -110,8 +110,11 @@ const InvoiceItems = ({ items, onUpdateItems }: InvoiceItemsProps) => {
                 <button
                   className="text-gray-400 hover:text-red-500 delete-item-button"
                   onClick={() => handleDeleteItem(item.id)}
+                  aria-label="Delete item"
+                  title="Delete item"
                 >
                   <Trash2 size={16} />
+                  <span className="sr-only">Delete item</span>
                 </button>
               </td>
             </tr>
