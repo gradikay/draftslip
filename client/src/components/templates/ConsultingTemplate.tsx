@@ -268,7 +268,7 @@ export default function ConsultingTemplate() {
         <div className="px-6 py-3 grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Left Column - Consultant Details */}
           <div>
-            <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">From</h3>
+            <h2 className="text-sm uppercase text-gray-500 font-medium mb-2">From</h2>
             <ContentEditable
               value={invoiceData.consultant.name}
               onChange={(value) => updateInvoiceData("consultant", "name", value)}
@@ -351,7 +351,7 @@ export default function ConsultingTemplate() {
               </div>
             </div>
 
-            <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Bill To</h3>
+            <h2 className="text-sm uppercase text-gray-500 font-medium mb-2">Bill To</h2>
             <ContentEditable
               value={invoiceData.client.name}
               onChange={(value) => updateInvoiceData("client", "name", value)}
@@ -383,7 +383,7 @@ export default function ConsultingTemplate() {
 
         {/* Project Reference */}
         <div className="px-6 py-3 border-t border-subtle">
-          <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Project Reference</h3>
+          <h2 className="text-sm uppercase text-gray-500 font-medium mb-2">Project Reference</h2>
           <ContentEditable
             value={invoiceData.client.projectReference}
             onChange={(value) => updateInvoiceData("client", "projectReference", value)}
@@ -541,7 +541,7 @@ export default function ConsultingTemplate() {
         <div className="px-6 py-3 bg-gray-50 border-t border-subtle">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Payment Instructions</h3>
+              <h2 className="text-sm uppercase text-gray-500 font-medium mb-2">Payment Instructions</h2>
               <ContentEditable
                 value={invoiceData.paymentInfo.method}
                 onChange={(value) => updateInvoiceData("paymentInfo", "method", value)}
@@ -557,7 +557,7 @@ export default function ConsultingTemplate() {
               />
             </div>
             <div>
-              <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Payment Terms</h3>
+              <h2 className="text-sm uppercase text-gray-500 font-medium mb-2">Payment Terms</h2>
               <ContentEditable
                 value={invoiceData.paymentInfo.terms}
                 onChange={(value) => updateInvoiceData("paymentInfo", "terms", value)}

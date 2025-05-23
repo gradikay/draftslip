@@ -495,7 +495,7 @@ export default function FreelanceTemplate() {
 
         {/* Payment Information */}
         <div className="px-6 py-3 bg-gray-50 border-t border-subtle">
-          <h3 className="text-sm uppercase text-gray-500 font-medium mb-2">Payment Method</h3>
+          <h2 className="text-sm uppercase text-gray-500 font-medium mb-2">Payment Method</h2>
           <ContentEditable
             value={invoiceData.paymentInfo.method}
             onChange={(value) => updateInvoiceData("paymentInfo", "method", value)}
@@ -513,7 +513,7 @@ export default function FreelanceTemplate() {
 
         {/* Invoice Notes */}
         <div className="px-6 py-3 bg-gray-50 border-t border-subtle">
-          <h3 className="text-sm uppercase text-gray-500 font-medium mb-1">Notes</h3>
+          <h2 className="text-sm uppercase text-gray-500 font-medium mb-1">Notes</h2>
           <ContentEditable
             value={invoiceData.document.notes}
             onChange={(value) => updateInvoiceData("document", "notes", value)}
