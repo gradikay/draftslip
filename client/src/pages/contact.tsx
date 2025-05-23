@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -19,12 +20,10 @@ export default function ContactPage() {
     message: ""
   });
 
-  // Check for success parameter in URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('success') === 'true') {
       setShowSuccess(true);
-      // Clear success parameter from URL after showing message
       window.history.replaceState({}, document.title, "/contact");
     }
   }, [location]);
@@ -44,7 +43,6 @@ export default function ContactPage() {
         description="Get in touch with the DraftSlip team. Send us your questions, feedback, or inquiries about our free invoice generator."
         canonicalUrl="/contact"
       />
-      {/* Hero section with background */}
       <div className="relative bg-primary/10 py-16 overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -64,7 +62,7 @@ export default function ContactPage() {
           </p>
         </div>
       </div>
-      {/* Success message */}
+
       {showSuccess && (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
           <Alert className="bg-green-50 border-green-200 text-green-800 shadow-md">
@@ -79,132 +77,129 @@ export default function ContactPage() {
           </Alert>
         </div>
       )}
-      {/* Contact form and info section */}
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="md:flex">
-            {/* Contact form */}
-            <div className="md:w-2/3 p-6 sm:p-10">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-6">Send Us a Message</h2>
-              
-              <form 
-                action="https://formsubmit.co/contact@artivicolab.com" 
-                method="POST"
-                className="space-y-6"
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-gray-700">Your Name</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="John Doe"
-                      className="border-gray-300 focus:border-primary focus:ring-primary"
-                      required
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-gray-700">Email Address</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="john@example.com"
-                      className="border-gray-300 focus:border-primary focus:ring-primary"
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="subject" className="text-gray-700">Subject</Label>
-                  <Input
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    placeholder="How can we help you?"
-                    className="border-gray-300 focus:border-primary focus:ring-primary"
-                    required
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-gray-700">Your Message</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Please provide details about your inquiry..."
-                    rows={5}
-                    className="border-gray-300 focus:border-primary focus:ring-primary"
-                    required
-                  />
-                </div>
-                
-                {/* Add FormSubmit configuration */}
-                <input type="hidden" name="_next" value="https://draftslip.com/contact?success=true" />
-                <input type="hidden" name="_subject" value="New DraftSlip Contact Form Submission" />
-                <input type="hidden" name="_template" value="table" />
-                <input type="text" name="_honey" style={{ display: 'none' }} />
-                
-                <Button 
-                  type="submit" 
-                  className="bg-primary hover:bg-primary/90 text-white font-medium py-2.5 px-5 rounded-md w-full sm:w-auto transition-colors duration-200"
-                >
-                  Send Message
-                </Button>
-              </form>
-            </div>
+          {/* Contact form */}
+          <div className="p-6 sm:p-10">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Send Us a Message</h2>
             
-            {/* Contact information */}
-            <div className="md:w-1/3 bg-primary/5 p-6 sm:p-8 border-t md:border-t-0 md:border-l border-gray-100">
-              <h2 className="text-2xl font-semibold text-primary mb-6">Contact Information</h2>
+            <form 
+              action="https://formsubmit.co/contact@artivicolab.com" 
+              method="POST"
+              className="space-y-6"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-gray-700">Your Name</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="John Doe"
+                    className="border-gray-300 focus:border-primary focus:ring-primary"
+                    required
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-gray-700">Email Address</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    className="border-gray-300 focus:border-primary focus:ring-primary"
+                    required
+                  />
+                </div>
+              </div>
               
-              <div className="space-y-6">
-                <div>
-                  <div className="flex items-center mb-3">
-                    <svg className="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <h3 className="font-medium text-gray-900">Email</h3>
-                  </div>
-                  <p className="text-gray-700 pl-8 break-words">
-                    <a href="mailto:contact@artivicolab.com" className="hover:text-primary transition-colors duration-200 text-sm sm:text-base">
-                      contact@artivicolab.com
-                    </a>
-                  </p>
+              <div className="space-y-2">
+                <Label htmlFor="subject" className="text-gray-700">Subject</Label>
+                <Input
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder="How can we help you?"
+                  className="border-gray-300 focus:border-primary focus:ring-primary"
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="message" className="text-gray-700">Your Message</Label>
+                <Textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Please provide details about your inquiry..."
+                  rows={5}
+                  className="border-gray-300 focus:border-primary focus:ring-primary"
+                  required
+                />
+              </div>
+              
+              <input type="hidden" name="_next" value="https://draftslip.com/contact?success=true" />
+              <input type="hidden" name="_subject" value="New DraftSlip Contact Form Submission" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="text" name="_honey" style={{ display: 'none' }} />
+              
+              <Button 
+                type="submit" 
+                className="bg-primary hover:bg-primary/90 text-white font-medium py-2.5 px-5 rounded-md w-full sm:w-auto transition-colors duration-200"
+              >
+                Send Message
+              </Button>
+            </form>
+          </div>
+
+          {/* Contact information - Now below the form */}
+          <div className="bg-primary/5 p-6 sm:p-8 border-t border-gray-100">
+            <h2 className="text-2xl font-semibold text-primary mb-6">Contact Information</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <div className="flex items-center mb-3">
+                  <svg className="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <h3 className="font-medium text-gray-900">Email</h3>
                 </div>
-                
-                <div>
-                  <div className="flex items-center mb-3">
-                    <svg className="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                    <h3 className="font-medium text-gray-900">About Us</h3>
-                  </div>
-                  <p className="text-gray-700 pl-8">
-                    DraftSlip is a product of ArtivicoLab, creating simple and privacy-focused tools for everyday business needs.
-                  </p>
+                <p className="text-gray-700 pl-8 break-words">
+                  <a href="mailto:contact@artivicolab.com" className="hover:text-primary transition-colors duration-200">
+                    contact@artivicolab.com
+                  </a>
+                </p>
+              </div>
+              
+              <div>
+                <div className="flex items-center mb-3">
+                  <svg className="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  <h3 className="font-medium text-gray-900">About Us</h3>
                 </div>
-                
-                <div>
-                  <div className="flex items-center mb-3">
-                    <svg className="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <h3 className="font-medium text-gray-900">Response Time</h3>
-                  </div>
-                  <p className="text-gray-700 pl-8">
-                    We aim to respond to all inquiries within 1-2 business days.
-                  </p>
+                <p className="text-gray-700 pl-8">
+                  DraftSlip is a product of ArtivicoLab, creating simple and privacy-focused tools for everyday business needs.
+                </p>
+              </div>
+              
+              <div>
+                <div className="flex items-center mb-3">
+                  <svg className="w-5 h-5 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <h3 className="font-medium text-gray-900">Response Time</h3>
                 </div>
+                <p className="text-gray-700 pl-8">
+                  We aim to respond to all inquiries within 1-2 business days.
+                </p>
               </div>
             </div>
           </div>
