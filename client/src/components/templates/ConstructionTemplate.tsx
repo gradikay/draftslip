@@ -274,7 +274,7 @@ export default function ConstructionTemplate() {
         <div className="px-6 py-2 grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Left Column - Contractor Details */}
           <div>
-            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">From</h3>
+            <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">From</h2>
             <ContentEditable
               value={invoiceData.contractor.name}
               onChange={(value) => updateInvoiceData("contractor", "name", value)}
@@ -349,7 +349,7 @@ export default function ConstructionTemplate() {
               </div>
             </div>
 
-            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Bill To</h3>
+            <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">Bill To</h2>
             <ContentEditable
               value={invoiceData.client.name}
               onChange={(value) => updateInvoiceData("client", "name", value)}
@@ -379,7 +379,7 @@ export default function ConstructionTemplate() {
             <div>
               <div className="grid grid-cols-1 gap-1">
                 <div>
-                  <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Project Name</h3>
+                  <span className="text-xs uppercase text-gray-500 font-medium mb-0.5 block">Project Name</span>
                   <ContentEditable
                     value={invoiceData.project.name}
                     onChange={(value) => updateInvoiceData("project", "name", value)}
@@ -591,7 +591,7 @@ export default function ConstructionTemplate() {
 
         {/* Invoice Notes */}
         <div className="px-6 py-2 bg-gray-50 border-t border-subtle">
-          <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Notes</h3>
+          <h2 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Notes</h2>
           <ContentEditable
             value={invoiceData.document.notes}
             onChange={(value) => updateInvoiceData("document", "notes", value)}

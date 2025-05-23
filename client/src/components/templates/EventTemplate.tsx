@@ -341,7 +341,7 @@ export default function EventTemplate() {
                 )}
                 {!invoiceData.document.dueDate && (
                   <div className="no-print hidden-on-print due-date-optional-field" style={{display: 'block'}}>
-                    <h3 className="text-xs uppercase text-gray-500 font-medium mt-1 mb-0.5 no-print hidden-on-print">Due Date (Optional)</h3>
+                    <span className="text-xs uppercase text-gray-500 font-medium mt-1 mb-0.5 no-print hidden-on-print block">Due Date (Optional)</span>
                     <ContentEditable
                       value={invoiceData.document.dueDate}
                       onChange={(value) => updateInvoiceData("document", "dueDate", value)}
