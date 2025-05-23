@@ -674,6 +674,35 @@ const InvoiceGenerator = () => {
           />
         </div>
       </div>
+      
+      {/* Local Storage Information - Hidden in Print */}
+      <div className="no-print mt-8 mb-12 p-4 bg-blue-50 border border-blue-100 rounded-md text-sm">
+        <h3 className="font-semibold text-primary mb-2">How Your Data is Stored</h3>
+        <p className="mb-2">
+          DraftSlip uses your browser's local storage to save your invoices directly on your device. 
+          Your data never leaves your computer unless you choose to export it.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <h4 className="font-medium text-blue-700 mb-1">Benefits</h4>
+            <ul className="list-disc list-inside text-gray-700 space-y-1">
+              <li>Your data remains private and secure on your device</li>
+              <li>Invoices are automatically saved between browser sessions</li>
+              <li>No account or login required</li>
+              <li>Export feature lets you backup or transfer your data</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-medium text-blue-700 mb-1">Limitations</h4>
+            <ul className="list-disc list-inside text-gray-700 space-y-1">
+              <li>Invoices are only available on this device and browser</li>
+              <li>Clearing browser data will erase your saved invoices</li>
+              <li>Use the Export feature to backup important invoices</li>
+              <li>If you need to access invoices across devices, use Export/Import</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
