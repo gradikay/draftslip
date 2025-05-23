@@ -40,11 +40,7 @@ export default function Footer() {
                   All Templates
                 </Link>
               </li>
-              <li>
-                <Link href="/pricing" className="text-base font-medium text-gray-700 hover:text-primary footer-link">
-                  Pricing
-                </Link>
-              </li>
+
               <li>
                 <Link href="/contact" className="text-base font-medium text-gray-700 hover:text-primary footer-link">
                   Contact Us
