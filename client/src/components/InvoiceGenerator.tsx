@@ -502,10 +502,11 @@ const InvoiceGenerator = () => {
             <p className="text-sm text-gray-600 mt-1">Create, edit and print professional invoices</p>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2 justify-center">
           <Button
             onClick={() => setSaveDialogOpen(true)}
             className="bg-secondary text-white hover:bg-secondary/80"
+            size="sm"
           >
             <Save className="mr-2 h-4 w-4" /> Save
           </Button>
@@ -515,6 +516,7 @@ const InvoiceGenerator = () => {
               <Button
                 variant="outline"
                 className="border-gray-300"
+                size="sm"
               >
                 <Database className="mr-2 h-4 w-4" /> Saved Invoices {savedInvoices.length > 0 && `(${savedInvoices.length})`}
               </Button>
@@ -586,13 +588,15 @@ const InvoiceGenerator = () => {
           <Button
             onClick={handlePrint}
             className="bg-primary text-white hover:bg-primary/80"
+            size="sm"
           >
-            <Printer className="mr-2 h-4 w-4" /> Print Invoice
+            <Printer className="mr-2 h-4 w-4" /> Print
           </Button>
           
           <Button
             onClick={handleDownloadPdf}
             className="bg-accent text-text hover:bg-accent/90"
+            size="sm"
           >
             <FileDown className="mr-2 h-4 w-4" /> Download PDF
           </Button>
@@ -624,7 +628,7 @@ const InvoiceGenerator = () => {
       </Dialog>
       
       {/* Invoice Paper Container */}
-      <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden">
+      <div className="invoice-container bg-paper rounded shadow-md mb-10 overflow-hidden overflow-x-auto">
         <div className="relative">
           <InvoiceHeader
             business={invoiceData.business}
@@ -683,18 +687,18 @@ const InvoiceGenerator = () => {
           Your data never leaves your computer unless you choose to export it.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          <div>
+          <div className="bg-white bg-opacity-50 p-3 rounded">
             <h4 className="font-medium text-blue-700 mb-1">Benefits</h4>
-            <ul className="list-disc list-inside text-gray-700 space-y-1">
+            <ul className="list-disc list-inside text-gray-700 space-y-1 text-xs sm:text-sm">
               <li>Your data remains private and secure on your device</li>
               <li>Invoices are automatically saved between browser sessions</li>
               <li>No account or login required</li>
               <li>Export feature lets you backup or transfer your data</li>
             </ul>
           </div>
-          <div>
+          <div className="bg-white bg-opacity-50 p-3 rounded">
             <h4 className="font-medium text-blue-700 mb-1">Limitations</h4>
-            <ul className="list-disc list-inside text-gray-700 space-y-1">
+            <ul className="list-disc list-inside text-gray-700 space-y-1 text-xs sm:text-sm">
               <li>Invoices are only available on this device and browser</li>
               <li>Clearing browser data will erase your saved invoices</li>
               <li>Use the Export feature to backup important invoices</li>
