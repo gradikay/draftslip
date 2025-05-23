@@ -31,8 +31,11 @@ export default function ContactPage() {
     // This is where you would normally send the data to a server endpoint
     // For now, we'll simulate a submission since we don't have a backend API endpoint
     
-    // Simulate network request
-    setTimeout(() => {
+    try {
+      // Simulate network request
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      // Show success message
       toast({
         title: "Message sent",
         description: "Thank you for contacting us. We'll get back to you as soon as possible.",
@@ -46,8 +49,17 @@ export default function ContactPage() {
         message: ""
       });
       
+      // Show alert as backup in case toast doesn't appear
+      window.alert("Message sent! Thank you for contacting us. We'll get back to you as soon as possible.");
+    } catch (error) {
+      toast({
+        title: "Error sending message",
+        description: "Please try again or email us directly at contact@artivicolab.com",
+        variant: "destructive"
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
