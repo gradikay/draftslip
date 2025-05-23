@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import SEO from "@/components/SEO";
 
 export default function ContactPage() {
@@ -26,40 +28,9 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     
-    // This is where you would normally send the data to a server endpoint
-    // For now, we'll simulate a submission since we don't have a backend API endpoint
-    
-    try {
-      // Simulate network request
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
-      // Show success message
-      toast({
-        title: "Message sent",
-        description: "Thank you for contacting us. We'll get back to you as soon as possible.",
-      });
-      
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
-      
-      // Show alert as backup in case toast doesn't appear
-      window.alert("Message sent! Thank you for contacting us. We'll get back to you as soon as possible.");
-    } catch (error) {
-      toast({
-        title: "Error sending message",
-        description: "Please try again or email us directly at contact@artivicolab.com",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Don't do anything - let the form submit normally to formsubmit.co
+    // The page will redirect after submission
   };
 
   return (
@@ -77,7 +48,11 @@ export default function ContactPage() {
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form 
+            action="https://formsubmit.co/contact@artivicolab.com" 
+            method="POST"
+            className="space-y-6"
+          >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Your Name</Label>
@@ -130,12 +105,17 @@ export default function ContactPage() {
               />
             </div>
             
+            {/* Add FormSubmit configuration */}
+            <input type="hidden" name="_next" value="https://draftslip.com/contact?success=true" />
+            <input type="hidden" name="_subject" value="New DraftSlip Contact Form Submission" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="text" name="_honey" style={{ display: 'none' }} />
+            
             <Button 
               type="submit" 
               className="bg-primary text-white hover:bg-primary/90 w-full sm:w-auto"
-              disabled={isSubmitting}
             >
-              {isSubmitting ? "Sending..." : "Send Message"}
+              Send Message
             </Button>
           </form>
         </div>
