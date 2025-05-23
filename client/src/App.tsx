@@ -170,11 +170,11 @@ function TemplateCard({
 function AboutPage() {
   return (
     <div className="max-w-3xl mx-auto px-4">
-      <h1 className="text-3xl font-bold text-primary mb-8">About Bloom Invoice</h1>
+      <h1 className="text-3xl font-bold text-primary mb-8">About DraftSlip</h1>
       
       <div className="prose">
         <p>
-          Bloom Invoice is a powerful yet simple invoice generator designed to help businesses of all sizes create professional invoices quickly and easily.
+          DraftSlip is a powerful yet simple invoice generator designed to help businesses of all sizes create professional invoices quickly and easily.
         </p>
         
         <p>
