@@ -5,8 +5,14 @@ export default function ConstructionBanner() {
   
   return (
     <div className="construction-banner w-full py-3 overflow-hidden">
-      <div className="flex justify-center items-center">
-        <span className="font-medium text-sm sm:text-base">{message}</span>
+      <div className="marquee-container">
+        <div className="marquee-content">
+          <span className="font-medium text-lg">{message}</span>
+          <span className="mx-16"></span>
+          <span className="font-medium text-lg">{message}</span>
+          <span className="mx-16"></span>
+          <span className="font-medium text-lg">{message}</span>
+        </div>
       </div>
     </div>
   );
