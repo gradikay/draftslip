@@ -10,13 +10,24 @@ import SEO from "@/components/SEO";
 
 export default function ContactPage() {
   const { toast } = useToast();
+  const [location] = useLocation();
+  const [showSuccess, setShowSuccess] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: ""
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Check for success parameter in URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success') === 'true') {
+      setShowSuccess(true);
+      // Clear success parameter from URL after showing message
+      window.history.replaceState({}, document.title, "/contact");
+    }
+  }, [location]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -24,13 +35,6 @@ export default function ContactPage() {
       ...prev,
       [name]: value
     }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Don't do anything - let the form submit normally to formsubmit.co
-    // The page will redirect after submission
   };
 
   return (
@@ -42,9 +46,22 @@ export default function ContactPage() {
       />
       
       <h1 className="text-3xl font-bold text-primary mb-2">Contact Us</h1>
-      <p className="text-gray-600 mb-8">
+      <p className="text-gray-600 mb-4">
         Have questions or feedback about DraftSlip? We'd love to hear from you!
       </p>
+      
+      {showSuccess && (
+        <Alert className="mb-6 bg-green-50 border-green-200 text-green-800">
+          <AlertDescription className="py-2">
+            <div className="flex items-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Thank you for your message! We'll get back to you as soon as possible.</span>
+            </div>
+          </AlertDescription>
+        </Alert>
+      )}
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
