@@ -372,18 +372,29 @@ const InvoiceGenerator = () => {
     const element = document.querySelector(".invoice-container") as HTMLElement;
     if (!element) return;
     
+    // Temporarily remove responsive classes for PDF generation
+    const originalClasses = element.className;
+    element.className = "invoice-container bg-paper rounded shadow-md mb-10"; // Remove overflow classes
+    
     // Use html2pdf to generate the PDF, and then print it
     const opt = {
       margin: 10,
       filename: 'invoice-for-print.pdf',
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
+      html2canvas: { 
+        scale: 2,
+        width: 794, // A4 width in pixels at 96 DPI
+        windowWidth: 1200, // Force desktop-like rendering width
+      },
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
     };
 
     // Generate PDF
     html2pdf().set(opt).from(element).outputPdf('dataurlnewwindow')
       .then(() => {
+        // Restore original classes
+        element.className = originalClasses;
+        
         // Restore the visibility after PDF generation
         if (addItemButton) {
           addItemButton.classList.remove("force-hide");
@@ -439,16 +450,27 @@ const InvoiceGenerator = () => {
     const element = document.querySelector(".invoice-container") as HTMLElement;
     if (!element) return;
     
+    // Temporarily remove responsive classes for PDF generation
+    const originalClasses = element.className;
+    element.className = "invoice-container bg-paper rounded shadow-md mb-10"; // Remove overflow classes
+    
     const opt = {
       margin: 10,
       filename: `${invoiceData.document.number}.pdf`,
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
+      html2canvas: { 
+        scale: 2,
+        width: 794, // A4 width in pixels at 96 DPI
+        windowWidth: 1200, // Force desktop-like rendering width
+      },
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" as "portrait" },
     };
 
     // Generate and download PDF
     html2pdf().set(opt).from(element).save().then(() => {
+      // Restore original classes
+      element.className = originalClasses;
+      
       // Restore the visibility after PDF generation
       if (addItemButton) {
         addItemButton.classList.remove("force-hide");
