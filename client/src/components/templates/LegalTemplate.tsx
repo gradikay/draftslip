@@ -271,7 +271,7 @@ export default function LegalTemplate() {
         <div className="px-6 py-2 grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Left Column - Attorney Details */}
           <div>
-            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">From</h3>
+            <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">From</h2>
             <ContentEditable
               value={invoiceData.attorney.name}
               onChange={(value) => updateInvoiceData("attorney", "name", value)}
@@ -304,7 +304,7 @@ export default function LegalTemplate() {
           <div>
             <div className="grid grid-cols-2 gap-3 mb-2">
               <div>
-                <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Invoice Number</h3>
+                <span className="text-xs uppercase text-gray-500 font-medium mb-0.5 block">Invoice Number</span>
                 <ContentEditable
                   value={invoiceData.document.number}
                   onChange={(value) => updateInvoiceData("document", "number", value)}
@@ -313,7 +313,7 @@ export default function LegalTemplate() {
                 />
               </div>
               <div>
-                <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Date</h3>
+                <span className="text-xs uppercase text-gray-500 font-medium mb-0.5 block">Date</span>
                 <ContentEditable
                   value={invoiceData.document.date}
                   onChange={(value) => updateInvoiceData("document", "date", value)}
@@ -346,7 +346,7 @@ export default function LegalTemplate() {
               </div>
             </div>
 
-            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Bill To</h3>
+            <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">Bill To</h2>
             <ContentEditable
               value={invoiceData.client.name}
               onChange={(value) => updateInvoiceData("client", "name", value)}
@@ -372,7 +372,7 @@ export default function LegalTemplate() {
 
         {/* Matter Details */}
         <div className="px-6 py-2 border-t border-subtle">
-          <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Matter Information</h3>
+          <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">Matter Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div>
               <ContentEditable
@@ -559,7 +559,7 @@ export default function LegalTemplate() {
 
         {/* Invoice Notes */}
         <div className="px-6 py-2 bg-gray-50 border-t border-subtle">
-          <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Notes</h3>
+          <h2 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Notes</h2>
           <ContentEditable
             value={invoiceData.document.notes}
             onChange={(value) => updateInvoiceData("document", "notes", value)}

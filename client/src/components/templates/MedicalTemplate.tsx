@@ -435,7 +435,7 @@ export default function MedicalTemplate() {
                 />
               </div>
               <div>
-                <h3 className="text-xs font-medium mb-0.5">Authorization</h3>
+                <span className="text-xs font-medium mb-0.5 block">Authorization</span>
                 <ContentEditable
                   value={invoiceData.insurance.authorization}
                   onChange={(value) => updateInvoiceData("insurance", "authorization", value)}
