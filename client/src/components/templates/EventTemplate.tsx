@@ -278,7 +278,7 @@ export default function EventTemplate() {
         <div className="px-6 py-2 grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Left Column - Planner Details */}
           <div>
-            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">From</h3>
+            <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">From</h2>
             <ContentEditable
               value={invoiceData.planner.name}
               onChange={(value) => updateInvoiceData("planner", "name", value)}
@@ -311,7 +311,7 @@ export default function EventTemplate() {
           <div>
             <div className="grid grid-cols-2 gap-3 mb-2">
               <div>
-                <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Invoice Number</h3>
+                <span className="text-xs uppercase text-gray-500 font-medium mb-0.5 block">Invoice Number</span>
                 <ContentEditable
                   value={invoiceData.document.number}
                   onChange={(value) => updateInvoiceData("document", "number", value)}
@@ -320,7 +320,7 @@ export default function EventTemplate() {
                 />
               </div>
               <div>
-                <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Invoice Date</h3>
+                <span className="text-xs uppercase text-gray-500 font-medium mb-0.5 block">Invoice Date</span>
                 <ContentEditable
                   value={invoiceData.document.date}
                   onChange={(value) => updateInvoiceData("document", "date", value)}
@@ -330,7 +330,7 @@ export default function EventTemplate() {
                 
                 {invoiceData.document.dueDate && (
                   <>
-                    <h3 className="text-xs uppercase text-gray-500 font-medium mt-1 mb-0.5">Due Date</h3>
+                    <span className="text-xs uppercase text-gray-500 font-medium mt-1 mb-0.5 block">Due Date</span>
                     <ContentEditable
                       value={invoiceData.document.dueDate}
                       onChange={(value) => updateInvoiceData("document", "dueDate", value)}
@@ -353,7 +353,7 @@ export default function EventTemplate() {
               </div>
             </div>
 
-            <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Bill To</h3>
+            <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">Bill To</h2>
             <ContentEditable
               value={invoiceData.client.name}
               onChange={(value) => updateInvoiceData("client", "name", value)}
@@ -379,7 +379,7 @@ export default function EventTemplate() {
 
         {/* Event Details */}
         <div className="px-6 py-2 border-t border-subtle">
-          <h3 className="text-xs uppercase text-gray-500 font-medium mb-1">Event Details</h3>
+          <h2 className="text-xs uppercase text-gray-500 font-medium mb-1">Event Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div>
               <ContentEditable
@@ -572,7 +572,7 @@ export default function EventTemplate() {
 
         {/* Invoice Notes */}
         <div className="px-6 py-2 bg-gray-50 border-t border-subtle">
-          <h3 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Notes</h3>
+          <h2 className="text-xs uppercase text-gray-500 font-medium mb-0.5">Notes</h2>
           <ContentEditable
             value={invoiceData.document.notes}
             onChange={(value) => updateInvoiceData("document", "notes", value)}
