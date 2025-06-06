@@ -3,80 +3,42 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AlertTriangle, Shield, Clock, Activity } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 
-interface HoneypotLog {
+interface SecurityLog {
+  id: number;
   timestamp: string;
   path: string;
   ip: string;
   type: 'honeypot' | 'attack' | 'php';
-  userAgent?: string;
+  userAgent?: string | null;
+  method: string;
+}
+
+interface SecurityStats {
+  totalAttempts: number;
+  uniqueIPs: number;
+  lastHour: number;
+  topPaths: { path: string; count: number }[];
 }
 
 export default function AdminPage() {
-  const [logs, setLogs] = useState<HoneypotLog[]>([]);
-  const [stats, setStats] = useState({
+  const { data: logs = [], isLoading: logsLoading } = useQuery<SecurityLog[]>({
+    queryKey: ['/api/security/logs'],
+    refetchInterval: 5000, // Refresh every 5 seconds for real-time updates
+  });
+
+  const { data: stats, isLoading: statsLoading } = useQuery<SecurityStats>({
+    queryKey: ['/api/security/stats'],
+    refetchInterval: 10000, // Refresh every 10 seconds
+  });
+
+  const defaultStats = {
     totalAttempts: 0,
     uniqueIPs: 0,
     lastHour: 0,
-    topPaths: [] as { path: string; count: number }[]
-  });
-
-  // Simulate real-time data (in production, this would connect to your backend)
-  useEffect(() => {
-    const mockLogs: HoneypotLog[] = [
-      {
-        timestamp: new Date(Date.now() - 1000 * 60 * 5).toISOString(),
-        path: '/wp-admin/setup-config.php',
-        ip: '192.168.1.100',
-        type: 'honeypot',
-        userAgent: 'Mozilla/5.0 (compatible; bot/1.0)'
-      },
-      {
-        timestamp: new Date(Date.now() - 1000 * 60 * 10).toISOString(),
-        path: '/xmlrpc.php',
-        ip: '10.0.0.50',
-        type: 'honeypot',
-        userAgent: 'python-requests/2.28.1'
-      },
-      {
-        timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
-        path: '/cgi-bin/exploit.sh',
-        ip: '172.16.0.25',
-        type: 'attack'
-      },
-      {
-        timestamp: new Date(Date.now() - 1000 * 60 * 20).toISOString(),
-        path: '/config.php',
-        ip: '192.168.1.200',
-        type: 'php'
-      }
-    ];
-
-    setLogs(mockLogs);
-    
-    // Calculate stats
-    const uniqueIPs = new Set(mockLogs.map(log => log.ip)).size;
-    const lastHour = mockLogs.filter(log => 
-      Date.now() - new Date(log.timestamp).getTime() < 3600000
-    ).length;
-    
-    const pathCounts = mockLogs.reduce((acc, log) => {
-      acc[log.path] = (acc[log.path] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
-    
-    const topPaths = Object.entries(pathCounts)
-      .map(([path, count]) => ({ path, count }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 5);
-
-    setStats({
-      totalAttempts: mockLogs.length,
-      uniqueIPs,
-      lastHour,
-      topPaths
-    });
-  }, []);
+    topPaths: []
+  };
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -112,7 +74,7 @@ export default function AdminPage() {
               <AlertTriangle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.totalAttempts}</div>
+              <div className="text-2xl font-bold">{stats?.totalAttempts || 0}</div>
               <p className="text-xs text-muted-foreground">
                 Blocked malicious requests
               </p>
@@ -125,7 +87,7 @@ export default function AdminPage() {
               <Shield className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.uniqueIPs}</div>
+              <div className="text-2xl font-bold">{stats?.uniqueIPs || 0}</div>
               <p className="text-xs text-muted-foreground">
                 Different attackers identified
               </p>
@@ -138,7 +100,7 @@ export default function AdminPage() {
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.lastHour}</div>
+              <div className="text-2xl font-bold">{stats?.lastHour || 0}</div>
               <p className="text-xs text-muted-foreground">
                 Recent attack attempts
               </p>
@@ -209,7 +171,7 @@ export default function AdminPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {stats.topPaths.map((item, index) => (
+                    {(stats?.topPaths || []).map((item, index) => (
                       <div key={index} className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
                           <span className="text-sm font-mono bg-gray-100 px-2 py-1 rounded">

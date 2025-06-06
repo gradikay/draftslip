@@ -68,6 +68,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const ip = req.ip || req.connection.remoteAddress;
       console.log(`🍯 Honeypot triggered: ${path} from ${ip}`);
       
+      // Log the security event
+      await logSecurityEvent(req, path, 'honeypot');
+      
       // Simulate a slow, fake response to waste bot time
       await new Promise(resolve => setTimeout(resolve, 5000 + Math.random() * 10000));
       
@@ -97,6 +100,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const ip = req.ip || req.connection.remoteAddress;
       console.log(`🍯 Honeypot POST triggered: ${path} from ${ip}`);
       
+      // Log the security event
+      await logSecurityEvent(req, path, 'honeypot');
+      
       await new Promise(resolve => setTimeout(resolve, 8000 + Math.random() * 15000));
       
       res.status(500).send(`
@@ -118,6 +124,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('*.php', async (req, res) => {
     const ip = req.ip || req.connection.remoteAddress;
     console.log(`🍯 Generic PHP honeypot: ${req.path} from ${ip}`);
+    
+    // Log the security event
+    await logSecurityEvent(req, req.path, 'php');
     
     await new Promise(resolve => setTimeout(resolve, 3000 + Math.random() * 7000));
     
@@ -166,6 +175,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     app.get(pattern, async (req, res) => {
       const ip = req.ip || req.connection.remoteAddress;
       console.log(`🚨 Attack pattern detected: ${req.path} from ${ip}`);
+      
+      // Log the security event
+      await logSecurityEvent(req, req.path, 'attack');
       
       // Longer delay for attack patterns
       await new Promise(resolve => setTimeout(resolve, 15000 + Math.random() * 20000));
