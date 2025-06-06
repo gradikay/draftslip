@@ -346,6 +346,15 @@ function App() {
           <ContactPage />
         </Route>
         
+        <Route path="/admin">
+          <SEO 
+            title="Security Dashboard | DraftSlip Admin" 
+            description="Monitor security events and honeypot activity."
+            canonicalUrl="/admin"
+          />
+          <AdminPage />
+        </Route>
+        
         <Route>
           <SEO 
             title="Page Not Found | DraftSlip" 

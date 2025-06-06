@@ -1,13 +1,42 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { insertSecurityLogSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // put application routes here
-  // prefix all routes with /api
+  // Security API endpoints
+  app.get('/api/security/logs', async (req, res) => {
+    try {
+      const logs = await storage.getSecurityLogs(100);
+      res.json(logs);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch security logs' });
+    }
+  });
 
-  // use storage to perform CRUD operations on the storage interface
-  // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
+  app.get('/api/security/stats', async (req, res) => {
+    try {
+      const stats = await storage.getSecurityStats();
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch security stats' });
+    }
+  });
+
+  // Helper function to log security events
+  const logSecurityEvent = async (req: any, path: string, type: string) => {
+    const ip = req.ip || req.connection.remoteAddress || 'unknown';
+    const userAgent = req.get('User-Agent') || null;
+    const method = req.method;
+    
+    await storage.logSecurityEvent({
+      path,
+      ip,
+      type,
+      userAgent,
+      method
+    });
+  };
 
   // Honeypot routes for common bot targets
   const botTargets = [
