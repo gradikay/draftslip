@@ -15,18 +15,21 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   const blockedPaths = [
     '/wp-admin', '/wordpress', '/wp-login', '/wp-content', '/wp-includes',
     '/xmlrpc.php', '/wp-config.php', '/wp-admin/setup-config.php',
-    '/.env', '/.git', '/admin', '/administrator', '/phpmyadmin',
-    '/mysql', '/database', '/db', '/backup', '/config',
-    '/robots.txt', '/sitemap.xml'
+    '/.env', '/.git', '/administrator', '/phpmyadmin',
+    '/mysql', '/database', '/db', '/backup', '/config'
   ];
+  
+  // Allow legitimate admin routes
+  const allowedAdminPaths = ['/admin/bot-analytics'];
+  const isAllowedAdminPath = allowedAdminPaths.some(allowed => path.startsWith(allowed));
   
   const suspiciousBots = [
     'python-requests', 'curl', 'wget', 'scrapy', 'bot', 'crawler',
     'spider', 'scan', 'test', 'exploit', 'hack', 'attack'
   ];
   
-  // Check for blocked paths
-  if (blockedPaths.some(blocked => path.includes(blocked))) {
+  // Check for blocked paths (but allow legitimate admin routes)
+  if (blockedPaths.some(blocked => path.includes(blocked)) && !isAllowedAdminPath) {
     const reason = `Blocked path: ${path}`;
     log(`${reason} - ${method} ${req.path} from ${clientIp} - User-Agent: ${userAgent}`);
     logBotActivity({
