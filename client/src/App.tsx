@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import PrivacyPolicy from "@/pages/privacy";
 import TermsOfService from "@/pages/terms";
 import ContactPage from "@/pages/contact";
+import AdminPage from "@/pages/admin";
 import ConstructionBanner from "@/components/ConstructionBanner";
 import SEO from "@/components/SEO";
 
