@@ -9,6 +9,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   const userAgent = req.get('User-Agent') || '';
   const path = req.path.toLowerCase();
   const method = req.method;
+  const clientIp = req.ip || req.connection.remoteAddress || 'unknown';
   
   // Block common bot patterns and malicious requests
   const blockedPaths = [
@@ -27,10 +28,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   // Check for blocked paths
   if (blockedPaths.some(blocked => path.includes(blocked))) {
     const reason = `Blocked path: ${path}`;
-    log(`${reason} - ${method} ${req.path} from ${req.ip} - User-Agent: ${userAgent}`);
+    log(`${reason} - ${method} ${req.path} from ${clientIp} - User-Agent: ${userAgent}`);
     logBotActivity({
       timestamp: Date.now(),
-      ip: req.ip,
+      ip: clientIp,
       path: req.path,
       userAgent,
       method,
@@ -43,10 +44,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   // Check for suspicious user agents
   if (suspiciousBots.some(bot => userAgent.toLowerCase().includes(bot))) {
     const reason = `Suspicious user agent`;
-    log(`${reason}: ${method} ${req.path} from ${req.ip} - User-Agent: ${userAgent}`);
+    log(`${reason}: ${method} ${req.path} from ${clientIp} - User-Agent: ${userAgent}`);
     logBotActivity({
       timestamp: Date.now(),
-      ip: req.ip,
+      ip: clientIp,
       path: req.path,
       userAgent,
       method,
@@ -57,7 +58,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   }
   
   // Rate limiting - simple IP-based tracking
-  const clientIp = req.ip;
   const now = Date.now();
   
   if (!app.locals.rateLimiter) {
@@ -81,7 +81,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     log(`${reason}: ${clientIp}`);
     logBotActivity({
       timestamp: Date.now(),
-      ip: req.ip,
+      ip: clientIp,
       path: req.path,
       userAgent,
       method,
@@ -95,7 +95,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   if (path.startsWith('/api') || path === '/') {
     logBotActivity({
       timestamp: Date.now(),
-      ip: req.ip,
+      ip: clientIp,
       path: req.path,
       userAgent,
       method,
