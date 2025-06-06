@@ -20,7 +20,6 @@ import MedicalTemplate from "@/components/templates/MedicalTemplate";
 import LegalTemplate from "@/components/templates/LegalTemplate";
 import EventTemplate from "@/components/templates/EventTemplate";
 import PhotographyTemplate from "@/components/templates/PhotographyTemplate";
-import BotAnalytics from "@/components/BotAnalytics";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -344,21 +343,6 @@ function App() {
             canonicalUrl="/contact"
           />
           <ContactPage />
-        </Route>
-        
-        <Route path="/admin/bot-analytics">
-          <SEO 
-            title="Bot Analytics Dashboard | DraftSlip Admin" 
-            description="Monitor bot traffic, blocked requests, and security analytics for DraftSlip."
-            canonicalUrl="/admin/bot-analytics"
-          />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Bot Analytics Dashboard</h1>
-              <p className="text-gray-600">Monitor bot traffic and security metrics in real-time</p>
-            </div>
-            <BotAnalytics />
-          </div>
         </Route>
         
         <Route>
