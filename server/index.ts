@@ -44,8 +44,12 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     return res.status(403).json({ error: 'Access denied' });
   }
   
-  // Check for suspicious user agents
-  if (suspiciousBots.some(bot => userAgent.toLowerCase().includes(bot))) {
+  // Check environment and admin API status
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const isAdminApi = path.startsWith('/api/') && (path.includes('bot-analytics') || path.includes('rate-limiter'));
+  
+  // Check for suspicious user agents (except for admin API calls in development)
+  if (suspiciousBots.some(bot => userAgent.toLowerCase().includes(bot)) && !(isAdminApi && isDevelopment)) {
     const reason = `Suspicious user agent`;
     log(`${reason}: ${method} ${req.path} from ${clientIp} - User-Agent: ${userAgent}`);
     logBotActivity({
@@ -78,9 +82,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   
   app.locals.rateLimiter.set(clientIp, clientData);
   
-  // Block if more than 50 requests per minute
-  if (clientData.requests > 50) {
-    const reason = `Rate limited: ${clientData.requests} requests per minute`;
+  // Different rate limits for development vs production
+  const isLocalhost = clientIp === '127.0.0.1' || clientIp === '::1' || clientIp.startsWith('127.');
+  const rateLimit = (isLocalhost && isDevelopment) ? 500 : 50; // Higher limit for localhost in dev
+  
+  // Block if exceeding rate limit
+  if (clientData.requests > rateLimit) {
+    const reason = `Rate limited: ${clientData.requests} requests per minute (limit: ${rateLimit})`;
     log(`${reason}: ${clientIp}`);
     logBotActivity({
       timestamp: Date.now(),
@@ -94,8 +102,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     return res.status(429).json({ error: 'Too many requests' });
   }
   
-  // Log legitimate requests
-  if (path.startsWith('/api') || path === '/') {
+  // Skip logging for Vite development requests to reduce noise
+  const isViteRequest = path.startsWith('/@') || path.includes('node_modules') || path.includes('.vite');
+  
+  // Log legitimate requests (excluding Vite dev requests)
+  if (!isViteRequest && (path.startsWith('/api') || path === '/' || path.startsWith('/admin'))) {
     logBotActivity({
       timestamp: Date.now(),
       ip: clientIp,

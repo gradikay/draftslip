@@ -181,6 +181,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ message: "Analytics cleared" });
   });
 
+  // Clear rate limiter cache (admin function)
+  app.post("/api/rate-limiter/clear", (req, res) => {
+    if (req.app.locals.rateLimiter) {
+      req.app.locals.rateLimiter.clear();
+    }
+    res.json({ message: "Rate limiter cache cleared" });
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;
