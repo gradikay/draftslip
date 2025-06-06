@@ -1,11 +1,25 @@
 User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /.env
+Disallow: /wp-admin/
+Disallow: /wp-content/
+Disallow: /xmlrpc.php
 Allow: /
 
-# Sitemap location
-Sitemap: https://draftslip.com/sitemap.xml
+# Block known malicious bots
+User-agent: SemrushBot
+Disallow: /
 
-# Crawl-delay to be kind to servers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
 Crawl-delay: 10
 
-# Don't index these pages
-Disallow: /404
+Sitemap: https://your-domain.com/sitemap.xml
