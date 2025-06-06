@@ -20,6 +20,7 @@ import MedicalTemplate from "@/components/templates/MedicalTemplate";
 import LegalTemplate from "@/components/templates/LegalTemplate";
 import EventTemplate from "@/components/templates/EventTemplate";
 import PhotographyTemplate from "@/components/templates/PhotographyTemplate";
+import BotAnalytics from "@/components/BotAnalytics";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (

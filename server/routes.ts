@@ -24,6 +24,83 @@ export function logBotActivity(activity: BotActivity) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Honeypot routes - waste bot time with fake WordPress/PHP endpoints
+  const honeypotPaths = [
+    '/wp-admin/setup-config.php',
+    '/wp-config.php', 
+    '/xmlrpc.php',
+    '/wp-login.php',
+    '/wp-admin/admin-ajax.php',
+    '/wp-content/plugins/wp-file-manager/readme.txt',
+    '/phpmyadmin/index.php',
+    '/.env',
+    '/config.php',
+    '/database.php'
+  ];
+
+  honeypotPaths.forEach(path => {
+    app.all(path, async (req, res) => {
+      const userAgent = req.get('User-Agent') || '';
+      const clientIp = req.ip || req.connection.remoteAddress || 'unknown';
+      
+      logBotActivity({
+        timestamp: Date.now(),
+        ip: clientIp,
+        path: req.path,
+        userAgent,
+        method: req.method,
+        blocked: true,
+        reason: 'Honeypot triggered'
+      });
+
+      // Fake processing delay to waste bot time
+      await new Promise(resolve => setTimeout(resolve, Math.random() * 5000 + 2000));
+      
+      // Return fake WordPress errors to confuse bots
+      if (path.includes('wp-')) {
+        return res.status(500).send(`
+          <!DOCTYPE html>
+          <html>
+          <head><title>Database Error</title></head>
+          <body>
+            <h1>Error establishing a database connection</h1>
+            <p>This either means that the username and password information in your wp-config.php file is incorrect or we can't contact the database server.</p>
+            <!-- Keep scanning, there's more content below -->
+            ${Array.from({length: 100}, (_, i) => `<!-- fake comment ${i} -->`).join('\n')}
+          </body>
+          </html>
+        `);
+      }
+      
+      if (path.includes('.env')) {
+        return res.status(403).send('Forbidden - Access denied');
+      }
+      
+      res.status(404).send('Not Found');
+    });
+  });
+
+  // Catch-all for other PHP requests
+  app.all('*.php', (req, res) => {
+    const userAgent = req.get('User-Agent') || '';
+    const clientIp = req.ip || req.connection.remoteAddress || 'unknown';
+    
+    logBotActivity({
+      timestamp: Date.now(),
+      ip: clientIp,
+      path: req.path,
+      userAgent,
+      method: req.method,
+      blocked: true,
+      reason: 'PHP file request blocked'
+    });
+
+    res.status(404).json({ 
+      error: 'Not Found',
+      message: 'PHP files are not supported on this server'
+    });
+  });
+
   // Bot analytics endpoint
   app.get("/api/bot-analytics", (req, res) => {
     const now = Date.now();
