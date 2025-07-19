@@ -142,3 +142,35 @@ The application is configured for deployment on Replit with:
    - Requires `DATABASE_URL` environment variable
    - Can use Neon database (based on the `@neondatabase/serverless` dependency)
    - Local development can use in-memory storage
+
+## Security Features
+
+### Honeypot System
+- Comprehensive bot protection targeting common attack vectors
+- Automated logging of malicious attempts with IP tracking
+- Time-delay responses to waste bot resources
+- Real-time security monitoring dashboard at `/admin`
+- API endpoints for security data analysis
+
+### Protected Endpoints
+- WordPress exploit attempts (wp-admin, xmlrpc.php, wp-config.php)
+- PHP file reconnaissance (generic .php file requests)
+- Admin panel probing (phpmyadmin, administrator)
+- Attack pattern detection (cgi-bin, shell, exec, etc.)
+
+## Analytics Integration
+
+### Google Analytics 4
+- Measurement ID: G-NWTYZREPNJ (configured via VITE_GA_MEASUREMENT_ID secret)
+- Automatic page view tracking for single-page application
+- Event tracking for key user actions:
+  - PDF downloads (`download_pdf`)
+  - Invoice printing (`print_invoice`)
+  - Data saving (`save_invoice`)
+  - Data loading (`load_invoice`)
+- Privacy-compliant implementation with proper consent considerations
+
+### Implementation Details
+- Analytics library in `client/src/lib/analytics.ts`
+- Route tracking hook in `client/src/hooks/use-analytics.tsx`
+- Event tracking integrated throughout invoice generation workflow

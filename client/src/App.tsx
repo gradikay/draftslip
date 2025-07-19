@@ -1,5 +1,5 @@
 import { Route, Switch } from "wouter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InvoiceGenerator from "@/components/InvoiceGenerator";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -10,6 +10,8 @@ import ContactPage from "@/pages/contact";
 import AdminPage from "@/pages/admin";
 import ConstructionBanner from "@/components/ConstructionBanner";
 import SEO from "@/components/SEO";
+import { initGA } from "./lib/analytics";
+import { useAnalytics } from "./hooks/use-analytics";
 
 // Import templates
 import FreelanceTemplate from "@/components/templates/FreelanceTemplate";
@@ -197,10 +199,12 @@ function AboutPage() {
   );
 }
 
-function App() {
+function Router() {
+  // Track page views when routes change
+  useAnalytics();
+  
   return (
-    <Layout>
-      <Switch>
+    <Switch>
         <Route path="/">
           <SEO 
             title="DraftSlip | Free Online Invoice Generator"
@@ -364,6 +368,23 @@ function App() {
           <NotFound />
         </Route>
       </Switch>
+  );
+}
+
+function App() {
+  // Initialize Google Analytics when app loads
+  useEffect(() => {
+    // Verify required environment variable is present
+    if (!import.meta.env.VITE_GA_MEASUREMENT_ID) {
+      console.warn('Missing required Google Analytics key: VITE_GA_MEASUREMENT_ID');
+    } else {
+      initGA();
+    }
+  }, []);
+
+  return (
+    <Layout>
+      <Router />
     </Layout>
   );
 }

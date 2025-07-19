@@ -26,6 +26,7 @@ import {
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
+import { trackEvent } from "@/lib/analytics";
 
 export type InvoiceItem = {
   id: string;
@@ -151,6 +152,9 @@ const InvoiceGenerator = () => {
     }
     
     try {
+      // Track invoice save event
+      trackEvent('save_invoice', 'invoice', 'local_storage');
+      
       // Save the invoice data
       localStorage.setItem(`invoice-${invoiceName}`, JSON.stringify(invoiceData));
       
@@ -188,6 +192,9 @@ const InvoiceGenerator = () => {
     try {
       const savedInvoice = localStorage.getItem(`invoice-${name}`);
       if (savedInvoice) {
+        // Track invoice load event
+        trackEvent('load_invoice', 'invoice', 'local_storage');
+        
         const parsedData = JSON.parse(savedInvoice);
         setInvoiceData(parsedData);
         toast({
@@ -336,6 +343,9 @@ const InvoiceGenerator = () => {
   };
 
   const handlePrint = () => {
+    // Track print event
+    trackEvent('print_invoice', 'invoice', 'print');
+    
     // Since PDF download works well, let's use the same method for printing
     // First hide any elements that shouldn't appear in the PDF
     const addItemButton = document.querySelector(".add-item-button");
@@ -415,6 +425,9 @@ const InvoiceGenerator = () => {
   };
 
   const handleDownloadPdf = () => {
+    // Track PDF download event
+    trackEvent('download_pdf', 'invoice', 'pdf_download');
+    
     // First hide any elements that shouldn't appear in the PDF
     const addItemButton = document.querySelector(".add-item-button");
     const dueDateOptional = document.querySelector(".due-date-optional-field");
